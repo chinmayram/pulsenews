@@ -30,49 +30,46 @@
 <body class="bg-darkBg text-slate-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white transition-colors duration-200">
 
     <!-- Top Navigation Bar -->
-    <header class="sticky top-0 z-40 glass-panel border-b border-slate-800/80 px-4 lg:px-8 py-3.5">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+    <header class="sticky top-0 z-40 glass-panel border-b border-slate-800/80 px-3 sm:px-4 lg:px-8 py-2 sm:py-3.5">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2 sm:gap-4">
             <!-- Brand & Status -->
-            <div class="flex items-center gap-3.5 w-full md:w-auto justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-500/25">
-                        <i data-lucide="newspaper" class="w-5 h-5 text-white"></i>
+            <div class="flex items-center gap-2 sm:gap-3.5 w-full md:w-auto justify-between">
+                <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-500/25 flex-shrink-0">
+                        <i data-lucide="newspaper" class="w-4 h-4 sm:w-5 sm:h-5 text-white"></i>
                     </div>
-                    <div>
-                        <div class="flex items-center gap-2">
-                            <h1 class="text-xl font-bold tracking-tight bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">
+                    <div class="min-w-0">
+                        <div class="flex items-center gap-1.5 sm:gap-2">
+                            <h1 class="text-base sm:text-xl font-bold tracking-tight bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">
                                 PulseNews
                             </h1>
-                            <span class="px-2 py-0.5 text-[10px] font-semibold tracking-wide uppercase rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                            <span class="hidden sm:inline px-2 py-0.5 text-[10px] font-semibold tracking-wide uppercase rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
                                 Live Aggregator
                             </span>
                         </div>
-                        <p class="text-xs text-slate-400 flex items-center gap-1.5 mt-0.5">
-                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                            <span id="headerStatus">Google News &bull; MSN &bull; Yahoo &bull; Verified X News</span>
+                        <p class="text-[10px] sm:text-xs text-slate-400 flex items-center gap-1 sm:gap-1.5 mt-0.5 truncate">
+                            <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-500 animate-pulse flex-shrink-0"></span>
+                            <span id="headerStatus" class="truncate">Google News &bull; MSN &bull; Yahoo &bull; X</span>
                         </p>
                     </div>
                 </div>
 
                 <!-- Mobile Action Row -->
-                <div class="flex items-center gap-2 md:hidden">
-                    <button id="shareWhatsAppDigestMobileBtn" class="p-2 rounded-lg bg-emerald-700 hover:bg-emerald-600 text-white shadow" title="Share to WhatsApp">
-                        <i data-lucide="share-2" class="w-4 h-4"></i>
-                    </button>
-                    <button id="openWhatsAppModalMobileBtn" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-400" title="WhatsApp Alerts">
-                        <i data-lucide="message-circle" class="w-4 h-4"></i>
-                    </button>
-                    <button id="refreshBtnMobile" class="p-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white shadow">
+                <div class="flex items-center gap-1.5 md:hidden flex-shrink-0">
+                    <button id="refreshBtnMobile" class="p-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white shadow active:scale-95 transition" title="Refresh">
                         <i data-lucide="refresh-cw" class="w-4 h-4"></i>
                     </button>
-                    <button id="openPriorityBtnMobile" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300">
+                    <button id="openPriorityBtnMobile" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 active:scale-95 transition" title="Settings">
                         <i data-lucide="sliders-horizontal" class="w-4 h-4"></i>
+                    </button>
+                    <button id="openSlackModalMobileBtn" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-purple-300 active:scale-95 transition" title="Slack">
+                        <i data-lucide="hash" class="w-4 h-4"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- Action Controls & Status -->
-            <div class="flex items-center gap-3 w-full md:w-auto justify-end">
+            <!-- Action Controls & Status (Desktop only) -->
+            <div class="desktop-actions hidden md:flex items-center gap-3 w-full md:w-auto justify-end">
                 <div class="hidden sm:flex items-center text-xs text-slate-400 bg-slate-800/60 px-3 py-1.5 rounded-lg border border-slate-700/50">
                     <i data-lucide="clock" class="w-3.5 h-3.5 mr-1.5 text-slate-400"></i>
                     <span>Updated: <strong id="lastRefreshedTime" class="text-slate-200">Just now</strong></span>
@@ -108,18 +105,18 @@
     </header>
 
     <!-- Main Content Container -->
-    <main class="max-w-7xl mx-auto px-4 lg:px-8 py-5 flex-1 w-full space-y-5">
+    <main class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-3 sm:py-5 flex-1 w-full space-y-3 sm:space-y-5">
 
         <!-- 1. Dedicated Location Filter Section -->
-        <div class="p-3 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2">
+        <div class="filter-section p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-slate-900/60 border border-slate-800 space-y-1.5 sm:space-y-2">
             <div class="flex items-center justify-between">
-                <span class="text-xs font-bold tracking-wide uppercase text-amber-400 flex items-center gap-1.5">
-                    <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Location Filter
+                <span class="text-[10px] sm:text-xs font-bold tracking-wide uppercase text-amber-400 flex items-center gap-1 sm:gap-1.5">
+                    <i data-lucide="map-pin" class="w-3 h-3 sm:w-3.5 sm:h-3.5"></i> Location Filter
                 </span>
-                <span class="text-[11px] text-slate-400">Select city, state, or global scope</span>
+                <span class="text-[10px] sm:text-[11px] text-slate-400 hidden sm:inline">Select city, state, or global scope</span>
             </div>
 
-            <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+            <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-1 scrollbar-none">
                 <!-- Location Pills -->
                 <button data-location="all" class="location-pill active flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20 transition">
                     <i data-lucide="globe" class="w-3.5 h-3.5"></i>
@@ -154,17 +151,17 @@
         </div>
 
         <!-- 2. Dedicated Category / Topic Filter Section -->
-        <div class="p-3 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2">
+        <div class="filter-section p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-slate-900/60 border border-slate-800 space-y-1.5 sm:space-y-2">
             <div class="flex items-center justify-between">
-                <span class="text-xs font-bold tracking-wide uppercase text-indigo-400 flex items-center gap-1.5">
-                    <i data-lucide="tag" class="w-3.5 h-3.5"></i> Category & Priority
+                <span class="text-[10px] sm:text-xs font-bold tracking-wide uppercase text-indigo-400 flex items-center gap-1 sm:gap-1.5">
+                    <i data-lucide="tag" class="w-3 h-3 sm:w-3.5 sm:h-3.5"></i> Category & Priority
                 </span>
-                <button id="editTopicPriorityBtn" class="text-[11px] text-indigo-300 underline hover:text-white transition">
+                <button id="editTopicPriorityBtn" class="text-[10px] sm:text-[11px] text-indigo-300 underline hover:text-white transition">
                     Customize Priority Order
                 </button>
             </div>
 
-            <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+            <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-1 scrollbar-none">
                 <!-- Topic Pills -->
                 <button data-topic="priority" class="topic-pill active flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-500/25 transition">
                     <i data-lucide="flame" class="w-3.5 h-3.5 text-amber-300"></i>
@@ -199,7 +196,7 @@
         </div>
 
         <!-- 3. Source Filters & Search Bar Section -->
-        <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 glass-panel p-3.5 rounded-2xl border border-slate-800">
+        <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-2 sm:gap-3 glass-panel p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl border border-slate-800">
             <!-- Search Box -->
             <div class="relative flex-1">
                 <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
@@ -222,9 +219,9 @@
             </div>
 
             <!-- Source Chips with Live Interactive Counts -->
-            <div class="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0">
-                <span class="text-xs text-slate-400 font-semibold mr-1 flex items-center gap-1">
-                    <i data-lucide="filter" class="w-3.5 h-3.5"></i> Sources:
+            <div class="flex items-center gap-1 sm:gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
+                <span class="text-[10px] sm:text-xs text-slate-400 font-semibold mr-0.5 sm:mr-1 flex items-center gap-1 flex-shrink-0">
+                    <i data-lucide="filter" class="w-3 h-3 sm:w-3.5 sm:h-3.5"></i> <span class="hidden sm:inline">Sources:</span>
                 </span>
 
                 <button data-source="all" class="source-chip active px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white shadow-sm transition flex items-center gap-1.5">
@@ -281,36 +278,36 @@
         </div>
 
         <!-- Real-Time Live Scraping Banner -->
-        <div id="scrapingBanner" class="hidden mb-6 p-4 rounded-2xl bg-gradient-to-r from-indigo-950/70 via-purple-950/60 to-slate-900/80 border border-indigo-500/40 text-indigo-200 backdrop-blur-md shadow-xl shadow-indigo-950/40 flex items-center justify-between animate-pulse">
-            <div class="flex items-center gap-3.5">
-                <div class="w-10 h-10 rounded-xl bg-indigo-600/30 border border-indigo-400/40 flex items-center justify-center text-indigo-300 shadow-inner">
-                    <i data-lucide="refresh-cw" class="w-5 h-5 spinning"></i>
+        <div id="scrapingBanner" class="hidden mb-3 sm:mb-6 p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-gradient-to-r from-indigo-950/70 via-purple-950/60 to-slate-900/80 border border-indigo-500/40 text-indigo-200 backdrop-blur-md shadow-xl shadow-indigo-950/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0 animate-pulse">
+            <div class="flex items-center gap-2.5 sm:gap-3.5">
+                <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-indigo-600/30 border border-indigo-400/40 flex items-center justify-center text-indigo-300 shadow-inner flex-shrink-0">
+                    <i data-lucide="refresh-cw" class="w-4 h-4 sm:w-5 sm:h-5 spinning"></i>
                 </div>
-                <div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs font-bold text-white tracking-wide">Live Multi-Source Scraping in Progress</span>
-                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">
-                            5 Engines Active
+                <div class="min-w-0">
+                    <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                        <span class="text-[11px] sm:text-xs font-bold text-white tracking-wide">Live Scraping in Progress</span>
+                        <span class="inline-flex items-center px-1.5 sm:px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">
+                            5 Engines
                         </span>
                     </div>
-                    <p class="text-[11px] text-slate-300 mt-0.5">
-                        Scraping Google News, MSN, Yahoo, X & Moneycontrol simultaneously for breaking stories...
+                    <p class="text-[10px] sm:text-[11px] text-slate-300 mt-0.5 line-clamp-1">
+                        Scraping Google News, MSN, Yahoo, X & Moneycontrol...
                     </p>
                 </div>
             </div>
-            <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-xs font-medium text-indigo-300">
+            <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-xs font-medium text-indigo-300 flex-shrink-0">
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
                 <span>Real-Time Sync</span>
             </div>
         </div>
 
         <!-- News Articles Grid -->
-        <div id="articlesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div id="articlesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
             <!-- Dynamic Cards Injected Here -->
         </div>
 
         <!-- Loading State Skeleton -->
-        <div id="loadingState" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div id="loadingState" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
             <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 animate-pulse space-y-3">
                 <div class="h-4 bg-slate-800 rounded w-1/3"></div>
                 <div class="h-6 bg-slate-800 rounded w-5/6"></div>
@@ -349,22 +346,22 @@
     </main>
 
     <!-- Footer -->
-    <footer class="mt-auto border-t border-slate-800/80 py-6 px-4 text-center text-xs text-slate-500">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+    <footer class="mt-auto border-t border-slate-800/80 py-4 sm:py-6 px-3 sm:px-4 text-center text-[10px] sm:text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-3">
             <div>
-                PulseNews Engine &bull; Interactive 3-Tier Filtering: Location &times; Category &times; Source
+                PulseNews Engine &bull; <span class="hidden sm:inline">Interactive 3-Tier Filtering: </span>Location &times; Category &times; Source
             </div>
-            <div class="flex items-center gap-4 text-slate-400">
+            <div class="flex items-center gap-2 sm:gap-4 text-slate-400">
                 <span>Auto-refreshes on demand</span>
-                <span>&bull;</span>
-                <span class="text-indigo-400">Local news: Bengaluru & Odisha</span>
+                <span class="hidden sm:inline">&bull;</span>
+                <span class="hidden sm:inline text-indigo-400">Local: Bengaluru & Odisha</span>
             </div>
         </div>
     </footer>
 
     <!-- Priority Customizer Modal -->
-    <div id="priorityModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
-        <div class="bg-cardDark border border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-5 animate-in fade-in zoom-in duration-150">
+    <div id="priorityModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-2 sm:p-4">
+        <div class="modal-content bg-cardDark border border-slate-800 rounded-2xl max-w-lg w-full p-4 sm:p-6 shadow-2xl space-y-4 sm:space-y-5 animate-in fade-in zoom-in duration-150">
             <!-- Modal Header -->
             <div class="flex items-center justify-between border-b border-slate-800 pb-4">
                 <div class="flex items-center gap-2.5">
@@ -422,8 +419,8 @@
     </div>
 
     <!-- Slack Integration Modal -->
-    <div id="slackModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
-        <div class="bg-cardDark border border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-5 animate-in fade-in zoom-in duration-150">
+    <div id="slackModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-2 sm:p-4">
+        <div class="modal-content bg-cardDark border border-slate-800 rounded-2xl max-w-lg w-full p-4 sm:p-6 shadow-2xl space-y-4 sm:space-y-5 animate-in fade-in zoom-in duration-150">
             <!-- Modal Header -->
             <div class="flex items-center justify-between border-b border-slate-800 pb-4">
                 <div class="flex items-center gap-2.5">
@@ -541,7 +538,7 @@
     </div>
 
     <!-- Notification Toast -->
-    <div id="toastNotification" class="fixed bottom-6 right-6 z-50 hidden max-w-md bg-slate-900 border border-slate-700 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 animate-in slide-in-from-bottom duration-200">
+    <div id="toastNotification" class="fixed bottom-4 sm:bottom-6 left-3 right-3 sm:left-auto sm:right-6 z-50 hidden max-w-md bg-slate-900 border border-slate-700 text-white px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl shadow-2xl flex items-center gap-2 sm:gap-3 animate-in slide-in-from-bottom duration-200">
         <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
         <div class="text-xs" id="toastMessage">News refreshed successfully!</div>
     </div>

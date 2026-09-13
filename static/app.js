@@ -669,7 +669,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         articles.forEach(article => {
             const card = document.createElement('article');
-            card.className = 'news-card glass-panel rounded-2xl p-4 border border-slate-800/80 flex flex-col justify-between group relative overflow-hidden';
+            card.className = 'news-card glass-panel rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-slate-800/80 flex flex-col justify-between group relative overflow-hidden';
 
             const sourceMeta = SOURCE_META[article.source] || { name: article.source_name, bg: 'bg-slate-800 text-slate-300' };
 
@@ -686,7 +686,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.innerHTML = `
                 <div>
                     <!-- Article Featured Image Banner -->
-                    <div class="relative w-full h-44 rounded-xl overflow-hidden mb-3.5 bg-slate-900 border border-slate-800/60 shadow-inner">
+                    <div class="card-image-container relative w-full h-36 sm:h-44 rounded-lg sm:rounded-xl overflow-hidden mb-2.5 sm:mb-3.5 bg-slate-900 border border-slate-800/60 shadow-inner">
                         <img
                             src="${imageUrl}"
                             alt="${title}"
@@ -1356,6 +1356,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (elements.openSlackModalBtn) {
         elements.openSlackModalBtn.addEventListener('click', openSlackModal);
+    }
+    // Mobile Slack button
+    const openSlackMobileBtn = document.getElementById('openSlackModalMobileBtn');
+    if (openSlackMobileBtn) {
+        openSlackMobileBtn.addEventListener('click', openSlackModal);
     }
     if (elements.closeSlackModalBtn) {
         elements.closeSlackModalBtn.addEventListener('click', closeSlackModal);

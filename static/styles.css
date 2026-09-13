@@ -9,6 +9,8 @@
 body {
     font-family: var(--font-sans);
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
 }
 
 /* Custom glassmorphism */
@@ -24,11 +26,12 @@ body {
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.news-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(99, 102, 241, 0.25);
+@media (hover: hover) {
+    .news-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(99, 102, 241, 0.25);
+    }
 }
-
 
 /* Priority badge styling */
 .priority-pill {
@@ -46,7 +49,7 @@ body {
     animation: spin-clockwise 0.8s linear infinite;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - desktop */
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -62,6 +65,15 @@ body {
     background: rgba(100, 116, 139, 0.7);
 }
 
+/* Hide scrollbar for horizontal scroll areas */
+.scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+    display: none;
+}
+
 /* Drag and drop reordering */
 .priority-item {
     cursor: grab;
@@ -74,4 +86,84 @@ body {
     opacity: 0.5;
     background: rgba(99, 102, 241, 0.2);
     border: 1px dashed #6366f1;
+}
+
+/* ========== MOBILE RESPONSIVE OVERRIDES ========== */
+
+/* Header: hide desktop action buttons on mobile, show compact mobile row */
+@media (max-width: 767px) {
+    /* Make header more compact */
+    header {
+        padding-top: 0.5rem !important;
+        padding-bottom: 0.5rem !important;
+    }
+
+    /* Desktop action bar: hidden on mobile */
+    .desktop-actions {
+        display: none !important;
+    }
+
+    /* Reduce main content padding */
+    main {
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+        padding-top: 0.75rem !important;
+        gap: 0.75rem !important;
+    }
+
+    /* Filter sections: tighter padding */
+    .filter-section {
+        padding: 0.5rem !important;
+        border-radius: 0.75rem !important;
+    }
+
+    /* Card image: shorter on mobile */
+    .card-image-container {
+        height: 10rem !important;
+    }
+
+    /* Modals: full width on mobile */
+    .modal-content {
+        max-height: 90vh;
+        overflow-y: auto;
+        margin: 0.5rem;
+    }
+
+    /* Footer: stack and center */
+    footer {
+        padding: 1rem 0.75rem !important;
+    }
+
+    /* Toast: centered bottom on mobile */
+    #toastNotification {
+        left: 1rem !important;
+        right: 1rem !important;
+        bottom: 1rem !important;
+        max-width: 100% !important;
+    }
+}
+
+/* Small phones */
+@media (max-width: 374px) {
+    .news-card {
+        padding: 0.625rem !important;
+    }
+    
+    .card-image-container {
+        height: 8rem !important;
+    }
+}
+
+/* Smooth horizontal scrolling for touch */
+.overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+}
+
+/* Filter pills: snap behavior */
+.location-pill,
+.topic-pill,
+.source-chip {
+    scroll-snap-align: start;
+    flex-shrink: 0;
 }

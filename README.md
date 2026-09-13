@@ -1,5 +1,12 @@
 ﻿# PulseNews: Multi-Source News Aggregator & Live Dashboard
 
+[![Live Dashboard](https://img.shields.io/badge/Live%20Dashboard-GitHub%20Pages-6366F1?style=for-the-badge&logo=github)](https://chinmayram.github.io/pulsenews/)
+[![Auto Scraping](https://img.shields.io/badge/Auto%20Scrape-Every%202%20Hours-10B981?style=for-the-badge&logo=githubactions)](https://github.com/chinmayram/pulsenews/actions)
+[![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python)](https://python.org)
+
+🌐 **Live Web & Mobile Dashboard**:  
+👉 **[https://chinmayram.github.io/pulsenews/](https://chinmayram.github.io/pulsenews/)**
+
 PulseNews is an ultra-fast news aggregator and live scraping dashboard that aggregates, parses, deduplicates, and organizes news across **Google News**, **MSN News**, **Yahoo News**, **Verified X (Twitter)**, and **Moneycontrol** into an interactive 3-tier matrix with responsive mobile support, automated GitHub Actions builds, and Slack alerts.
 
 ---
@@ -32,39 +39,21 @@ PulseNews is an ultra-fast news aggregator and live scraping dashboard that aggr
 
 ---
 
-## 🚀 Deployment to GitHub Pages (Access from Mobile)
+## 🌐 Live Access
 
-Deploying to GitHub Pages allows you to open PulseNews directly from your phone without firewall or local Wi-Fi restrictions!
+Open the dashboard on your phone, tablet, or computer:
 
-### Step 1: Create a GitHub Repository
-1. Go to [github.com/new](https://github.com/new).
-2. Name your repository (e.g. pulsenews).
-3. Set visibility to **Public** and leave  Add a README unchecked.
-4. Click **Create repository**.
+👉 **[https://chinmayram.github.io/pulsenews/](https://chinmayram.github.io/pulsenews/)**
 
-### Step 2: Push the Code
-In this project folder, run:
-`ash
-git remote add origin https://github.com/<YOUR_USERNAME>/pulsenews.git
-git branch -M main
-git push -u origin main
-`
-
-### Step 3: Enable GitHub Pages
-1. On your GitHub repository page, go to **Settings** > **Pages**.
-2. Under **Build and deployment > Source**, select **GitHub Actions**.
-3. Go to the **Actions** tab to watch the automated deployment run.
-4. Once completed, your live URL will be ready:
-   👉 **https://<YOUR_USERNAME>.github.io/pulsenews/**
-
-Open that link on your iPhone, Android, tablet, or laptop — it works anywhere!
+- **Mobile Ready**: Optimized responsive layout for iPhone, Android, iPad, and desktop.
+- **Instant Filtering**: <5ms client-side search and multi-dimensional filter switching.
+- **Auto-Refreshed**: Scraped every 2 hours with 800+ fresh headlines across all 5 sources.
 
 ---
 
-## 💻 Running Locally (FastAPI)
+## 💻 Running Locally (Optional)
 
-### Prerequisites
-- Python 3.10+ (Tested on Python 3.12)
+If you wish to run the live Python FastAPI backend locally:
 
 `ash
 # 1. Install dependencies
@@ -73,4 +62,5 @@ pip install -r requirements.txt
 # 2. Run the application
 python main.py
 `
-Open **[http://localhost:8080](http://localhost:8080)** in your browser.
+
+Local development dashboard runs at http://localhost:8080.

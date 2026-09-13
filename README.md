@@ -1,4 +1,4 @@
-﻿# PulseNews: Multi-Source News Aggregator & Live Dashboard
+# PulseNews: Multi-Source News Aggregator & Live Dashboard
 
 [![Live Dashboard](https://img.shields.io/badge/Live%20Dashboard-GitHub%20Pages-6366F1?style=for-the-badge&logo=github)](https://chinmayram.github.io/pulsenews/)
 [![Auto Scraping](https://img.shields.io/badge/Auto%20Scrape-Every%202%20Hours-10B981?style=for-the-badge&logo=githubactions)](https://github.com/chinmayram/pulsenews/actions)
@@ -55,12 +55,12 @@ Open the dashboard on your phone, tablet, or computer:
 
 If you wish to run the live Python FastAPI backend locally:
 
-`ash
+```bash
 # 1. Install dependencies
 pip install -r requirements.txt
 
 # 2. Run the application
 python main.py
-`
+```
 
 Local development dashboard runs at http://localhost:8080.

@@ -192,19 +192,14 @@ def get_lan_ip() -> str:
         return "127.0.0.1"
 
 def format_slack_dashboard_blocks(
-    dashboard_url: Optional[str] = None,
+    dashboard_url: Optional[str] = "https://chinmayram.github.io/pulsenews/",
     channel: Optional[str] = None
 ) -> Dict[str, Any]:
     """
-    Builds a Slack Block Kit payload with the live PulseNews dashboard link,
-    providing both Mobile/Wi-Fi and Computer/Local links.
+    Builds a Slack Block Kit payload with the live PulseNews GitHub Pages dashboard link,
+    accessible anywhere on mobile, tablet, or desktop.
     """
-    lan_ip = get_lan_ip()
-    port = "8080"
-    mobile_url = f"http://{lan_ip}:{port}"
-    local_url = f"http://localhost:{port}"
-
-    primary_url = mobile_url if lan_ip != "127.0.0.1" else local_url
+    live_url = dashboard_url or "https://chinmayram.github.io/pulsenews/"
 
     blocks: List[Dict[str, Any]] = [
         {
@@ -220,21 +215,20 @@ def format_slack_dashboard_blocks(
             "text": {
                 "type": "mrkdwn",
                 "text": (
-                    "*Your PulseNews aggregator is running and ready to open on any device!*\n\n"
-                    f"📱 *Mobile & Other Devices (Same Wi-Fi):*\n"
-                    f"👉 <{mobile_url}|{mobile_url}>\n\n"
-                    f"💻 *Computer (Local Machine):*\n"
-                    f"👉 <{local_url}|{local_url}>"
+                    "*Your PulseNews multi-source aggregator is live and accessible on any device!*\n\n"
+                    f"🌐 *Live Web & Mobile Dashboard:*\n"
+                    f"👉 <{live_url}|{live_url}>\n\n"
+                    "_Open on your mobile phone, tablet, or computer from any network with instant 0ms filtering._"
                 )
             },
             "accessory": {
                 "type": "button",
                 "text": {
                     "type": "plain_text",
-                    "text": "🚀 Open Dashboard",
+                    "text": "🚀 Open Live Dashboard",
                     "emoji": True
                 },
-                "url": primary_url,
+                "url": live_url,
                 "style": "primary"
             }
         },
@@ -245,7 +239,7 @@ def format_slack_dashboard_blocks(
                 {"type": "mrkdwn", "text": "📍 *Locations:*\nBengaluru • Odisha • India • Global"},
                 {"type": "mrkdwn", "text": "🏷️ *Topics:*\nJob Market • Technology • Entertainment • General"},
                 {"type": "mrkdwn", "text": "📡 *Sources:*\nGoogle • MSN • Yahoo • X • Moneycontrol"},
-                {"type": "mrkdwn", "text": f"⚡ *Network IP:*\n{lan_ip}:{port}"}
+                {"type": "mrkdwn", "text": "🔄 *Auto-Update:*\nEvery 2 hours via GitHub Actions"}
             ]
         },
         {"type": "divider"},
@@ -254,14 +248,14 @@ def format_slack_dashboard_blocks(
             "elements": [
                 {
                     "type": "mrkdwn",
-                    "text": f"💡 _Tip: Make sure your phone is connected to the same Wi-Fi network and open <{mobile_url}|{mobile_url}>._"
+                    "text": f"💡 _Tip: Bookmark <{live_url}|{live_url}> on your mobile browser for instant access._"
                 }
             ]
         }
     ]
 
     payload: Dict[str, Any] = {
-        "text": f"⚡ PulseNews Live Dashboard: {mobile_url}",
+        "text": f"⚡ PulseNews Live Dashboard: {live_url}",
         "blocks": blocks
     }
     if channel and channel.strip():

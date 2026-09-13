@@ -1123,9 +1123,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (window.lucide) lucide.createIcons();
         }
 
+        const LIVE_DASHBOARD_URL = 'https://chinmayram.github.io/pulsenews/';
+        const targetUrl = window.location.origin.includes('github.io') ? window.location.href : LIVE_DASHBOARD_URL;
+
         if (isStaticMode) {
             const webhook = localStorage.getItem('pulse_slack_webhook');
-            const currentUrl = window.location.href;
             if (webhook) {
                 try {
                     await fetch(webhook, {
@@ -1133,20 +1135,20 @@ document.addEventListener('DOMContentLoaded', () => {
                         mode: 'no-cors',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
-                            text: `🌐 *PulseNews Live Dashboard*: ${currentUrl}\nLive aggregation across Google, MSN, Yahoo, X & Moneycontrol.`
+                            text: `⚡ *PulseNews Live Dashboard*: ${targetUrl}\nLive multi-source news aggregator across Google, MSN, Yahoo, X & Moneycontrol.\n👉 ${targetUrl}`
                         })
                     });
-                    showToast('Dashboard link dispatched to Slack webhook!');
+                    showToast('Live dashboard link dispatched to Slack!');
                     closeSlackModal();
                 } catch (e) {
                     console.warn('Slack webhook direct error:', e);
                 }
             }
             if (navigator.clipboard) {
-                await navigator.clipboard.writeText(currentUrl);
-                showToast('Dashboard link copied to clipboard!');
+                await navigator.clipboard.writeText(targetUrl);
+                showToast('Live dashboard link copied to clipboard!');
             } else {
-                prompt('Copy PulseNews Dashboard URL:', currentUrl);
+                prompt('Copy PulseNews Dashboard URL:', targetUrl);
             }
             if (btn && originalText) {
                 btn.innerHTML = originalText;

@@ -256,7 +256,7 @@ async def send_slack_dashboard_endpoint():
         )
 
     payload = format_slack_dashboard_blocks(
-        dashboard_url="http://localhost:8080",
+        dashboard_url="https://chinmayram.github.io/pulsenews/",
         channel=settings.get("slack_channel")
     )
 

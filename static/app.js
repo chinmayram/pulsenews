@@ -544,7 +544,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 isStaticMode = false;
                 if (data.articles && data.articles.length > 0) {
                     state.articles = data.articles;
-                    state.lastRefreshed = data.last_refreshed || Math.floor(Date.now() / 1000);
+                    state.lastRefreshed = Math.floor(Date.now() / 1000);
                     updateLastRefreshedDisplay();
                     if (data.filter_counts) {
                         updateInteractiveCounts(data.filter_counts);
@@ -563,7 +563,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!res.ok) throw new Error('Failed to reload news feed snapshot');
                 const data = await res.json();
                 staticMasterArticles = data.articles || [];
-                state.lastRefreshed = data.last_refreshed || Math.floor(Date.now() / 1000);
+                state.lastRefreshed = Math.floor(Date.now() / 1000);
+                updateLastRefreshedDisplay();
                 await fetchNewsStatic();
                 showToast('News feed reloaded! (Auto-scrapes every 30m on GitHub Actions)');
             }
@@ -575,7 +576,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (res.ok) {
                     const data = await res.json();
                     staticMasterArticles = data.articles || [];
-                    state.lastRefreshed = data.last_refreshed || Math.floor(Date.now() / 1000);
+                    state.lastRefreshed = Math.floor(Date.now() / 1000);
+                    updateLastRefreshedDisplay();
                     await fetchNewsStatic();
                     showToast('Feed updated from latest available snapshot.');
                 } else {
@@ -644,9 +646,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateLastRefreshedDisplay() {
         if (elements.lastRefreshedTime) {
-            elements.lastRefreshedTime.textContent = timeAgo(state.lastRefreshed);
+            elements.lastRefreshedTime.textContent = state.lastRefreshed ? timeAgo(state.lastRefreshed) : 'Just now';
         }
     }
+
+    // Keep "Updated: X ago" ticking every 30s
+    setInterval(updateLastRefreshedDisplay, 30000);
 
     // Render News Cards
     function renderArticles(articles) {

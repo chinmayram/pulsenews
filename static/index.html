@@ -284,6 +284,30 @@
             </button>
         </div>
 
+        <!-- Real-Time Live Scraping Banner -->
+        <div id="scrapingBanner" class="hidden mb-6 p-4 rounded-2xl bg-gradient-to-r from-indigo-950/70 via-purple-950/60 to-slate-900/80 border border-indigo-500/40 text-indigo-200 backdrop-blur-md shadow-xl shadow-indigo-950/40 flex items-center justify-between animate-pulse">
+            <div class="flex items-center gap-3.5">
+                <div class="w-10 h-10 rounded-xl bg-indigo-600/30 border border-indigo-400/40 flex items-center justify-center text-indigo-300 shadow-inner">
+                    <i data-lucide="refresh-cw" class="w-5 h-5 spinning"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-bold text-white tracking-wide">Live Multi-Source Scraping in Progress</span>
+                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">
+                            5 Engines Active
+                        </span>
+                    </div>
+                    <p class="text-[11px] text-slate-300 mt-0.5">
+                        Scraping Google News, MSN, Yahoo, X & Moneycontrol simultaneously for breaking stories...
+                    </p>
+                </div>
+            </div>
+            <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-xs font-medium text-indigo-300">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                <span>Real-Time Sync</span>
+            </div>
+        </div>
+
         <!-- News Articles Grid -->
         <div id="articlesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             <!-- Dynamic Cards Injected Here -->

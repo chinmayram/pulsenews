@@ -51,14 +51,27 @@ async def run_api_tests():
             print(f"   Image URL: {mc_news['articles'][0]['image_url'][:60]}...")
             print(f"   Location: {mc_news['articles'][0]['location_name']}, Topic: {mc_news['articles'][0]['topic_name']}")
 
-        print("\n6. Testing UI index.html...")
+        print("\n7. Testing UI index.html...")
         resp = await client.get("/")
         assert resp.status_code == 200
         assert "Location Filter" in resp.text
         assert "Category & Priority" in resp.text
-        print("   Success! Modern 3-tier UI verified.")
+        assert "scrapingBanner" in resp.text
+        print("   Success! Modern 3-tier UI and scrapingBanner verified.")
 
-    print("\n All 3-tier interactive filter tests PASSED successfully!")
+        print("\n8. Testing POST /api/news/refresh with active filters...")
+        ref_resp = await client.post("/api/news/refresh?location=bengaluru&topic=technology&source=all&limit=20")
+        assert ref_resp.status_code == 200
+        assert "no-cache" in ref_resp.headers.get("Cache-Control", "")
+        ref_data = ref_resp.json()
+        assert ref_data["status"] == "success"
+        assert "articles" in ref_data
+        assert "filter_counts" in ref_data
+        assert ref_data["last_refreshed"] > 0
+        print(f"   Success! Refreshed articles returned: {ref_data['count']}")
+        print(f"   Cache-Control header verified: {ref_resp.headers.get('Cache-Control')}")
+
+    print("\n All 3-tier interactive filter & live refresh tests PASSED successfully!")
 
 if __name__ == "__main__":
     asyncio.run(run_api_tests())

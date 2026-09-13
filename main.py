@@ -72,6 +72,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.middleware("http")
+async def add_cache_control_header(request, call_next):
+    response = await call_next(request)
+    if request.url.path.startswith("/api/"):
+        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate, max-age=0"
+        response.headers["Pragma"] = "no-cache"
+        response.headers["Expires"] = "0"
+    return response
+
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 if DATA_DIR.exists():
     app.mount("/data", StaticFiles(directory=str(DATA_DIR)), name="data")
@@ -125,14 +134,44 @@ async def get_news(
     }
 
 @app.api_route("/api/news/refresh", methods=["GET", "POST", "HEAD"])
-async def refresh_news():
+async def refresh_news(
+    location: str = Query("all", description="Location: 'all', 'bengaluru', 'odisha', 'india', 'global'"),
+    topic: str = Query("priority", description="Topic: 'priority', 'job_market', 'technology', 'entertainment', 'general'"),
+    source: str = Query("all", description="Source: 'all', 'google', 'msn', 'yahoo', 'x'"),
+    search: Optional[str] = Query(None, description="Keyword search query"),
+    limit: int = Query(150, ge=1, le=500)
+):
     try:
-        articles = await aggregator.refresh_all(force=True)
-        counts = aggregator.get_filter_counts()
+        all_articles = await aggregator.refresh_all(force=True)
+        # Ensure latest data is also saved to data/news.json
+        aggregator.save_to_json(DATA_DIR / "news.json")
+
+        articles = aggregator.get_articles(
+            location=location,
+            topic=topic,
+            source=source,
+            search_query=search
+        )
+        paginated = articles[:limit]
+        counts = aggregator.get_filter_counts(
+            active_location=location,
+            active_topic=topic,
+            active_source=source,
+            search_query=search
+        )
         return {
             "status": "success",
-            "message": f"Successfully refreshed {len(articles)} news articles across all 5 sources.",
-            "stats": counts
+            "message": f"Successfully scraped {len(all_articles)} news articles across all 5 sources.",
+            "stats": counts,
+            "articles": paginated,
+            "count": len(paginated),
+            "total_available": len(articles),
+            "active_location": location,
+            "active_topic": topic,
+            "active_source": source,
+            "filter_counts": counts,
+            "last_refreshed": counts["last_refreshed"],
+            "is_refreshing": False
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Refresh failed: {str(e)}")

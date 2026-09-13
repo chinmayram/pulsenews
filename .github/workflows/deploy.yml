@@ -5,7 +5,8 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 */0.5 * * *' # Auto-refresh news every 30 minutes
+    - cron: '*/30 * * * *' # Auto-refresh news every 30 minutes
+    - cron: '0 * * * *'    # Hourly fallback sync
   workflow_dispatch: # Allows manual refresh anytime from GitHub UI
 
 # Grant GITHUB_TOKEN permissions required to deploy to GitHub Pages

@@ -1,4 +1,6 @@
 import asyncio
+import json
+from pathlib import Path
 import re
 import time
 from typing import Dict, List, Optional, Set
@@ -74,10 +76,32 @@ class NewsAggregator:
                     combined.sort(key=lambda a: a.timestamp, reverse=True)
                     self.articles = self.deduplicate(combined)
                     self.last_refreshed = time.time()
+                    self.save_to_json()
             finally:
                 self.is_refreshing = False
 
         return self.articles
+
+    def save_to_json(self, file_path: Optional[Path] = None) -> bool:
+        if file_path is None:
+            file_path = Path(__file__).resolve().parent.parent / "data" / "news.json"
+        try:
+            file_path.parent.mkdir(parents=True, exist_ok=True)
+            all_articles = self.get_articles(location="all", topic="all", source="all")
+            filter_counts = self.get_filter_counts()
+            news_data = {
+                "status": "success",
+                "count": len(all_articles),
+                "last_refreshed": self.last_refreshed,
+                "filter_counts": filter_counts,
+                "articles": [a.model_dump() for a in all_articles]
+            }
+            with open(file_path, "w", encoding="utf-8") as f:
+                json.dump(news_data, f, indent=2)
+            return True
+        except Exception as e:
+            print(f"[Aggregator] Error saving news to {file_path}: {e}")
+            return False
 
     def get_articles(
         self,

@@ -21,10 +21,51 @@ document.addEventListener('DOMContentLoaded', () => {
     // Dual-Mode Deployment Architecture: Detect GitHub Pages / Static Hosting
     let isStaticMode = window.location.hostname.endsWith('github.io') || window.location.protocol === 'file:';
     let staticMasterArticles = null;
+    let cachedApiBase = null;
+
+    // Auto-detect backend API location (supports relative, localhost:8000, localhost:8080)
+    async function resolveApiBase(forceCheck = false) {
+        if (!forceCheck && cachedApiBase !== null) {
+            return cachedApiBase;
+        }
+
+        // 1. Try same-origin relative /api/config
+        try {
+            const testRes = await fetch(`/api/config?_probe=${Date.now()}`, { method: 'GET', cache: 'no-store' });
+            if (testRes.ok) {
+                cachedApiBase = '';
+                return '';
+            }
+        } catch (_) {}
+
+        // 2. If running via file:// or another port (like Live Server), probe local FastAPI servers
+        const candidates = ['http://localhost:8000', 'http://127.0.0.1:8000', 'http://localhost:8080', 'http://127.0.0.1:8080'];
+        for (const host of candidates) {
+            try {
+                const ctrl = new AbortController();
+                const timeoutId = setTimeout(() => ctrl.abort(), 1200);
+                const localRes = await fetch(`${host}/api/config?_probe=${Date.now()}`, {
+                    method: 'GET',
+                    cache: 'no-store',
+                    mode: 'cors',
+                    signal: ctrl.signal
+                });
+                clearTimeout(timeoutId);
+                if (localRes.ok) {
+                    cachedApiBase = host;
+                    return host;
+                }
+            } catch (_) {}
+        }
+
+        cachedApiBase = null;
+        return null;
+    }
 
     // DOM Elements
     const elements = {
         articlesGrid: document.getElementById('articlesGrid'),
+        scrapingBanner: document.getElementById('scrapingBanner'),
         loadingState: document.getElementById('loadingState'),
         emptyState: document.getElementById('emptyState'),
         emptyStateDetail: document.getElementById('emptyStateDetail'),
@@ -135,11 +176,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load Config (Priority, Locations, Topics) - Dual Mode
     async function loadConfig() {
-        if (!isStaticMode) {
+        const apiBase = await resolveApiBase();
+        if (apiBase !== null) {
             try {
-                const res = await fetch('/api/config');
+                const res = await fetch(`${apiBase}/api/config?_t=${Date.now()}`, { cache: 'no-store' });
                 if (res.ok) {
                     const data = await res.json();
+                    isStaticMode = false;
                     state.locations = data.locations || {};
                     state.topics = data.topics || {};
                     state.sources = data.sources || {};
@@ -148,14 +191,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
             } catch (err) {
-                console.warn('FastAPI backend not reachable, falling back to static mode:', err);
-                isStaticMode = true;
+                console.warn('FastAPI backend config error:', err);
             }
         }
 
         // Static Mode Fallback: load ./data/config.json
         try {
-            const res = await fetch('./data/config.json');
+            const res = await fetch(`./data/config.json?_t=${Date.now()}`, { cache: 'no-store' });
             if (!res.ok) throw new Error('Failed to load ./data/config.json');
             const data = await res.json();
             state.locations = data.locations || {};
@@ -254,20 +296,23 @@ document.addEventListener('DOMContentLoaded', () => {
     async function fetchNews() {
         showLoading(true);
         try {
-            if (!isStaticMode) {
+            const apiBase = await resolveApiBase();
+            if (apiBase !== null) {
                 const params = new URLSearchParams({
                     location: state.currentLocation,
                     topic: state.currentTopic,
                     source: state.currentSource,
-                    limit: '150'
+                    limit: '150',
+                    _t: Date.now().toString()
                 });
                 if (state.searchQuery) {
                     params.append('search', state.searchQuery);
                 }
 
-                const res = await fetch(`/api/news?${params.toString()}`);
+                const res = await fetch(`${apiBase}/api/news?${params.toString()}`, { cache: 'no-store' });
                 if (res.ok) {
                     const data = await res.json();
+                    isStaticMode = false;
                     state.lastRefreshed = data.last_refreshed;
                     updateLastRefreshedDisplay();
                     state.articles = data.articles || [];
@@ -277,11 +322,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 } else {
                     console.warn('/api/news failed, falling back to static mode');
-                    isStaticMode = true;
                 }
             }
 
             // Static Mode Execution
+            isStaticMode = true;
             await fetchNewsStatic();
         } catch (err) {
             console.warn('API error, falling back to static mode:', err);
@@ -483,42 +528,75 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // Refresh Action (Dual-Mode: Scrapes Live via API or Reloads from Static JSON)
+    // Refresh Action: Always scrape across all 5 engines simultaneously and update news feed immediately
     async function handleRefresh() {
         if (state.isRefreshing) return;
         state.isRefreshing = true;
         setRefreshingUI(true);
 
-        if (isStaticMode) {
-            try {
-                const res = await fetch(`./data/news.json?_t=${Date.now()}`);
-                if (!res.ok) throw new Error('Failed to reload ./data/news.json');
+        const params = new URLSearchParams({
+            location: state.currentLocation,
+            topic: state.currentTopic,
+            source: state.currentSource,
+            limit: '150',
+            _t: Date.now().toString()
+        });
+        if (state.searchQuery) {
+            params.append('search', state.searchQuery);
+        }
+
+        try {
+            const apiBase = await resolveApiBase(true);
+            if (apiBase !== null) {
+                // Live backend is available: Scrape all 5 sources concurrently and return new articles directly
+                const refreshUrl = `${apiBase}/api/news/refresh?${params.toString()}`;
+                const res = await fetch(refreshUrl, { method: 'POST', cache: 'no-store' });
+                if (!res.ok) throw new Error(`Live scrape refresh failed (HTTP ${res.status})`);
+                const data = await res.json();
+
+                isStaticMode = false;
+                if (data.articles && data.articles.length > 0) {
+                    state.articles = data.articles;
+                    state.lastRefreshed = data.last_refreshed || Math.floor(Date.now() / 1000);
+                    updateLastRefreshedDisplay();
+                    if (data.filter_counts) {
+                        updateInteractiveCounts(data.filter_counts);
+                    }
+                    renderArticles(state.articles);
+                    updateBreadcrumbStatus(data.count || state.articles.length);
+                } else {
+                    await fetchNews();
+                }
+
+                showToast(data.message || 'News refreshed from all 5 sources!');
+            } else {
+                // Static Mode / GitHub Pages Fallback: fetch fresh JSON snapshot with cache buster
+                isStaticMode = true;
+                const res = await fetch(`./data/news.json?_t=${Date.now()}`, { cache: 'no-store' });
+                if (!res.ok) throw new Error('Failed to reload news feed snapshot');
                 const data = await res.json();
                 staticMasterArticles = data.articles || [];
                 state.lastRefreshed = data.last_refreshed || Math.floor(Date.now() / 1000);
                 await fetchNewsStatic();
-                showToast('News feed reloaded! (Auto-updated every 2h by GitHub Actions)');
-            } catch (err) {
-                console.error('Static refresh error:', err);
-                showToast('Could not reload feed.');
-            } finally {
-                state.isRefreshing = false;
-                setRefreshingUI(false);
+                showToast('News feed reloaded! (Auto-scrapes every 30m on GitHub Actions)');
             }
-            return;
-        }
-
-        try {
-            const res = await fetch('/api/news/refresh', { method: 'POST' });
-            if (!res.ok) throw new Error('Refresh request failed');
-            const data = await res.json();
-
-            showToast(data.message || 'News refreshed from all 5 sources!');
-            await loadConfig();
-            await fetchNews();
         } catch (err) {
             console.error('Error refreshing news:', err);
-            showToast('Refresh failed. Please check internet connection.');
+            // Fallback attempt: try loading static data so feed is never left broken
+            try {
+                const res = await fetch(`./data/news.json?_t=${Date.now()}`, { cache: 'no-store' });
+                if (res.ok) {
+                    const data = await res.json();
+                    staticMasterArticles = data.articles || [];
+                    state.lastRefreshed = data.last_refreshed || Math.floor(Date.now() / 1000);
+                    await fetchNewsStatic();
+                    showToast('Feed updated from latest available snapshot.');
+                } else {
+                    showToast('Refresh failed. Please check internet connection.');
+                }
+            } catch (_) {
+                showToast('Refresh failed. Please check internet connection.');
+            }
         } finally {
             state.isRefreshing = false;
             setRefreshingUI(false);
@@ -526,16 +604,43 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function setRefreshingUI(isRefreshing) {
+        const btnDesktop = document.getElementById('refreshBtn');
+        const btnMobile = document.getElementById('refreshBtnMobile');
+        const btnText = document.getElementById('refreshBtnText');
+        const banner = document.getElementById('scrapingBanner');
+
         if (isRefreshing) {
-            elements.refreshIcon.classList.add('spinning');
-            elements.refreshBtnText.textContent = 'Scraping Sources...';
-            elements.headerStatus.textContent = 'Scraping Google, MSN, Yahoo, X & Moneycontrol in parallel...';
-            elements.refreshBtn.disabled = true;
+            if (btnDesktop) {
+                btnDesktop.disabled = true;
+                const icon = btnDesktop.querySelector('svg') || btnDesktop.querySelector('i');
+                if (icon) icon.classList.add('spinning');
+            }
+            if (btnMobile) {
+                btnMobile.disabled = true;
+                const iconM = btnMobile.querySelector('svg') || btnMobile.querySelector('i');
+                if (iconM) iconM.classList.add('spinning');
+            }
+            if (btnText) btnText.textContent = 'Scraping Sources...';
+            if (elements.headerStatus) {
+                elements.headerStatus.textContent = 'Live scraping Google, MSN, Yahoo, X & Moneycontrol concurrently...';
+            }
+            if (banner) banner.classList.remove('hidden');
         } else {
-            elements.refreshIcon.classList.remove('spinning');
-            elements.refreshBtnText.textContent = 'Refresh News';
-            elements.headerStatus.textContent = 'Google News • MSN • Yahoo • Verified X • Moneycontrol';
-            elements.refreshBtn.disabled = false;
+            if (btnDesktop) {
+                btnDesktop.disabled = false;
+                const icon = btnDesktop.querySelector('svg') || btnDesktop.querySelector('i');
+                if (icon) icon.classList.remove('spinning');
+            }
+            if (btnMobile) {
+                btnMobile.disabled = false;
+                const iconM = btnMobile.querySelector('svg') || btnMobile.querySelector('i');
+                if (iconM) iconM.classList.remove('spinning');
+            }
+            if (btnText) btnText.textContent = 'Refresh News';
+            if (elements.headerStatus) {
+                elements.headerStatus.textContent = 'Google News • MSN • Yahoo • Verified X • Moneycontrol';
+            }
+            if (banner) banner.classList.add('hidden');
         }
     }
 

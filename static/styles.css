@@ -19,11 +19,6 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.light .glass-panel {
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-}
-
 /* Card hover glow */
 .news-card {
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -34,9 +29,6 @@ body {
     box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(99, 102, 241, 0.25);
 }
 
-.light .news-card:hover {
-    box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(99, 102, 241, 0.4);
-}
 
 /* Priority badge styling */
 .priority-pill {

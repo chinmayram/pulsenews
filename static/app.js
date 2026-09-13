@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         articles: [],
         lastRefreshed: 0,
         isRefreshing: false,
-        theme: localStorage.getItem('pulse_theme') || 'dark'
+        theme: 'dark'
     };
 
     // Dual-Mode Deployment Architecture: Detect GitHub Pages / Static Hosting
@@ -93,8 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
         xTokenInput: document.getElementById('xTokenInput'),
         toastNotification: document.getElementById('toastNotification'),
         toastMessage: document.getElementById('toastMessage'),
-        themeToggleBtn: document.getElementById('themeToggleBtn'),
-        themeIcon: document.getElementById('themeIcon'),
+
         // Slack Elements
         sendSlackDashboardBtn: document.getElementById('sendSlackDashboardBtn'),
         openSlackModalBtn: document.getElementById('openSlackModalBtn'),
@@ -137,25 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
         moneycontrol: { name: 'Moneycontrol', bg: 'bg-amber-500/10 text-amber-400 border-amber-500/30' }
     };
 
-    // Initialize Theme
-    function initTheme() {
-        if (state.theme === 'light') {
-            document.documentElement.classList.remove('dark');
-            document.documentElement.classList.add('light');
-            if (elements.themeIcon) elements.themeIcon.setAttribute('data-lucide', 'moon');
-        } else {
-            document.documentElement.classList.remove('light');
-            document.documentElement.classList.add('dark');
-            if (elements.themeIcon) elements.themeIcon.setAttribute('data-lucide', 'sun');
-        }
-        if (window.lucide) lucide.createIcons();
-    }
-
-    elements.themeToggleBtn.addEventListener('click', () => {
-        state.theme = state.theme === 'dark' ? 'light' : 'dark';
-        localStorage.setItem('pulse_theme', state.theme);
-        initTheme();
-    });
+    // Always dark mode
+    document.documentElement.classList.add('dark');
 
     function timeAgo(epochSeconds) {
         if (!epochSeconds) return 'Recently';
@@ -1491,7 +1473,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    initTheme();
+
     loadConfig().then(() => {
         fetchNews();
     });

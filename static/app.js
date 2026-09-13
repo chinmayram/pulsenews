@@ -29,37 +29,42 @@ document.addEventListener('DOMContentLoaded', () => {
             return cachedApiBase;
         }
 
+        // Fast path: On static hosting (GitHub Pages), skip all backend probes entirely
+        if (isStaticMode) {
+            cachedApiBase = null;
+            return null;
+        }
+
         // 1. Try same-origin relative /api/config
         try {
-            const testRes = await fetch(`/api/config?_probe=${Date.now()}`, { method: 'GET', cache: 'no-store' });
+            const ctrl = new AbortController();
+            const tid = setTimeout(() => ctrl.abort(), 500);
+            const testRes = await fetch(`/api/config?_probe=${Date.now()}`, { method: 'GET', cache: 'no-store', signal: ctrl.signal });
+            clearTimeout(tid);
             if (testRes.ok) {
                 cachedApiBase = '';
                 return '';
             }
         } catch (_) {}
 
-        // 2. If running via file:// or another port (like Live Server), probe local FastAPI servers
+        // 2. Probe local FastAPI servers in parallel (much faster than sequential)
         const candidates = ['http://localhost:8000', 'http://127.0.0.1:8000', 'http://localhost:8080', 'http://127.0.0.1:8080'];
-        for (const host of candidates) {
-            try {
-                const ctrl = new AbortController();
-                const timeoutId = setTimeout(() => ctrl.abort(), 1200);
-                const localRes = await fetch(`${host}/api/config?_probe=${Date.now()}`, {
-                    method: 'GET',
-                    cache: 'no-store',
-                    mode: 'cors',
-                    signal: ctrl.signal
-                });
-                clearTimeout(timeoutId);
-                if (localRes.ok) {
-                    cachedApiBase = host;
-                    return host;
-                }
-            } catch (_) {}
-        }
+        const probes = candidates.map(host => {
+            const ctrl = new AbortController();
+            const tid = setTimeout(() => ctrl.abort(), 500);
+            return fetch(`${host}/api/config?_probe=${Date.now()}`, {
+                method: 'GET', cache: 'no-store', mode: 'cors', signal: ctrl.signal
+            }).then(res => {
+                clearTimeout(tid);
+                if (res.ok) return host;
+                throw new Error('not ok');
+            }).catch(() => { clearTimeout(tid); return null; });
+        });
 
-        cachedApiBase = null;
-        return null;
+        const results = await Promise.all(probes);
+        const found = results.find(r => r !== null);
+        cachedApiBase = found || null;
+        return cachedApiBase;
     }
 
     // DOM Elements

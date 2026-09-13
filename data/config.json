@@ -1,0 +1,115 @@
+{
+  "locations": {
+    "all": {
+      "id": "all",
+      "name": "All Locations",
+      "icon": "map-pin",
+      "badge": "Everywhere"
+    },
+    "bengaluru": {
+      "id": "bengaluru",
+      "name": "Bengaluru",
+      "icon": "building-2",
+      "badge": "Local City"
+    },
+    "odisha": {
+      "id": "odisha",
+      "name": "Odisha",
+      "icon": "landmark",
+      "badge": "State / Regional"
+    },
+    "india": {
+      "id": "india",
+      "name": "India",
+      "icon": "flag",
+      "badge": "National"
+    },
+    "global": {
+      "id": "global",
+      "name": "Global",
+      "icon": "globe",
+      "badge": "Worldwide"
+    }
+  },
+  "topics": {
+    "priority": {
+      "id": "priority",
+      "name": "Priority Feed",
+      "icon": "flame",
+      "color": "#6366F1",
+      "description": "Blended feed ordered according to your custom priority hierarchy"
+    },
+    "job_market": {
+      "id": "job_market",
+      "name": "Job Market",
+      "icon": "briefcase",
+      "color": "#10B981",
+      "description": "Employment, tech hiring, layoffs, career and recruitment trends"
+    },
+    "technology": {
+      "id": "technology",
+      "name": "Technology",
+      "icon": "cpu",
+      "color": "#6366F1",
+      "description": "AI developments, computing, startups, gadgets, software"
+    },
+    "entertainment": {
+      "id": "entertainment",
+      "name": "Entertainment",
+      "icon": "film",
+      "color": "#8B5CF6",
+      "description": "Movies, web series, Bollywood, Hollywood, music & pop culture"
+    },
+    "general": {
+      "id": "general",
+      "name": "General News",
+      "icon": "newspaper",
+      "color": "#F59E0B",
+      "description": "Breaking developments, politics, civic affairs, and current events"
+    }
+  },
+  "sources": {
+    "google": {
+      "id": "google",
+      "name": "Google News",
+      "badge_color": "bg-blue-500/10 text-blue-400 border-blue-500/30",
+      "icon": "google"
+    },
+    "msn": {
+      "id": "msn",
+      "name": "MSN News",
+      "badge_color": "bg-emerald-500/10 text-emerald-400 border-emerald-500/30",
+      "icon": "microsoft"
+    },
+    "yahoo": {
+      "id": "yahoo",
+      "name": "Yahoo News",
+      "badge_color": "bg-purple-500/10 text-purple-400 border-purple-500/30",
+      "icon": "yahoo"
+    },
+    "x": {
+      "id": "x",
+      "name": "X (Twitter)",
+      "badge_color": "bg-sky-500/15 text-sky-300 border-sky-500/30",
+      "icon": "twitter"
+    },
+    "moneycontrol": {
+      "id": "moneycontrol",
+      "name": "Moneycontrol",
+      "badge_color": "bg-amber-500/10 text-amber-400 border-amber-500/30",
+      "icon": "trending-up"
+    }
+  },
+  "priority_order": [
+    "job_market",
+    "technology",
+    "entertainment",
+    "general"
+  ],
+  "enabled_topics": {
+    "job_market": true,
+    "technology": true,
+    "entertainment": true,
+    "general": true
+  }
+}

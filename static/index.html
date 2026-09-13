@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PulseNews | Multi-Source News Scraper & Aggregator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#090D16',
+                        cardDark: '#0F172A',
+                        borderDark: '#1E293B',
+                        primary: '#6366F1',
+                        accent: '#8B5CF6'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body class="bg-darkBg text-slate-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white transition-colors duration-200">
+
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-40 glass-panel border-b border-slate-800/80 px-4 lg:px-8 py-3.5">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <!-- Brand & Status -->
+            <div class="flex items-center gap-3.5 w-full md:w-auto justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-500/25">
+                        <i data-lucide="newspaper" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h1 class="text-xl font-bold tracking-tight bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">
+                                PulseNews
+                            </h1>
+                            <span class="px-2 py-0.5 text-[10px] font-semibold tracking-wide uppercase rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                                Live Aggregator
+                            </span>
+                        </div>
+                        <p class="text-xs text-slate-400 flex items-center gap-1.5 mt-0.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span id="headerStatus">Google News &bull; MSN &bull; Yahoo &bull; Verified X News</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Mobile Action Row -->
+                <div class="flex items-center gap-2 md:hidden">
+                    <button id="shareWhatsAppDigestMobileBtn" class="p-2 rounded-lg bg-emerald-700 hover:bg-emerald-600 text-white shadow" title="Share to WhatsApp">
+                        <i data-lucide="share-2" class="w-4 h-4"></i>
+                    </button>
+                    <button id="openWhatsAppModalMobileBtn" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-400" title="WhatsApp Alerts">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i>
+                    </button>
+                    <button id="refreshBtnMobile" class="p-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white shadow">
+                        <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                    </button>
+                    <button id="openPriorityBtnMobile" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300">
+                        <i data-lucide="sliders-horizontal" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Action Controls & Status -->
+            <div class="flex items-center gap-3 w-full md:w-auto justify-end">
+                <div class="hidden sm:flex items-center text-xs text-slate-400 bg-slate-800/60 px-3 py-1.5 rounded-lg border border-slate-700/50">
+                    <i data-lucide="clock" class="w-3.5 h-3.5 mr-1.5 text-slate-400"></i>
+                    <span>Updated: <strong id="lastRefreshedTime" class="text-slate-200">Just now</strong></span>
+                </div>
+
+                <!-- Send Dashboard Link to Slack Button -->
+                <button id="sendSlackDashboardBtn" class="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-[#4A154B] hover:bg-[#611f69] border border-purple-500/40 text-white shadow-md shadow-purple-950/30 transition active:scale-95" title="Send PulseNews Dashboard link to Slack channel">
+                    <i data-lucide="layout-dashboard" class="w-3.5 h-3.5 text-[#36C5F0]"></i>
+                    <span class="hidden lg:inline">Send Dashboard to Slack</span>
+                    <span class="lg:hidden">Dashboard</span>
+                </button>
+
+                <!-- Slack Settings Modal Button -->
+                <button id="openSlackModalBtn" class="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-purple-300 transition" title="Configure Slack Incoming Webhook">
+                    <i data-lucide="sliders" class="w-3.5 h-3.5 text-[#ECB22E]"></i>
+                    <span class="hidden xl:inline">Slack Alerts</span>
+                </button>
+
+                <!-- Priority Settings Modal Button -->
+                <button id="openPriorityBtn" class="hidden md:flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-slate-200 transition">
+                    <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5 text-indigo-400"></i>
+                    <span>Set Priority</span>
+                </button>
+
+                <!-- Refresh Button -->
+                <button id="refreshBtn" class="flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-lg bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white shadow-lg shadow-indigo-600/30 transition-all">
+                    <i data-lucide="refresh-cw" id="refreshIcon" class="w-3.5 h-3.5"></i>
+                    <span id="refreshBtnText">Refresh News</span>
+                </button>
+
+                <!-- Theme Toggle -->
+                <button id="themeToggleBtn" class="p-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-slate-300 transition" title="Toggle Light/Dark">
+                    <i data-lucide="sun" id="themeIcon" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 lg:px-8 py-5 flex-1 w-full space-y-5">
+
+        <!-- 1. Dedicated Location Filter Section -->
+        <div class="p-3 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2">
+            <div class="flex items-center justify-between">
+                <span class="text-xs font-bold tracking-wide uppercase text-amber-400 flex items-center gap-1.5">
+                    <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Location Filter
+                </span>
+                <span class="text-[11px] text-slate-400">Select city, state, or global scope</span>
+            </div>
+
+            <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+                <!-- Location Pills -->
+                <button data-location="all" class="location-pill active flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20 transition">
+                    <i data-lucide="globe" class="w-3.5 h-3.5"></i>
+                    <span>All Locations</span>
+                    <span id="count-loc-all" class="px-1.5 py-0.2 rounded-full text-[10px] bg-black/20 font-bold">0</span>
+                </button>
+
+                <button data-location="bengaluru" class="location-pill flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-slate-200 transition">
+                    <i data-lucide="building-2" class="w-3.5 h-3.5 text-amber-400"></i>
+                    <span>Bengaluru</span>
+                    <span id="count-loc-bengaluru" class="px-1.5 py-0.2 rounded-full text-[10px] bg-slate-900 text-slate-300">0</span>
+                </button>
+
+                <button data-location="odisha" class="location-pill flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-slate-200 transition">
+                    <i data-lucide="landmark" class="w-3.5 h-3.5 text-pink-400"></i>
+                    <span>Odisha</span>
+                    <span id="count-loc-odisha" class="px-1.5 py-0.2 rounded-full text-[10px] bg-slate-900 text-slate-300">0</span>
+                </button>
+
+                <button data-location="india" class="location-pill flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-slate-200 transition">
+                    <i data-lucide="flag" class="w-3.5 h-3.5 text-orange-400"></i>
+                    <span>India (National)</span>
+                    <span id="count-loc-india" class="px-1.5 py-0.2 rounded-full text-[10px] bg-slate-900 text-slate-300">0</span>
+                </button>
+
+                <button data-location="global" class="location-pill flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-slate-200 transition">
+                    <i data-lucide="globe-2" class="w-3.5 h-3.5 text-blue-400"></i>
+                    <span>Global (Worldwide)</span>
+                    <span id="count-loc-global" class="px-1.5 py-0.2 rounded-full text-[10px] bg-slate-900 text-slate-300">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 2. Dedicated Category / Topic Filter Section -->
+        <div class="p-3 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2">
+            <div class="flex items-center justify-between">
+                <span class="text-xs font-bold tracking-wide uppercase text-indigo-400 flex items-center gap-1.5">
+                    <i data-lucide="tag" class="w-3.5 h-3.5"></i> Category & Priority
+                </span>
+                <button id="editTopicPriorityBtn" class="text-[11px] text-indigo-300 underline hover:text-white transition">
+                    Customize Priority Order
+                </button>
+            </div>
+
+            <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+                <!-- Topic Pills -->
+                <button data-topic="priority" class="topic-pill active flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-500/25 transition">
+                    <i data-lucide="flame" class="w-3.5 h-3.5 text-amber-300"></i>
+                    <span>Priority Feed</span>
+                    <span id="count-top-priority" class="px-1.5 py-0.2 rounded-full text-[10px] bg-black/30 font-bold">0</span>
+                </button>
+
+                <button data-topic="job_market" class="topic-pill flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-slate-200 transition">
+                    <i data-lucide="briefcase" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    <span>Job Market</span>
+                    <span id="count-top-job_market" class="px-1.5 py-0.2 rounded-full text-[10px] bg-slate-900 text-slate-300">0</span>
+                </button>
+
+                <button data-topic="technology" class="topic-pill flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-slate-200 transition">
+                    <i data-lucide="cpu" class="w-3.5 h-3.5 text-indigo-400"></i>
+                    <span>Technology</span>
+                    <span id="count-top-technology" class="px-1.5 py-0.2 rounded-full text-[10px] bg-slate-900 text-slate-300">0</span>
+                </button>
+
+                <button data-topic="entertainment" class="topic-pill flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-slate-200 transition">
+                    <i data-lucide="film" class="w-3.5 h-3.5 text-purple-400"></i>
+                    <span>Entertainment</span>
+                    <span id="count-top-entertainment" class="px-1.5 py-0.2 rounded-full text-[10px] bg-slate-900 text-slate-300">0</span>
+                </button>
+
+                <button data-topic="general" class="topic-pill flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-slate-200 transition">
+                    <i data-lucide="newspaper" class="w-3.5 h-3.5 text-amber-400"></i>
+                    <span>General News</span>
+                    <span id="count-top-general" class="px-1.5 py-0.2 rounded-full text-[10px] bg-slate-900 text-slate-300">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 3. Source Filters & Search Bar Section -->
+        <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 glass-panel p-3.5 rounded-2xl border border-slate-800">
+            <!-- Search Box -->
+            <div class="relative flex-1">
+                <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                <input
+                    type="search"
+                    id="searchInput"
+                    name="news_search_query"
+                    autocomplete="off"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    spellcheck="false"
+                    data-lpignore="true"
+                    data-form-type="other"
+                    placeholder="Search news, topics, companies, or events..."
+                    class="w-full pl-10 pr-10 py-2 text-xs md:text-sm rounded-xl bg-slate-900/90 border border-slate-700/80 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition"
+                />
+                <button id="clearSearchBtn" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <!-- Source Chips with Live Interactive Counts -->
+            <div class="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0">
+                <span class="text-xs text-slate-400 font-semibold mr-1 flex items-center gap-1">
+                    <i data-lucide="filter" class="w-3.5 h-3.5"></i> Sources:
+                </span>
+
+                <button data-source="all" class="source-chip active px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white shadow-sm transition flex items-center gap-1.5">
+                    <span>All</span>
+                    <span id="count-src-all" class="text-[10px] opacity-80">(0)</span>
+                </button>
+
+                <button data-source="google" class="source-chip px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-800 transition flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                    <span>Google News</span>
+                    <span id="count-src-google" class="text-[10px] text-slate-400">(0)</span>
+                </button>
+
+                <button data-source="msn" class="source-chip px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-800 transition flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    <span>MSN News</span>
+                    <span id="count-src-msn" class="text-[10px] text-slate-400">(0)</span>
+                </button>
+
+                <button data-source="yahoo" class="source-chip px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-800 transition flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+                    <span>Yahoo News</span>
+                    <span id="count-src-yahoo" class="text-[10px] text-slate-400">(0)</span>
+                </button>
+
+                <button data-source="x" class="source-chip px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-800 transition flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+                    <span>X (Twitter)</span>
+                    <span id="count-src-x" class="text-[10px] text-slate-400">(0)</span>
+                </button>
+
+                <button data-source="moneycontrol" class="source-chip px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-800 transition flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                    <span>Moneycontrol</span>
+                    <span id="count-src-moneycontrol" class="text-[10px] text-slate-400">(0)</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Interactive Breadcrumbs & Active Filter Summary -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 px-1 text-xs">
+            <div class="flex items-center gap-2 flex-wrap">
+                <span class="font-bold text-slate-200 flex items-center gap-1.5" id="activeFilterBreadcrumb">
+                    <!-- Populated via JS -->
+                </span>
+                <span id="articleCountBadge" class="px-2 py-0.5 rounded-full bg-indigo-950/80 text-indigo-300 border border-indigo-800/60 font-semibold">
+                    0 articles
+                </span>
+            </div>
+
+            <button id="clearAllFiltersBtn" class="text-xs text-slate-400 hover:text-indigo-300 underline transition hidden">
+                Clear Filters (Reset)
+            </button>
+        </div>
+
+        <!-- News Articles Grid -->
+        <div id="articlesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- Dynamic Cards Injected Here -->
+        </div>
+
+        <!-- Loading State Skeleton -->
+        <div id="loadingState" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 animate-pulse space-y-3">
+                <div class="h-4 bg-slate-800 rounded w-1/3"></div>
+                <div class="h-6 bg-slate-800 rounded w-5/6"></div>
+                <div class="h-16 bg-slate-800 rounded"></div>
+            </div>
+            <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 animate-pulse space-y-3">
+                <div class="h-4 bg-slate-800 rounded w-1/3"></div>
+                <div class="h-6 bg-slate-800 rounded w-5/6"></div>
+                <div class="h-16 bg-slate-800 rounded"></div>
+            </div>
+            <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 animate-pulse space-y-3">
+                <div class="h-4 bg-slate-800 rounded w-1/3"></div>
+                <div class="h-6 bg-slate-800 rounded w-5/6"></div>
+                <div class="h-16 bg-slate-800 rounded"></div>
+            </div>
+        </div>
+
+        <!-- Empty State with Clear Filter Button -->
+        <div id="emptyState" class="hidden text-center py-16 space-y-4">
+            <div class="w-14 h-14 rounded-2xl bg-slate-800/80 mx-auto flex items-center justify-center text-slate-400 border border-slate-700">
+                <i data-lucide="inbox" class="w-7 h-7"></i>
+            </div>
+            <div>
+                <h3 class="text-base font-semibold text-slate-200">No articles match your active filters</h3>
+                <p class="text-xs text-slate-400 max-w-md mx-auto mt-1" id="emptyStateDetail">
+                    Try switching locations, topics, or sources to see more stories.
+                </p>
+            </div>
+            <div>
+                <button id="resetFiltersEmptyBtn" class="px-4 py-2 text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl shadow transition">
+                    Reset All Filters
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-auto border-t border-slate-800/80 py-6 px-4 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>
+                PulseNews Engine &bull; Interactive 3-Tier Filtering: Location &times; Category &times; Source
+            </div>
+            <div class="flex items-center gap-4 text-slate-400">
+                <span>Auto-refreshes on demand</span>
+                <span>&bull;</span>
+                <span class="text-indigo-400">Local news: Bengaluru & Odisha</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Priority Customizer Modal -->
+    <div id="priorityModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-cardDark border border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-5 animate-in fade-in zoom-in duration-150">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div class="flex items-center gap-2.5">
+                    <div class="p-2 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                        <i data-lucide="sliders-horizontal" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold text-slate-100">Customize Category Priority</h3>
+                        <p class="text-xs text-slate-400">Order topics from most important (#1) to least in Priority Feed</p>
+                    </div>
+                </div>
+                <button id="closePriorityModalBtn" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Priority List Items -->
+            <div class="space-y-2 max-h-80 overflow-y-auto pr-1" id="modalPriorityList">
+                <!-- Dynamically generated priority items -->
+            </div>
+
+            <!-- Optional X Bearer Token Setting -->
+            <div class="pt-2 border-t border-slate-800">
+                <label class="block text-xs font-semibold text-slate-300 mb-1 flex items-center justify-between">
+                    <span>Optional: X (Twitter) Bearer Token</span>
+                    <span class="text-[10px] text-slate-400 font-normal">Optional Developer API Key</span>
+                </label>
+                <input
+                    type="text"
+                    id="xTokenInput"
+                    name="x_token_config"
+                    autocomplete="off"
+                    spellcheck="false"
+                    data-lpignore="true"
+                    placeholder="Paste Twitter Bearer token (optional)"
+                    class="w-full px-3 py-2 text-xs rounded-xl bg-slate-900 border border-slate-800 text-slate-200 placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-indigo-500 font-mono"
+                />
+            </div>
+
+            <!-- Modal Action Buttons -->
+            <div class="flex items-center justify-between pt-3 border-t border-slate-800">
+                <button id="resetPriorityBtn" class="px-3.5 py-2 text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800 rounded-xl transition">
+                    Reset Defaults
+                </button>
+                <div class="flex items-center gap-2">
+                    <button id="cancelPriorityBtn" class="px-4 py-2 text-xs font-medium text-slate-300 hover:bg-slate-800 rounded-xl transition">
+                        Cancel
+                    </button>
+                    <button id="savePriorityBtn" class="px-5 py-2 text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl shadow-lg shadow-indigo-600/30 transition">
+                        Save & Apply
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slack Integration Modal -->
+    <div id="slackModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-cardDark border border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-5 animate-in fade-in zoom-in duration-150">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div class="flex items-center gap-2.5">
+                    <div class="p-2 rounded-xl bg-[#4A154B]/40 text-[#36C5F0] border border-purple-500/30">
+                        <i data-lucide="hash" class="w-5 h-5 text-[#ECB22E]"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold text-slate-100 flex items-center gap-2">
+                            <span>Slack Integration & Alerts</span>
+                            <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-[#4A154B] text-purple-200 border border-purple-500/40">Block Kit</span>
+                        </h3>
+                        <p class="text-xs text-slate-400">Dispatch live news briefings and alerts directly to your Slack channels</p>
+                    </div>
+                </div>
+                <button id="closeSlackModalBtn" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Instant Dispatch Quick Action -->
+            <div class="p-3.5 rounded-xl bg-purple-950/30 border border-purple-800/40 space-y-3">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-purple-300 flex items-center gap-1.5">
+                        <i data-lucide="send" class="w-4 h-4 text-[#36C5F0]"></i> Quick Channel Dispatch
+                    </span>
+                    <span id="slackStatusBadge" class="text-[10px] bg-slate-900 text-slate-300 px-2 py-0.5 rounded-full font-semibold border border-slate-700">Checking...</span>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                    Send a clean interactive card with your live <strong>Dashboard Link</strong> and current status directly into Slack, so you or your team can access the aggregator in one click.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center gap-2">
+                    <button id="sendDashboardNowBtn" class="w-full py-2 px-3 rounded-lg bg-[#4A154B] hover:bg-[#611f69] text-white text-xs font-bold flex items-center justify-center gap-2 shadow transition border border-purple-500/40 active:scale-95">
+                        <i data-lucide="layout-dashboard" class="w-3.5 h-3.5 text-[#36C5F0]"></i> Send Dashboard Link to Slack
+                    </button>
+                    <button id="sendDigestNowBtn" class="w-full sm:w-auto py-2 px-3 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition border border-slate-700 active:scale-95 whitespace-nowrap">
+                        <i data-lucide="newspaper" class="w-3.5 h-3.5 text-amber-400"></i> Send 5 Stories
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slack Webhook Setup -->
+            <div class="space-y-3.5 pt-1">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
+                    <i data-lucide="link-2" class="w-3.5 h-3.5 text-indigo-400"></i> Incoming Webhook Setup
+                </h4>
+
+                <!-- Webhook URL Input -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">
+                        Slack Webhook URL <span class="text-rose-400">*</span>
+                    </label>
+                    <input
+                        type="url"
+                        id="slackWebhookInput"
+                        placeholder="https://hooks.slack.com/services/T.../B.../..."
+                        class="w-full px-3 py-2 text-xs rounded-xl bg-slate-900 border border-slate-700 text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-purple-500 font-mono"
+                    />
+                </div>
+
+                <!-- Channel Override & Bot Name -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">
+                            Channel Override <span class="text-slate-500 font-normal">(Optional)</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="slackChannelInput"
+                            placeholder="e.g. #news or #general"
+                            class="w-full px-3 py-2 text-xs rounded-xl bg-slate-900 border border-slate-700 text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-purple-500 font-mono"
+                        />
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">
+                            Bot Display Name <span class="text-slate-500 font-normal">(Optional)</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="slackBotNameInput"
+                            placeholder="PulseNews Bot"
+                            class="w-full px-3 py-2 text-xs rounded-xl bg-slate-900 border border-slate-700 text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+                        />
+                    </div>
+                </div>
+
+                <!-- 1-Minute Webhook Guide -->
+                <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-[11px] space-y-1 text-slate-300">
+                    <p class="font-semibold text-purple-300 flex items-center gap-1">
+                        <i data-lucide="info" class="w-3.5 h-3.5 text-[#36C5F0]"></i> How to create a Slack Webhook in 1 minute (Free):
+                    </p>
+                    <ol class="list-decimal list-inside text-slate-400 space-y-0.5 text-[10.5px]">
+                        <li>Visit <a href="https://api.slack.com/apps" target="_blank" class="text-indigo-400 hover:underline">api.slack.com/apps</a> and click <strong>"Create New App" &gt; "From scratch"</strong>.</li>
+                        <li>Under <strong>Add features and functionality</strong>, click <strong>"Incoming Webhooks"</strong> and toggle it <strong>On</strong>.</li>
+                        <li>Click <strong>"Add New Webhook to Workspace"</strong>, choose your channel, and paste the Webhook URL above.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Modal Action Buttons -->
+            <div class="flex items-center justify-between pt-3 border-t border-slate-800">
+                <button id="testSlackBtn" class="px-3.5 py-2 text-xs font-semibold text-purple-200 bg-purple-950/60 hover:bg-purple-900 border border-purple-700/60 rounded-xl transition flex items-center gap-1.5 active:scale-95">
+                    <i data-lucide="send" class="w-3.5 h-3.5 text-[#36C5F0]"></i>
+                    <span id="testSlackBtnText">Send Test Message</span>
+                </button>
+                <div class="flex items-center gap-2">
+                    <button id="cancelSlackBtn" class="px-4 py-2 text-xs font-medium text-slate-300 hover:bg-slate-800 rounded-xl transition">
+                        Cancel
+                    </button>
+                    <button id="saveSlackBtn" class="px-5 py-2 text-xs font-bold bg-[#4A154B] hover:bg-[#611f69] text-white rounded-xl shadow-lg shadow-purple-900/40 border border-purple-500/40 transition active:scale-95">
+                        Save Settings
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toastNotification" class="fixed bottom-6 right-6 z-50 hidden max-w-md bg-slate-900 border border-slate-700 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 animate-in slide-in-from-bottom duration-200">
+        <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
+        <div class="text-xs" id="toastMessage">News refreshed successfully!</div>
+    </div>
+
+    <!-- App JavaScript -->
+    <script src="static/app.js"></script>
+</body>
+</html>

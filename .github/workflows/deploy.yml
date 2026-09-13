@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 */2 * * *' # Auto-refresh news every 2 hours
+    - cron: '0 */0.5 * * *' # Auto-refresh news every 30 minutes
   workflow_dispatch: # Allows manual refresh anytime from GitHub UI
 
 # Grant GITHUB_TOKEN permissions required to deploy to GitHub Pages

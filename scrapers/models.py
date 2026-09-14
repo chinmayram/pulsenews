@@ -253,7 +253,8 @@ GARBAGE_EXACT_TITLES = {
     "yahoo mail", "- yahoo mail", "msn weather", "winter weather",
     "all games", "chennai super kings",
     "business news, economic news, indian stock market news",
-    "latest news in shorts: business news, national news in short summaries"
+    "latest news in shorts: business news, national news in short summaries",
+    "oops, something went wrong"
 }
 
 GARBAGE_SUBSTRINGS = [

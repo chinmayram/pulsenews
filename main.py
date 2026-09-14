@@ -215,6 +215,11 @@ async def update_priority(req: PriorityUpdateRequest):
 async def get_stats():
     return aggregator.get_filter_counts()
 
+@app.get("/api/freshness")
+async def get_freshness(auto_fix: bool = Query(False, description="Run auto-repair if issues detected")):
+    from services.freshness_agent import freshness_agent
+    return await freshness_agent.check_all_sources(probe_live=True, auto_fix=auto_fix)
+
 @app.get("/api/slack/config")
 async def get_slack_config():
     settings = load_settings()

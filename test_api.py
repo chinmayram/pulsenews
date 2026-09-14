@@ -68,10 +68,17 @@ async def run_api_tests():
         assert "articles" in ref_data
         assert "filter_counts" in ref_data
         assert ref_data["last_refreshed"] > 0
-        print(f"   Success! Refreshed articles returned: {ref_data['count']}")
-        print(f"   Cache-Control header verified: {ref_resp.headers.get('Cache-Control')}")
+        print("\n9. Testing GET /api/freshness (Freshness Sub-Agent Endpoint)...")
+        fresh_resp = await client.get("/api/freshness")
+        assert fresh_resp.status_code == 200
+        fresh_data = fresh_resp.json()
+        assert "overall_status" in fresh_data
+        assert "sources" in fresh_data
+        print(f"   Success! Freshness Sub-Agent status: {fresh_data['overall_status']}")
+        for s_name, s_info in fresh_data['sources'].items():
+            print(f"   - {s_name.upper()}: count={s_info['article_count']}, newest={s_info['newest_age_min']}m, status={s_info['status']}")
 
-    print("\n All 3-tier interactive filter & live refresh tests PASSED successfully!")
+    print("\n All 3-tier interactive filter, live refresh & freshness tests PASSED successfully!")
 
 if __name__ == "__main__":
     asyncio.run(run_api_tests())

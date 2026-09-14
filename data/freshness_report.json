@@ -1,0 +1,181 @@
+{
+  "timestamp": 1789349397.3587048,
+  "last_refreshed_iso": 1789349380.7914512,
+  "overall_status": "HEALTHY",
+  "duration_seconds": 1.07,
+  "total_articles": 1434,
+  "sources": {
+    "google": {
+      "source": "google",
+      "status": "REALTIME_OK",
+      "article_count": 383,
+      "newest_age_min": 9.1,
+      "oldest_age_h": 24.0,
+      "sla_minutes": 30.0,
+      "is_fetching_latest": true,
+      "newest_article": {
+        "title": "Toxic OTT release and platform new details: When and where to watch Yash, Kiara Advani's Kannada gangster",
+        "link": "https://news.google.com/rss/articles/CBMiqANBVV95cUxOSFRoS1ktWUtOSjdXYkE5U200eVdHUTZuS09relVDU2pPX3ZabjdlV0VIVzdhRXlIc3p4dG5RcjZOSmRSNTE1ZlNHbE1JWW9FcG11WFVobTV3bjRXZUU4bHhTN2pRMUhIaTFJR3U4ZXlZNzBrRHhReVFISER6d19Dem82REliaVFBejBoV3pVVVZlbGVzNWFtQzRad25DSmZpY0dCcnBjMUp1UjFKWl9QMlJHYms1LVhSREplLUdkczJsaTI5d0owWThpWlUtUkcwNmlUREVjSzF1cjNEbWYtVWtsdUEzeW1xT0hiREh6YWIxemxwUjRtMmxJZTdqOEUwNExjN3gydFd6MEpOeUNmMmM0MjZFdlROeEpoMjYweGdBQkhJZWo5X2N2Q1JrOENLNjBOM2RwLTNBX2lNOU1QR3dFck8xM29Ga3RmVUZmZnltcHZBMUx3YWUtYTFIT2drMllYU3ZGcjcxUFB4Q3hsSHV5SnhfYmZnMkRrUU9OdWt1T1JVLWtSaEdrVDh6WXc4WTlGZ3JBS1RVcG4yVkJockV1V1ZvcGxi0gHEAkFVX3lxTE84UmhHeVN5OGFqb0pYN0FPUDdiSW9pQkxuaTBKdTVYRl9seWt1aVpISm05cEJpSVRhd3VjMVZ2bmFjb3p4TGg0MUFWblBBV1dtT1RKR3REQTgzVTFPTGdieVBTeWtQRkRfMTRUMVl2eUF2bWN6TXR1SkVmN1pLbjVwZWVEWG9ZNXliUDlfai14c3lXbHQwbTlmNHYxNTM2U3RZWmgzY1ZNUDBCaGJUN1JIRHRVOGdGSHlqS3RReFhXa2luRjJpX003em5wbkJNbnE5LUx3MUhvRHZfUzRxLWl1ZTVhYzMwS3NlSkxhTTM1UGVvczBMMkdoV1lCQmRWTHRLV2RPNDI2VVoyQ0pRMTZyMExKdzNIZ09wNlFtX1ozQVJ0VWNtRnZMS0hNMTJzejJKeDFWTUpNRi1JTUdEMktaaWM1MQ?oc=5",
+        "published_at": "Mon, 14 Sep 2026 01:20:50 GMT",
+        "published_relative": "8m ago",
+        "location": "india",
+        "topic": "entertainment"
+      },
+      "buckets": {
+        "under_30m": 3,
+        "30m_to_1h": 5,
+        "1h_to_3h": 29,
+        "3h_to_6h": 37,
+        "6h_to_24h": 309,
+        "over_24h": 0
+      },
+      "live_probe": {
+        "status": "ONLINE",
+        "http_status": 200,
+        "latency_ms": 150.2,
+        "entry_count": 38,
+        "live_newest_age_min": 149.9,
+        "live_newest_published": "Sun, 13 Sep 2026 23:00:00 GMT",
+        "live_newest_title": "StanChart Warns Oil Is Now Built for Sharper, More Frequent Spikes - Crude Oil P"
+      }
+    },
+    "msn": {
+      "source": "msn",
+      "status": "REALTIME_OK",
+      "article_count": 120,
+      "newest_age_min": 331.2,
+      "oldest_age_h": 23.7,
+      "sla_minutes": 480.0,
+      "is_fetching_latest": true,
+      "newest_article": {
+        "title": "Local production may be hit by high costs, says head of Nokia India Ops",
+        "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxPNVdDeUs1dEN4Yng5TVNUUENvNFV6Z215OGYxYkdiUmp1aURyQWUzOWtvT0pwWnAzT2ZPSUQydi14TDlXa3UyQXFwVnNBV0lZVG9ibmluQ3E2UGYzRWZUM0c1LXdvak9lUWYzWTM4UzhnZVd3TTlkdER0U2dfWTRsbWpWMzNjVGRwOC0zYV9jMVphMVNrT1dVcFJYc1dhWDBHMEx6Uzc0VkdVZGVWNTdQTGZrakhaQjJtTURNNElISWZrSHlQdlJoenRxS1cxd1pvX0Jib0pUUjFRNjk4Rm1nemVR?oc=5",
+        "published_at": "Sun, 13 Sep 2026 19:58:45 GMT",
+        "published_relative": "5h ago",
+        "location": "india",
+        "topic": "general"
+      },
+      "buckets": {
+        "under_30m": 0,
+        "30m_to_1h": 0,
+        "1h_to_3h": 0,
+        "3h_to_6h": 1,
+        "6h_to_24h": 119,
+        "over_24h": 0
+      },
+      "live_probe": {
+        "status": "ONLINE",
+        "http_status": 200,
+        "latency_ms": 551.1,
+        "entry_count": 12,
+        "live_newest_age_min": 432.0,
+        "live_newest_published": "Sun, 13 Sep 2026 18:18:00 GMT",
+        "live_newest_title": "US-Iran War Live Updates: Saudi Arabia issues warnings over potential danger in "
+      }
+    },
+    "yahoo": {
+      "source": "yahoo",
+      "status": "REALTIME_OK",
+      "article_count": 345,
+      "newest_age_min": 16.9,
+      "oldest_age_h": 24.0,
+      "sla_minutes": 60.0,
+      "is_fetching_latest": true,
+      "newest_article": {
+        "title": "Polls open in Philippine Muslim enclave after deadly shooting",
+        "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPTEhXX3dQcXRIa3djOElxeGsyczFGb2JzUnBsbUU5S2ZfTjVTblhqN1VpZ0ZGT0pRMWtpOUJpMmh3S0Y2QTBGMTk0djZrckI3NzAwTktNZFF2SHM3ak40Qzl0SVBYbS00Q1VZbnY4ZVU5cmNsXzFoU0dyZlhEQlB5RFl0TQ?oc=5",
+        "published_at": "Mon, 14 Sep 2026 01:13:00 GMT",
+        "published_relative": "16m ago",
+        "location": "india",
+        "topic": "general"
+      },
+      "buckets": {
+        "under_30m": 3,
+        "30m_to_1h": 4,
+        "1h_to_3h": 35,
+        "3h_to_6h": 51,
+        "6h_to_24h": 252,
+        "over_24h": 0
+      },
+      "live_probe": {
+        "status": "ONLINE",
+        "http_status": 200,
+        "latency_ms": 50.3,
+        "entry_count": 50,
+        "live_newest_age_min": 39.2,
+        "live_newest_published": "2026-09-14T00:50:46Z",
+        "live_newest_title": "Trump dismisses report China entities helped Iran before attack that killed US t"
+      }
+    },
+    "x": {
+      "source": "x",
+      "status": "REALTIME_OK",
+      "article_count": 509,
+      "newest_age_min": 2.6,
+      "oldest_age_h": 23.9,
+      "sla_minutes": 30.0,
+      "is_fetching_latest": true,
+      "newest_article": {
+        "title": "President Bongbong Marcos holds a press conference during the Kapihan with the Media in New Delhi, India on Sunday, September 13, 2026. WATCH: https://t.co/iuPV88IPiN",
+        "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE04NXg1cXNXeFkxVG00YmtCZkhTbUVsMGtfejYwb2RjeHNZeWhmRG9mMEh6V0UtMTZSRHF2eTM1bzFuWWNkTTRKd05BSHhFeGFmUnRheGdhV2pmMEZjdVRxLWZnTzAwb2tFUmx2ZjJLd3M?oc=5",
+        "published_at": "Mon, 14 Sep 2026 01:27:23 GMT",
+        "published_relative": "2m ago",
+        "location": "delhi",
+        "topic": "general"
+      },
+      "buckets": {
+        "under_30m": 29,
+        "30m_to_1h": 34,
+        "1h_to_3h": 27,
+        "3h_to_6h": 12,
+        "6h_to_24h": 407,
+        "over_24h": 0
+      },
+      "live_probe": {
+        "status": "ONLINE",
+        "http_status": 200,
+        "latency_ms": 166.5,
+        "entry_count": 84,
+        "live_newest_age_min": 2.6,
+        "live_newest_published": "Mon, 14 Sep 2026 01:27:23 GMT",
+        "live_newest_title": "President Bongbong Marcos holds a press conference during the Kapihan with the M"
+      }
+    },
+    "moneycontrol": {
+      "source": "moneycontrol",
+      "status": "REALTIME_OK",
+      "article_count": 77,
+      "newest_age_min": 11.9,
+      "oldest_age_h": 24.0,
+      "sla_minutes": 45.0,
+      "is_fetching_latest": true,
+      "newest_article": {
+        "title": "Daily Voice: Does risk-reward remain attractive in private banks? Rupen Rajguru of Julius Baer says weak monsoon, elevated oil prices could push inflation higher",
+        "link": "https://news.google.com/rss/articles/CBMixgJBVV95cUxOZi1KeWlLaERTYXRJUkpkRFpJVWN4SGxSQ25nUWQxLTUxMk1uTEJRM2NmOU1sTmtTakpLUTZRRS05VXFpYll4a3dhQVo1R0pGOU9LdTNtVUNSMkwyUzdSTnktYVM4OXJGSFNFeXRraW1kNERZcVZEZ2RUcW5TSnpUUmVSOElGNmNIdXhaNEJCUkM0eVdPQXM4czdXcEc1RWhIZW5YXzh2TkV1eFdPQ0hZZGtBTlNuZGdBR1pIem1aYWFQMGttMnd2clZQLTdrYlg5eUhNRDZvZFN2bGJxSGpHYmRfX3hGRFlQeXBzTnUtbGI0QXBQd3hCRkhYZkc2Vlp2RkQxSnRMOThrbC1ETlVOR09qTE9IUDRvRVFjX3RDM3RsLUNhSjU0Rm1OaC1XenpfWUFTWktaS1A3WF9HTUNWMW51UHp2UQ?oc=5",
+        "published_at": "Mon, 14 Sep 2026 01:18:01 GMT",
+        "published_relative": "11m ago",
+        "location": "global",
+        "topic": "general"
+      },
+      "buckets": {
+        "under_30m": 3,
+        "30m_to_1h": 0,
+        "1h_to_3h": 0,
+        "3h_to_6h": 1,
+        "6h_to_24h": 73,
+        "over_24h": 0
+      },
+      "live_probe": {
+        "status": "ONLINE",
+        "http_status": 200,
+        "latency_ms": 83.3,
+        "entry_count": 15,
+        "live_newest_age_min": 1258158.9,
+        "live_newest_published": "Tue, 23 Apr 2024 13:41:02 +0530",
+        "live_newest_title": "Buy HDFC Bank; target of Rs 1,850: ICICI Securities"
+      }
+    }
+  },
+  "issues": [],
+  "fixes_applied": []
+}

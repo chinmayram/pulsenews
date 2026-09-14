@@ -11,10 +11,16 @@ from scrapers.models import NewsArticle, format_relative_time, detect_location, 
 from config import LOCATIONS, TOPICS, load_settings
 
 X_QUERIES = [
+    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Delhi OR \"New Delhi\" OR NCR)", "loc": "delhi", "top": "general"},
+    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Mumbai OR Bombay)", "loc": "mumbai", "top": "general"},
     {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Bengaluru OR Bangalore)", "loc": "bengaluru", "top": "general"},
     {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Bengaluru OR Bangalore) (tech OR AI OR startup)", "loc": "bengaluru", "top": "technology"},
     {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Bengaluru OR Bangalore) (hiring OR jobs)", "loc": "bengaluru", "top": "job_market"},
     {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Bengaluru OR Bangalore) (movie OR cinema OR concert OR theatre OR entertainment)", "loc": "bengaluru", "top": "entertainment"},
+    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Chennai OR Madras)", "loc": "chennai", "top": "general"},
+    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Kolkata OR Calcutta)", "loc": "kolkata", "top": "general"},
+    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Hyderabad OR Secunderabad)", "loc": "hyderabad", "top": "general"},
+    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) Pune", "loc": "pune", "top": "general"},
     {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Odisha OR Bhubaneswar)", "loc": "odisha", "top": "general"},
     {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Odisha OR Bhubaneswar) (jobs OR employment)", "loc": "odisha", "top": "job_market"},
     {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Odisha OR Bhubaneswar) (tech OR software OR IT OR startup)", "loc": "odisha", "top": "technology"},

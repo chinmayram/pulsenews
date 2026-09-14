@@ -120,32 +120,69 @@ def detect_location(title: str, summary: str, default: str = "global") -> str:
     text = f"{title} {summary}".lower()
     t_lower = title.lower()
 
-    # 1. Direct Bengaluru / Karnataka matching
-    beng_keywords = [
-        "bengaluru", "bangalore", "karnataka", "bmtc", "bbmp", "whitefield",
-        "koramangala", "indiranagar", "mysuru", "electronic city", "sarjapur", "namma metro"
+    # City keyword maps: (location_id, keywords, guard_others)
+    city_rules = [
+        ("delhi", [
+            "delhi", "new delhi", "ncr", "noida", "gurgaon", "gurugram", "faridabad",
+            "ghaziabad", "dwarka", "connaught place", "janpath", "rashtrapati bhavan"
+        ]),
+        ("mumbai", [
+            "mumbai", "bombay", "bandra", "andheri", "worli", "navi mumbai",
+            "thane", "bse", "dalal street", "marine drive", "juhu", "powai"
+        ]),
+        ("bengaluru", [
+            "bengaluru", "bangalore", "karnataka", "bmtc", "bbmp", "whitefield",
+            "koramangala", "indiranagar", "mysuru", "electronic city", "sarjapur", "namma metro"
+        ]),
+        ("chennai", [
+            "chennai", "madras", "tamil nadu", "t nagar", "anna nagar", "adyar",
+            "tambaram", "velachery", "marina beach", "dmk", "aiadmk"
+        ]),
+        ("kolkata", [
+            "kolkata", "calcutta", "west bengal", "howrah", "salt lake", "rajarhat",
+            "park street", "esplanade", "jadavpur", "tollywood", "mamata", "tmc"
+        ]),
+        ("hyderabad", [
+            "hyderabad", "telangana", "secunderabad", "hitech city", "hitec city",
+            "gachibowli", "charminar", "cyberabad", "banjara hills", "madhapur"
+        ]),
+        ("pune", [
+            "pune", "pimpri", "chinchwad", "hinjewadi", "kharadi", "viman nagar",
+            "shivajinagar", "magarpatta", "hadapsar", "koregaon park"
+        ]),
     ]
-    if any(k in text for k in beng_keywords):
-        # Guard: If headline is primarily about another city/state and does not mention Bengaluru in title
-        other_cities = ["hyderabad", "telangana", "kolkata", "west bengal", "mumbai", "delhi", "chennai", "pune", "gujarat"]
-        if any(c in t_lower for c in other_cities) and not any(k in t_lower for k in beng_keywords):
-            return "india"
-        return "bengaluru"
 
-    # 2. Direct Odisha matching
+    # All city names for cross-guard checks
+    all_city_keywords = {}
+    for cid, kws in city_rules:
+        all_city_keywords[cid] = kws
+
+    # 1. Check each city
+    for city_id, keywords in city_rules:
+        if any(k in text for k in keywords):
+            # Guard: if headline mentions another city more prominently
+            other_cities_in_title = []
+            for other_id, other_kws in city_rules:
+                if other_id != city_id and any(k in t_lower for k in other_kws):
+                    other_cities_in_title.append(other_id)
+            if other_cities_in_title and not any(k in t_lower for k in keywords):
+                return "india"
+            return city_id
+
+    # 2. Odisha matching
     odisha_keywords = [
         "odisha", "bhubaneswar", "cuttack", "puri", "balasore", "sambalpur",
         "mayurbhanj", "rourkela", "paradip", "chandipur", "berhampur"
     ]
     if any(k in text for k in odisha_keywords):
-        # Guard: If headline is primarily about another state and does not mention Odisha in title
         other_regions = ["west bengal", "bengal", "kolkata", "bihar", "jharkhand", "assam"]
         if any(c in t_lower for c in other_regions) and not any(k in t_lower for k in odisha_keywords):
             return "india"
         return "odisha"
 
-    # If default was regional but article doesn't match regional keywords at all:
-    if default in ("bengaluru", "odisha"):
+    # If default was a regional city but article doesn't match regional keywords
+    regional_defaults = {"bengaluru", "odisha", "delhi", "mumbai", "chennai", "kolkata", "hyderabad", "pune"}
+    if default in regional_defaults:
         return "india"
 
     # 3. Global detection

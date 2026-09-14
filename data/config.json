@@ -6,11 +6,47 @@
       "icon": "map-pin",
       "badge": "Everywhere"
     },
+    "delhi": {
+      "id": "delhi",
+      "name": "Delhi NCR",
+      "icon": "building",
+      "badge": "Capital Region"
+    },
+    "mumbai": {
+      "id": "mumbai",
+      "name": "Mumbai",
+      "icon": "building-2",
+      "badge": "Financial Capital"
+    },
     "bengaluru": {
       "id": "bengaluru",
       "name": "Bengaluru",
       "icon": "building-2",
-      "badge": "Local City"
+      "badge": "Tech Capital"
+    },
+    "chennai": {
+      "id": "chennai",
+      "name": "Chennai",
+      "icon": "building-2",
+      "badge": "Metro City"
+    },
+    "kolkata": {
+      "id": "kolkata",
+      "name": "Kolkata",
+      "icon": "building-2",
+      "badge": "Metro City"
+    },
+    "hyderabad": {
+      "id": "hyderabad",
+      "name": "Hyderabad",
+      "icon": "building-2",
+      "badge": "Metro City"
+    },
+    "pune": {
+      "id": "pune",
+      "name": "Pune",
+      "icon": "building-2",
+      "badge": "Metro City"
     },
     "odisha": {
       "id": "odisha",

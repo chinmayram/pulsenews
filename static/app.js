@@ -118,7 +118,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const LOCATION_META = {
         all: { name: 'All Locations', icon: 'globe' },
+        delhi: { name: 'Delhi NCR', icon: 'building' },
+        mumbai: { name: 'Mumbai', icon: 'building-2' },
         bengaluru: { name: 'Bengaluru', icon: 'building-2' },
+        chennai: { name: 'Chennai', icon: 'building-2' },
+        kolkata: { name: 'Kolkata', icon: 'building-2' },
+        hyderabad: { name: 'Hyderabad', icon: 'building-2' },
+        pune: { name: 'Pune', icon: 'building-2' },
         odisha: { name: 'Odisha', icon: 'landmark' },
         india: { name: 'India', icon: 'flag' },
         global: { name: 'Global', icon: 'globe-2' }
@@ -475,7 +481,7 @@ document.addEventListener('DOMContentLoaded', () => {
             locBase = locBase.filter(a => (a.topic || '').toLowerCase() === activeTop.toLowerCase());
         }
         const locationCounts = { all: locBase.length };
-        ['bengaluru', 'odisha', 'india', 'global'].forEach(locId => {
+        Object.keys(LOCATION_META).filter(locId => locId !== 'all').forEach(locId => {
             locationCounts[locId] = locBase.filter(a => (a.location || '').toLowerCase() === locId).length;
         });
 

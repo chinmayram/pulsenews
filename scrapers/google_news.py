@@ -12,14 +12,38 @@ from config import LOCATIONS, TOPICS
 GOOGLE_QUERIES = [
     {"url": "https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "general"},
     {"url": "https://news.google.com/rss?hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "general"},
+    # Bengaluru
     {"url": "https://news.google.com/rss/search?q=Bengaluru+when:7d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "bengaluru", "top": "general"},
-    {"url": "https://news.google.com/rss/search?q=Odisha+when:7d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "odisha", "top": "general"},
     {"url": "https://news.google.com/rss/search?q=Bengaluru+(tech+OR+startup+OR+AI)+when:7d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "bengaluru", "top": "technology"},
     {"url": "https://news.google.com/rss/search?q=Bengaluru+(jobs+OR+hiring+OR+layoffs)+when:7d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "bengaluru", "top": "job_market"},
     {"url": "https://news.google.com/rss/search?q=Bengaluru+(movies+OR+cinema+OR+theatre+OR+entertainment)+when:7d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "bengaluru", "top": "entertainment"},
+    # Odisha
+    {"url": "https://news.google.com/rss/search?q=Odisha+when:7d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "odisha", "top": "general"},
     {"url": "https://news.google.com/rss/search?q=Odisha+(jobs+OR+employment+OR+industry)+when:7d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "odisha", "top": "job_market"},
     {"url": "https://news.google.com/rss/search?q=Odisha+(tech+OR+technology+OR+startup+OR+IT)+when:7d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "odisha", "top": "technology"},
     {"url": "https://news.google.com/rss/search?q=Odisha+(movies+OR+cinema+OR+theatre+OR+entertainment+OR+Ollywood)+when:7d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "odisha", "top": "entertainment"},
+    # Delhi NCR
+    {"url": "https://news.google.com/rss/search?q=Delhi+NCR+when:7d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "delhi", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=Delhi+(tech+OR+startup+OR+AI)+when:7d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "delhi", "top": "technology"},
+    {"url": "https://news.google.com/rss/search?q=Delhi+(jobs+OR+hiring+OR+layoffs)+when:7d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "delhi", "top": "job_market"},
+    # Mumbai
+    {"url": "https://news.google.com/rss/search?q=Mumbai+when:7d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "mumbai", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=Mumbai+(tech+OR+startup+OR+fintech)+when:7d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "mumbai", "top": "technology"},
+    {"url": "https://news.google.com/rss/search?q=Mumbai+(Bollywood+OR+movies+OR+cinema+OR+entertainment)+when:7d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "mumbai", "top": "entertainment"},
+    # Chennai
+    {"url": "https://news.google.com/rss/search?q=Chennai+when:7d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "chennai", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=Chennai+(tech+OR+IT+OR+startup)+when:7d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "chennai", "top": "technology"},
+    # Kolkata
+    {"url": "https://news.google.com/rss/search?q=Kolkata+when:7d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "kolkata", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=Kolkata+(tech+OR+IT+OR+startup)+when:7d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "kolkata", "top": "technology"},
+    # Hyderabad
+    {"url": "https://news.google.com/rss/search?q=Hyderabad+when:7d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "hyderabad", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=Hyderabad+(tech+OR+IT+OR+startup+OR+AI)+when:7d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "hyderabad", "top": "technology"},
+    {"url": "https://news.google.com/rss/search?q=Hyderabad+(Tollywood+OR+movies+OR+cinema+OR+entertainment)+when:7d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "hyderabad", "top": "entertainment"},
+    # Pune
+    {"url": "https://news.google.com/rss/search?q=Pune+when:7d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "pune", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=Pune+(tech+OR+IT+OR+startup)+when:7d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "pune", "top": "technology"},
+    # National & Global topic feeds
     {"url": "https://news.google.com/rss/search?q=India+(job+market+OR+hiring+OR+layoffs)+when:7d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "job_market"},
     {"url": "https://news.google.com/rss/headlines/section/topic/TECHNOLOGY?hl=en-IN&gl=IN&ceid=IN:en", "loc": "global", "top": "technology"},
     {"url": "https://news.google.com/rss/search?q=(job+market+OR+hiring+OR+layoffs+OR+employment+trends)+when:7d&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "job_market"},

@@ -19,10 +19,16 @@ MONEYCONTROL_FEEDS = [
     {"url": "https://www.moneycontrol.com/rss/buzzingstocks.xml", "loc": "india", "top": "general"},
 
     # Targeted Regional & Topic Feeds (site:moneycontrol.com via Google News RSS)
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Delhi+OR+intitle:NCR)&hl=en-IN&gl=IN&ceid=IN:en", "loc": "delhi", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+intitle:Mumbai&hl=en-IN&gl=IN&ceid=IN:en", "loc": "mumbai", "top": "general"},
     {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Bengaluru+OR+intitle:Bangalore)&hl=en-IN&gl=IN&ceid=IN:en", "loc": "bengaluru", "top": "general"},
     {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Bengaluru+OR+intitle:Bangalore)+(tech+OR+startup+OR+IT)&hl=en-IN&gl=IN&ceid=IN:en", "loc": "bengaluru", "top": "technology"},
     {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Bengaluru+OR+intitle:Bangalore)+(jobs+OR+hiring+OR+layoffs)&hl=en-IN&gl=IN&ceid=IN:en", "loc": "bengaluru", "top": "job_market"},
     {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Bengaluru+OR+intitle:Bangalore)+(entertainment+OR+cinema+OR+theatre)&hl=en-IN&gl=IN&ceid=IN:en", "loc": "bengaluru", "top": "entertainment"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+intitle:Chennai&hl=en-IN&gl=IN&ceid=IN:en", "loc": "chennai", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+intitle:Kolkata&hl=en-IN&gl=IN&ceid=IN:en", "loc": "kolkata", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+intitle:Hyderabad&hl=en-IN&gl=IN&ceid=IN:en", "loc": "hyderabad", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+intitle:Pune&hl=en-IN&gl=IN&ceid=IN:en", "loc": "pune", "top": "general"},
     {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Odisha+OR+intitle:Bhubaneswar)&hl=en-IN&gl=IN&ceid=IN:en", "loc": "odisha", "top": "general"},
     {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Odisha+OR+intitle:Bhubaneswar)+(jobs+OR+industry)&hl=en-IN&gl=IN&ceid=IN:en", "loc": "odisha", "top": "job_market"},
     {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Odisha+OR+intitle:Bhubaneswar)+(tech+OR+startup+OR+IT)&hl=en-IN&gl=IN&ceid=IN:en", "loc": "odisha", "top": "technology"},

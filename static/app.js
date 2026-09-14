@@ -741,7 +741,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (/^(news|msn|msn\s*-\s*msn|msn\s*-\s*msn\.com|yahoo|yahoo\s*mail|- yahoo mail|weather|home|sports)$/i.test(lowerTitle)) {
                 return;
             }
-            if (lowerTitle.includes('weather radar map') || lowerTitle.includes('air quality map') || lowerTitle.includes('| msn weather') || lowerTitle.includes('see all racing games')) {
+            if (lowerTitle.includes('weather radar map') || lowerTitle.includes('air quality map') || lowerTitle.includes('| msn weather') || lowerTitle.includes('see all racing games') || lowerTitle.includes('business news, economic news') || lowerTitle.includes('cricket career') || lowerTitle.includes('icc ranking')) {
                 return;
             }
 

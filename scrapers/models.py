@@ -251,7 +251,9 @@ GARBAGE_EXACT_TITLES = {
     "msn - msn", "msn - msn.com", "news - msn", "news - msn.com",
     "top stories", "top engaging news", "latest news", "breaking news",
     "yahoo mail", "- yahoo mail", "msn weather", "winter weather",
-    "all games", "chennai super kings"
+    "all games", "chennai super kings",
+    "business news, economic news, indian stock market news",
+    "latest news in shorts: business news, national news in short summaries"
 }
 
 GARBAGE_SUBSTRINGS = [
@@ -273,6 +275,17 @@ GARBAGE_SUBSTRINGS = [
     "parking plot",
     "location details of",
     "stock quotes, business news and data",
+    "| cricket career",
+    "icc ranking",
+    "player profile",
+    "company history of",
+    "> company history",
+    "stock price,",
+    "market indices,",
+    "stock performance & comparison",
+    "latest news in shorts",
+    "live ball by ball commentary",
+    "national stock exchange of india ipo",
 ]
 
 def is_valid_headline(title: str, summary: str = "", link: str = "") -> bool:

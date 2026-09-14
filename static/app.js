@@ -650,9 +650,40 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function formatExactTime(epochSeconds) {
+        if (!epochSeconds) return '';
+        const ms = epochSeconds > 1e11 ? epochSeconds : epochSeconds * 1000;
+        const d = new Date(ms);
+        return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+    }
+
+    function formatFullTimestamp(epochSeconds) {
+        if (!epochSeconds) return 'Just now';
+        const ms = epochSeconds > 1e11 ? epochSeconds : epochSeconds * 1000;
+        const d = new Date(ms);
+        return d.toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' }) + ' at ' +
+               d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+    }
+
     function updateLastRefreshedDisplay() {
+        const relText = state.lastRefreshed ? timeAgo(state.lastRefreshed) : 'Just now';
+        const exactTime = state.lastRefreshed ? `(${formatExactTime(state.lastRefreshed)})` : '';
+        const fullTitle = state.lastRefreshed
+            ? `Data last scraped: ${formatFullTimestamp(state.lastRefreshed)} across 5 news engines. Tap/click for details.`
+            : 'Data was refreshed just now';
+
+        document.querySelectorAll('.lastRefreshedTime').forEach(el => {
+            el.textContent = relText;
+        });
+        document.querySelectorAll('.lastRefreshedExact').forEach(el => {
+            el.textContent = exactTime;
+        });
+        document.querySelectorAll('.lastRefreshedBadge').forEach(el => {
+            el.setAttribute('title', fullTitle);
+        });
+
         if (elements.lastRefreshedTime) {
-            elements.lastRefreshedTime.textContent = state.lastRefreshed ? timeAgo(state.lastRefreshed) : 'Just now';
+            elements.lastRefreshedTime.textContent = relText;
         }
     }
 
@@ -931,6 +962,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (elements.refreshBtnMobile) {
         elements.refreshBtnMobile.addEventListener('click', handleRefresh);
     }
+
+    // Tap/Click to view exact scrape timestamp on mobile or desktop
+    document.querySelectorAll('.lastRefreshedBadge').forEach(badge => {
+        badge.addEventListener('click', () => {
+            if (state.lastRefreshed) {
+                showToast(`🕒 Refreshed: ${formatFullTimestamp(state.lastRefreshed)}`);
+            } else {
+                showToast('🕒 Data was refreshed just now');
+            }
+        });
+    });
 
     // Priority Customizer Modal
     let localPriorityOrder = [];

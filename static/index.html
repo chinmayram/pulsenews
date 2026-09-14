@@ -68,12 +68,26 @@
                 </div>
             </div>
 
+            <!-- Mobile Sub-Bar: Last Refreshed info & Engine Status visible directly on mobile -->
+            <div class="flex md:hidden items-center justify-between w-full pt-1.5 pb-0.5 border-t border-slate-800/70 text-xs">
+                <button type="button" class="lastRefreshedBadge flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/90 hover:bg-slate-800 border border-slate-800 text-slate-300 active:scale-95 transition text-left" title="Tap to view exact scrape timestamp">
+                    <i data-lucide="clock" class="w-3 h-3 text-indigo-400 flex-shrink-0"></i>
+                    <span class="text-[11px]">Updated: <strong class="lastRefreshedTime text-slate-100 font-semibold">Just now</strong></span>
+                    <span class="lastRefreshedExact text-[10px] text-indigo-300 font-mono"></span>
+                </button>
+                <div class="flex items-center gap-1.5 text-[10px] text-slate-400">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>5 Engines Live</span>
+                </div>
+            </div>
+
             <!-- Action Controls & Status (Desktop only) -->
             <div class="desktop-actions hidden md:flex items-center gap-3 w-full md:w-auto justify-end">
-                <div class="hidden sm:flex items-center text-xs text-slate-400 bg-slate-800/60 px-3 py-1.5 rounded-lg border border-slate-700/50">
-                    <i data-lucide="clock" class="w-3.5 h-3.5 mr-1.5 text-slate-400"></i>
-                    <span>Updated: <strong id="lastRefreshedTime" class="text-slate-200">Just now</strong></span>
-                </div>
+                <button type="button" class="lastRefreshedBadge flex items-center text-xs text-slate-300 bg-slate-800/80 hover:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700/60 shadow-sm transition active:scale-95 cursor-pointer" title="Click to view exact scrape timestamp">
+                    <i data-lucide="clock" class="w-3.5 h-3.5 mr-1.5 text-indigo-400 flex-shrink-0"></i>
+                    <span>Updated: <strong class="lastRefreshedTime text-slate-100 font-semibold" id="lastRefreshedTime">Just now</strong></span>
+                    <span class="lastRefreshedExact ml-1.5 text-[11px] text-indigo-300 font-mono"></span>
+                </button>
 
                 <!-- Send Dashboard Link to Slack Button -->
                 <button id="sendSlackDashboardBtn" class="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-[#4A154B] hover:bg-[#611f69] border border-purple-500/40 text-white shadow-md shadow-purple-950/30 transition active:scale-95" title="Send PulseNews Dashboard link to Slack channel">
@@ -306,6 +320,11 @@
                 <span id="articleCountBadge" class="px-2 py-0.5 rounded-full bg-indigo-950/80 text-indigo-300 border border-indigo-800/60 font-semibold">
                     0 articles
                 </span>
+                <button type="button" class="lastRefreshedBadge inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-900/80 hover:bg-slate-800 border border-slate-800 text-[11px] text-slate-400 cursor-pointer transition active:scale-95" title="Tap/click to view exact scrape timestamp">
+                    <i data-lucide="clock" class="w-3 h-3 text-indigo-400"></i>
+                    <span>Updated: <strong class="lastRefreshedTime text-slate-300 font-medium">Just now</strong></span>
+                    <span class="lastRefreshedExact text-[10px] text-indigo-300 font-mono"></span>
+                </button>
             </div>
 
             <button id="clearAllFiltersBtn" class="text-xs text-slate-400 hover:text-indigo-300 underline transition hidden">

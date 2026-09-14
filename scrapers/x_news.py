@@ -7,31 +7,41 @@ from dateutil import parser as date_parser
 import feedparser
 import httpx
 
-from scrapers.models import NewsArticle, format_relative_time, detect_location, detect_topic, get_article_image
+from scrapers.models import NewsArticle, format_relative_time, detect_location, detect_topic, get_article_image, is_valid_headline
 from config import LOCATIONS, TOPICS, load_settings
 
 X_QUERIES = [
-    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Delhi OR \"New Delhi\" OR NCR)", "loc": "delhi", "top": "general"},
-    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Mumbai OR Bombay)", "loc": "mumbai", "top": "general"},
-    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Bengaluru OR Bangalore)", "loc": "bengaluru", "top": "general"},
-    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Bengaluru OR Bangalore) (tech OR AI OR startup)", "loc": "bengaluru", "top": "technology"},
-    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Bengaluru OR Bangalore) (hiring OR jobs)", "loc": "bengaluru", "top": "job_market"},
-    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Bengaluru OR Bangalore) (movie OR cinema OR concert OR theatre OR entertainment)", "loc": "bengaluru", "top": "entertainment"},
-    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Chennai OR Madras)", "loc": "chennai", "top": "general"},
-    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Kolkata OR Calcutta)", "loc": "kolkata", "top": "general"},
-    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Hyderabad OR Secunderabad)", "loc": "hyderabad", "top": "general"},
-    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) Pune", "loc": "pune", "top": "general"},
-    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Odisha OR Bhubaneswar)", "loc": "odisha", "top": "general"},
-    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Odisha OR Bhubaneswar) (jobs OR employment)", "loc": "odisha", "top": "job_market"},
-    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Odisha OR Bhubaneswar) (tech OR software OR IT OR startup)", "loc": "odisha", "top": "technology"},
-    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Odisha OR Bhubaneswar) (movie OR cinema OR Ollywood OR festival)", "loc": "odisha", "top": "entertainment"},
-    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (India news OR politics OR economy)", "loc": "india", "top": "general"},
-    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (hiring OR layoffs OR \"job market\" OR \"tech jobs\")", "loc": "india", "top": "job_market"},
-    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (AI OR \"artificial intelligence\" OR tech OR software)", "loc": "global", "top": "technology"},
-    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (hiring OR layoffs OR \"job market\" OR \"career opportunities\")", "loc": "global", "top": "job_market"},
-    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (movie OR Bollywood OR cinema OR trailer)", "loc": "india", "top": "entertainment"},
-    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (Hollywood OR movie trailer OR cinema OR Netflix)", "loc": "global", "top": "entertainment"},
-    {"q": "(site:x.com/*/status OR site:twitter.com/*/status) (breaking news OR world news)", "loc": "global", "top": "general"},
+    # Breaking Hour Booster Feeds (Last 1-2 hours)
+    {"q": "(site:x.com OR site:twitter.com) (India OR breaking OR news) when:1h", "loc": "india", "top": "general"},
+    {"q": "(site:x.com OR site:twitter.com) (world OR breaking OR news) when:1h", "loc": "global", "top": "general"},
+    {"q": "(site:x.com OR site:twitter.com) (tech OR AI OR startup OR software) when:1h", "loc": "global", "top": "technology"},
+    {"q": "(site:x.com OR site:twitter.com) (hiring OR layoffs OR jobs) when:2h", "loc": "india", "top": "job_market"},
+    {"q": "(site:x.com OR site:twitter.com) (Delhi OR Mumbai OR Bengaluru) when:2h", "loc": "bengaluru", "top": "general"},
+
+    # Regional Metropolitan Feeds
+    {"q": "(site:x.com OR site:twitter.com) (Delhi OR \"New Delhi\" OR NCR)", "loc": "delhi", "top": "general"},
+    {"q": "(site:x.com OR site:twitter.com) (Mumbai OR Bombay)", "loc": "mumbai", "top": "general"},
+    {"q": "(site:x.com OR site:twitter.com) (Bengaluru OR Bangalore)", "loc": "bengaluru", "top": "general"},
+    {"q": "(site:x.com OR site:twitter.com) (Bengaluru OR Bangalore) (tech OR AI OR startup)", "loc": "bengaluru", "top": "technology"},
+    {"q": "(site:x.com OR site:twitter.com) (Bengaluru OR Bangalore) (hiring OR jobs)", "loc": "bengaluru", "top": "job_market"},
+    {"q": "(site:x.com OR site:twitter.com) (Bengaluru OR Bangalore) (movie OR cinema OR concert OR theatre OR entertainment)", "loc": "bengaluru", "top": "entertainment"},
+    {"q": "(site:x.com OR site:twitter.com) (Chennai OR Madras)", "loc": "chennai", "top": "general"},
+    {"q": "(site:x.com OR site:twitter.com) (Kolkata OR Calcutta)", "loc": "kolkata", "top": "general"},
+    {"q": "(site:x.com OR site:twitter.com) (Hyderabad OR Secunderabad)", "loc": "hyderabad", "top": "general"},
+    {"q": "(site:x.com OR site:twitter.com) Pune", "loc": "pune", "top": "general"},
+    {"q": "(site:x.com OR site:twitter.com) (Odisha OR Bhubaneswar)", "loc": "odisha", "top": "general"},
+    {"q": "(site:x.com OR site:twitter.com) (Odisha OR Bhubaneswar) (jobs OR employment)", "loc": "odisha", "top": "job_market"},
+    {"q": "(site:x.com OR site:twitter.com) (Odisha OR Bhubaneswar) (tech OR software OR IT OR startup)", "loc": "odisha", "top": "technology"},
+    {"q": "(site:x.com OR site:twitter.com) (Odisha OR Bhubaneswar) (movie OR cinema OR Ollywood OR festival)", "loc": "odisha", "top": "entertainment"},
+
+    # National & Topics
+    {"q": "(site:x.com OR site:twitter.com) (India news OR politics OR economy)", "loc": "india", "top": "general"},
+    {"q": "(site:x.com OR site:twitter.com) (hiring OR layoffs OR \"job market\" OR \"tech jobs\")", "loc": "india", "top": "job_market"},
+    {"q": "(site:x.com OR site:twitter.com) (AI OR \"artificial intelligence\" OR tech OR software)", "loc": "global", "top": "technology"},
+    {"q": "(site:x.com OR site:twitter.com) (hiring OR layoffs OR \"job market\" OR \"career opportunities\")", "loc": "global", "top": "job_market"},
+    {"q": "(site:x.com OR site:twitter.com) (movie OR Bollywood OR cinema OR trailer)", "loc": "india", "top": "entertainment"},
+    {"q": "(site:x.com OR site:twitter.com) (Hollywood OR movie trailer OR cinema OR Netflix)", "loc": "global", "top": "entertainment"},
+    {"q": "(site:x.com OR site:twitter.com) (breaking news OR world news)", "loc": "global", "top": "general"},
 ]
 
 def clean_html(raw_html: str) -> str:
@@ -72,7 +82,9 @@ async def scrape_x_news(client: httpx.AsyncClient) -> List[NewsArticle]:
     articles: List[NewsArticle] = []
 
     for item in X_QUERIES:
-        q = f"{item['q']} when:1d"
+        q = item["q"]
+        if "when:" not in q:
+            q = f"{q} when:1d"
         def_loc = item["loc"]
         def_top = item["top"]
         encoded = httpx.URL("", params={"q": q, "hl": "en-IN", "gl": "IN", "ceid": "IN:en"}).params
@@ -85,7 +97,7 @@ async def scrape_x_news(client: httpx.AsyncClient) -> List[NewsArticle]:
 
             now = time.time()
             feed = feedparser.parse(response.text)
-            for entry in feed.entries[:15]:
+            for entry in feed.entries[:25]:
                 raw_title = entry.get("title", "").strip()
                 link = entry.get("link", "").strip()
                 if not raw_title or not link:
@@ -97,6 +109,9 @@ async def scrape_x_news(client: httpx.AsyncClient) -> List[NewsArticle]:
                 summary = clean_html(entry.get("summary", entry.get("description", "")))
                 if not summary or summary == raw_title:
                     summary = clean_title
+
+                if not is_valid_headline(clean_title, summary, link):
+                    continue
 
                 author = extract_x_author(clean_title)
 

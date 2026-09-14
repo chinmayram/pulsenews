@@ -1,21 +1,21 @@
 {
-  "timestamp": 1789348660.2718475,
+  "timestamp": 1789348889.5982356,
   "sources": {
     "google": {
       "total_queries": 31,
       "dead_queries": 0,
       "stale_queries": 0,
-      "total_entries_fetched": 1893,
-      "fresh_entries_24h": 1797,
+      "total_entries_fetched": 1892,
+      "fresh_entries_24h": 1793,
       "query_health_pct": 100.0,
-      "freshness_pct": 94.9,
+      "freshness_pct": 94.8,
       "query_stats": [
         {
           "url": "https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en",
           "location": "global",
           "topic": "general",
           "status": 200,
-          "latency_ms": 117.1,
+          "latency_ms": 99.6,
           "entries": 38,
           "fresh_24h": 37
         },
@@ -24,16 +24,16 @@
           "location": "india",
           "topic": "general",
           "status": 200,
-          "latency_ms": 30.2,
+          "latency_ms": 17.0,
           "entries": 38,
-          "fresh_24h": 32
+          "fresh_24h": 31
         },
         {
           "url": "https://news.google.com/rss/search?q=Bengaluru+when:1d&hl=en-IN&gl=IN&ceid=IN:en",
           "location": "bengaluru",
           "topic": "general",
           "status": 200,
-          "latency_ms": 16.8,
+          "latency_ms": 20.0,
           "entries": 100,
           "fresh_24h": 100
         },
@@ -42,7 +42,7 @@
           "location": "bengaluru",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 12.9,
+          "latency_ms": 24.7,
           "entries": 31,
           "fresh_24h": 31
         },
@@ -51,7 +51,7 @@
           "location": "bengaluru",
           "topic": "job_market",
           "status": 200,
-          "latency_ms": 17.2,
+          "latency_ms": 16.6,
           "entries": 10,
           "fresh_24h": 10
         },
@@ -60,7 +60,7 @@
           "location": "bengaluru",
           "topic": "entertainment",
           "status": 200,
-          "latency_ms": 28.4,
+          "latency_ms": 17.1,
           "entries": 58,
           "fresh_24h": 58
         },
@@ -69,7 +69,7 @@
           "location": "odisha",
           "topic": "general",
           "status": 200,
-          "latency_ms": 27.2,
+          "latency_ms": 16.2,
           "entries": 100,
           "fresh_24h": 100
         },
@@ -78,7 +78,7 @@
           "location": "odisha",
           "topic": "job_market",
           "status": 200,
-          "latency_ms": 15.7,
+          "latency_ms": 17.2,
           "entries": 33,
           "fresh_24h": 33
         },
@@ -87,7 +87,7 @@
           "location": "odisha",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 15.3,
+          "latency_ms": 16.7,
           "entries": 35,
           "fresh_24h": 35
         },
@@ -96,7 +96,7 @@
           "location": "odisha",
           "topic": "entertainment",
           "status": 200,
-          "latency_ms": 15.7,
+          "latency_ms": 17.2,
           "entries": 57,
           "fresh_24h": 57
         },
@@ -105,7 +105,7 @@
           "location": "delhi",
           "topic": "general",
           "status": 200,
-          "latency_ms": 0.6,
+          "latency_ms": 15.3,
           "entries": 49,
           "fresh_24h": 49
         },
@@ -114,7 +114,7 @@
           "location": "delhi",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 17.4,
+          "latency_ms": 17.0,
           "entries": 43,
           "fresh_24h": 43
         },
@@ -123,16 +123,16 @@
           "location": "delhi",
           "topic": "job_market",
           "status": 200,
-          "latency_ms": 8.0,
-          "entries": 53,
-          "fresh_24h": 53
+          "latency_ms": 2.0,
+          "entries": 52,
+          "fresh_24h": 52
         },
         {
           "url": "https://news.google.com/rss/search?q=Mumbai+when:1d&hl=en-IN&gl=IN&ceid=IN:en",
           "location": "mumbai",
           "topic": "general",
           "status": 200,
-          "latency_ms": 16.6,
+          "latency_ms": 16.8,
           "entries": 100,
           "fresh_24h": 100
         },
@@ -141,7 +141,7 @@
           "location": "mumbai",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 1.3,
+          "latency_ms": 17.2,
           "entries": 58,
           "fresh_24h": 58
         },
@@ -150,7 +150,7 @@
           "location": "mumbai",
           "topic": "entertainment",
           "status": 200,
-          "latency_ms": 25.7,
+          "latency_ms": 22.3,
           "entries": 100,
           "fresh_24h": 100
         },
@@ -159,7 +159,7 @@
           "location": "chennai",
           "topic": "general",
           "status": 200,
-          "latency_ms": 16.6,
+          "latency_ms": 14.2,
           "entries": 100,
           "fresh_24h": 100
         },
@@ -168,7 +168,7 @@
           "location": "chennai",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 16.7,
+          "latency_ms": 16.0,
           "entries": 36,
           "fresh_24h": 36
         },
@@ -186,16 +186,16 @@
           "location": "kolkata",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 2.8,
-          "entries": 33,
-          "fresh_24h": 33
+          "latency_ms": 16.1,
+          "entries": 34,
+          "fresh_24h": 34
         },
         {
           "url": "https://news.google.com/rss/search?q=Hyderabad+when:1d&hl=en-IN&gl=IN&ceid=IN:en",
           "location": "hyderabad",
           "topic": "general",
           "status": 200,
-          "latency_ms": 13.2,
+          "latency_ms": 16.7,
           "entries": 100,
           "fresh_24h": 100
         },
@@ -204,7 +204,7 @@
           "location": "hyderabad",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 14.2,
+          "latency_ms": 19.0,
           "entries": 37,
           "fresh_24h": 37
         },
@@ -213,7 +213,7 @@
           "location": "hyderabad",
           "topic": "entertainment",
           "status": 200,
-          "latency_ms": 17.0,
+          "latency_ms": 9.0,
           "entries": 61,
           "fresh_24h": 61
         },
@@ -222,7 +222,7 @@
           "location": "pune",
           "topic": "general",
           "status": 200,
-          "latency_ms": 16.7,
+          "latency_ms": 16.9,
           "entries": 100,
           "fresh_24h": 100
         },
@@ -231,7 +231,7 @@
           "location": "pune",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 17.1,
+          "latency_ms": 21.2,
           "entries": 39,
           "fresh_24h": 39
         },
@@ -240,7 +240,7 @@
           "location": "india",
           "topic": "job_market",
           "status": 200,
-          "latency_ms": 17.0,
+          "latency_ms": 24.2,
           "entries": 52,
           "fresh_24h": 52
         },
@@ -249,9 +249,9 @@
           "location": "global",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 233.4,
+          "latency_ms": 82.6,
           "entries": 70,
-          "fresh_24h": 30
+          "fresh_24h": 28
         },
         {
           "url": "https://news.google.com/rss/search?q=(job+market+OR+hiring+OR+layoffs+OR+employment+t...",
@@ -259,15 +259,15 @@
           "topic": "job_market",
           "status": 200,
           "latency_ms": 16.6,
-          "entries": 36,
-          "fresh_24h": 36
+          "entries": 35,
+          "fresh_24h": 35
         },
         {
           "url": "https://news.google.com/rss/headlines/section/topic/ENTERTAINMENT?hl=en-IN&gl=IN&ceid...",
           "location": "india",
           "topic": "entertainment",
           "status": 200,
-          "latency_ms": 84.6,
+          "latency_ms": 85.3,
           "entries": 70,
           "fresh_24h": 37
         },
@@ -276,7 +276,7 @@
           "location": "india",
           "topic": "entertainment",
           "status": 200,
-          "latency_ms": 16.7,
+          "latency_ms": 16.5,
           "entries": 100,
           "fresh_24h": 100
         },
@@ -285,7 +285,7 @@
           "location": "global",
           "topic": "entertainment",
           "status": 200,
-          "latency_ms": 83.7,
+          "latency_ms": 67.0,
           "entries": 56,
           "fresh_24h": 40
         }
@@ -294,18 +294,18 @@
     "msn": {
       "total_queries": 27,
       "dead_queries": 1,
-      "stale_queries": 4,
+      "stale_queries": 5,
       "total_entries_fetched": 241,
-      "fresh_entries_24h": 152,
+      "fresh_entries_24h": 156,
       "query_health_pct": 96.3,
-      "freshness_pct": 63.1,
+      "freshness_pct": 64.7,
       "query_stats": [
         {
           "url": "https://news.google.com/rss/search?q=site:msn.com/en-in+(news+OR+police+OR+court+OR+g...",
           "location": "india",
           "topic": "general",
           "status": 200,
-          "latency_ms": 16.7,
+          "latency_ms": 16.6,
           "entries": 4,
           "fresh_24h": 3
         },
@@ -314,7 +314,7 @@
           "location": "global",
           "topic": "general",
           "status": 200,
-          "latency_ms": 16.8,
+          "latency_ms": 19.9,
           "entries": 1,
           "fresh_24h": 0
         },
@@ -323,7 +323,7 @@
           "location": "india",
           "topic": "job_market",
           "status": 200,
-          "latency_ms": 3.0,
+          "latency_ms": 14.0,
           "entries": 2,
           "fresh_24h": 1
         },
@@ -332,7 +332,7 @@
           "location": "india",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 0.0,
+          "latency_ms": 16.9,
           "entries": 4,
           "fresh_24h": 3
         },
@@ -341,7 +341,7 @@
           "location": "india",
           "topic": "entertainment",
           "status": 200,
-          "latency_ms": 0.0,
+          "latency_ms": 16.2,
           "entries": 0,
           "fresh_24h": 0
         },
@@ -350,7 +350,7 @@
           "location": "global",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 10.6,
+          "latency_ms": 14.3,
           "entries": 3,
           "fresh_24h": 2
         },
@@ -359,7 +359,7 @@
           "location": "global",
           "topic": "job_market",
           "status": 200,
-          "latency_ms": 13.3,
+          "latency_ms": 11.8,
           "entries": 1,
           "fresh_24h": 1
         },
@@ -368,7 +368,7 @@
           "location": "global",
           "topic": "entertainment",
           "status": 200,
-          "latency_ms": 4.8,
+          "latency_ms": 15.8,
           "entries": 4,
           "fresh_24h": 4
         },
@@ -377,7 +377,7 @@
           "location": "delhi",
           "topic": "general",
           "status": 200,
-          "latency_ms": 467.3,
+          "latency_ms": 467.5,
           "entries": 11,
           "fresh_24h": 11
         },
@@ -386,25 +386,25 @@
           "location": "mumbai",
           "topic": "general",
           "status": 200,
-          "latency_ms": 333.8,
+          "latency_ms": 269.8,
           "entries": 12,
-          "fresh_24h": 8
+          "fresh_24h": 12
         },
         {
           "url": "https://www.bing.com/news/search?q=Bengaluru+news&qft=sortbydate%3d%221%22&format=rss",
           "location": "bengaluru",
           "topic": "general",
           "status": 200,
-          "latency_ms": 387.9,
+          "latency_ms": 2066.5,
           "entries": 12,
-          "fresh_24h": 10
+          "fresh_24h": 12
         },
         {
           "url": "https://www.bing.com/news/search?q=Bengaluru+tech+startups&qft=sortbydate%3d%221%22&f...",
           "location": "bengaluru",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 387.6,
+          "latency_ms": 234.0,
           "entries": 12,
           "fresh_24h": 0
         },
@@ -413,7 +413,7 @@
           "location": "bengaluru",
           "topic": "job_market",
           "status": 200,
-          "latency_ms": 651.9,
+          "latency_ms": 216.7,
           "entries": 11,
           "fresh_24h": 4
         },
@@ -422,7 +422,7 @@
           "location": "chennai",
           "topic": "general",
           "status": 200,
-          "latency_ms": 1266.4,
+          "latency_ms": 237.1,
           "entries": 12,
           "fresh_24h": 10
         },
@@ -431,34 +431,34 @@
           "location": "kolkata",
           "topic": "general",
           "status": 200,
-          "latency_ms": 284.7,
+          "latency_ms": 227.9,
           "entries": 12,
-          "fresh_24h": 9
+          "fresh_24h": 10
         },
         {
           "url": "https://www.bing.com/news/search?q=Hyderabad+news&qft=sortbydate%3d%221%22&format=rss",
           "location": "hyderabad",
           "topic": "general",
           "status": 200,
-          "latency_ms": 316.8,
+          "latency_ms": 227.5,
           "entries": 12,
-          "fresh_24h": 12
+          "fresh_24h": 11
         },
         {
           "url": "https://www.bing.com/news/search?q=Pune+news&qft=sortbydate%3d%221%22&format=rss",
           "location": "pune",
           "topic": "general",
           "status": 200,
-          "latency_ms": 1535.1,
+          "latency_ms": 367.5,
           "entries": 12,
-          "fresh_24h": 9
+          "fresh_24h": 10
         },
         {
           "url": "https://www.bing.com/news/search?q=Odisha+news&qft=sortbydate%3d%221%22&format=rss",
           "location": "odisha",
           "topic": "general",
           "status": 200,
-          "latency_ms": 277.4,
+          "latency_ms": 233.4,
           "entries": 12,
           "fresh_24h": 12
         },
@@ -467,16 +467,16 @@
           "location": "odisha",
           "topic": "general",
           "status": 200,
-          "latency_ms": 282.8,
+          "latency_ms": 233.0,
           "entries": 12,
-          "fresh_24h": 8
+          "fresh_24h": 7
         },
         {
           "url": "https://www.bing.com/news/search?q=India+breaking+news&qft=sortbydate%3d%221%22&forma...",
           "location": "india",
           "topic": "general",
           "status": 200,
-          "latency_ms": 430.1,
+          "latency_ms": 220.3,
           "entries": 12,
           "fresh_24h": 12
         },
@@ -485,7 +485,7 @@
           "location": "india",
           "topic": "job_market",
           "status": 200,
-          "latency_ms": 247.4,
+          "latency_ms": 234.9,
           "entries": 12,
           "fresh_24h": 1
         },
@@ -494,7 +494,7 @@
           "location": "india",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 319.1,
+          "latency_ms": 235.6,
           "entries": 12,
           "fresh_24h": 4
         },
@@ -503,16 +503,16 @@
           "location": "india",
           "topic": "entertainment",
           "status": 200,
-          "latency_ms": 255.3,
+          "latency_ms": 1998.8,
           "entries": 12,
-          "fresh_24h": 5
+          "fresh_24h": 3
         },
         {
           "url": "https://www.bing.com/news/search?q=Global+breaking+news&qft=sortbydate%3d%221%22&form...",
           "location": "global",
           "topic": "general",
           "status": 200,
-          "latency_ms": 243.8,
+          "latency_ms": 234.2,
           "entries": 12,
           "fresh_24h": 12
         },
@@ -521,7 +521,7 @@
           "location": "global",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 804.3,
+          "latency_ms": 533.3,
           "entries": 10,
           "fresh_24h": 3
         },
@@ -530,7 +530,7 @@
           "location": "global",
           "topic": "job_market",
           "status": 200,
-          "latency_ms": 2558.6,
+          "latency_ms": 283.6,
           "entries": 11,
           "fresh_24h": 1
         },
@@ -539,7 +539,7 @@
           "location": "global",
           "topic": "entertainment",
           "status": 200,
-          "latency_ms": 1772.4,
+          "latency_ms": 231.9,
           "entries": 11,
           "fresh_24h": 7
         }
@@ -549,8 +549,8 @@
       "total_queries": 23,
       "dead_queries": 1,
       "stale_queries": 1,
-      "total_entries_fetched": 1098,
-      "fresh_entries_24h": 1087,
+      "total_entries_fetched": 1101,
+      "fresh_entries_24h": 1090,
       "query_health_pct": 95.7,
       "freshness_pct": 99.0,
       "query_stats": [
@@ -559,7 +559,7 @@
           "location": "india",
           "topic": "general",
           "status": 200,
-          "latency_ms": 79.0,
+          "latency_ms": 63.2,
           "entries": 100,
           "fresh_24h": 100
         },
@@ -577,52 +577,52 @@
           "location": "delhi",
           "topic": "general",
           "status": 200,
-          "latency_ms": 16.8,
-          "entries": 38,
-          "fresh_24h": 38
+          "latency_ms": 16.4,
+          "entries": 37,
+          "fresh_24h": 37
         },
         {
           "url": "https://news.google.com/rss/search?q=site:yahoo.com+(Mumbai+OR+Bombay)+when:1d&hl=en-...",
           "location": "mumbai",
           "topic": "general",
           "status": 200,
-          "latency_ms": 15.5,
-          "entries": 11,
-          "fresh_24h": 11
+          "latency_ms": 18.8,
+          "entries": 13,
+          "fresh_24h": 13
         },
         {
           "url": "https://news.google.com/rss/search?q=site:yahoo.com+(Bengaluru+OR+Bangalore)+when:1d&...",
           "location": "bengaluru",
           "topic": "general",
           "status": 200,
-          "latency_ms": 23.3,
-          "entries": 12,
-          "fresh_24h": 12
+          "latency_ms": 13.9,
+          "entries": 15,
+          "fresh_24h": 15
         },
         {
           "url": "https://news.google.com/rss/search?q=site:yahoo.com+(Bengaluru+OR+Bangalore)+(tech+OR...",
           "location": "bengaluru",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 15.2,
-          "entries": 14,
-          "fresh_24h": 14
+          "latency_ms": 15.9,
+          "entries": 13,
+          "fresh_24h": 13
         },
         {
           "url": "https://news.google.com/rss/search?q=site:yahoo.com+(Bengaluru+OR+Bangalore)+(jobs+OR...",
           "location": "bengaluru",
           "topic": "job_market",
           "status": 200,
-          "latency_ms": 12.7,
-          "entries": 4,
-          "fresh_24h": 4
+          "latency_ms": 21.1,
+          "entries": 6,
+          "fresh_24h": 6
         },
         {
           "url": "https://news.google.com/rss/search?q=site:yahoo.com+(Chennai+OR+Madras)+when:1d&hl=en...",
           "location": "chennai",
           "topic": "general",
           "status": 200,
-          "latency_ms": 16.5,
+          "latency_ms": 14.8,
           "entries": 6,
           "fresh_24h": 6
         },
@@ -631,25 +631,25 @@
           "location": "kolkata",
           "topic": "general",
           "status": 200,
-          "latency_ms": 18.9,
-          "entries": 6,
-          "fresh_24h": 6
+          "latency_ms": 18.3,
+          "entries": 5,
+          "fresh_24h": 5
         },
         {
           "url": "https://news.google.com/rss/search?q=site:yahoo.com+(Hyderabad+OR+Secunderabad)+when:...",
           "location": "hyderabad",
           "topic": "general",
           "status": 200,
-          "latency_ms": 14.1,
-          "entries": 3,
-          "fresh_24h": 3
+          "latency_ms": 11.5,
+          "entries": 2,
+          "fresh_24h": 2
         },
         {
           "url": "https://news.google.com/rss/search?q=site:yahoo.com+Pune+when:1d&hl=en-IN&gl=IN&ceid=...",
           "location": "pune",
           "topic": "general",
           "status": 200,
-          "latency_ms": 17.0,
+          "latency_ms": 3.1,
           "entries": 1,
           "fresh_24h": 0
         },
@@ -658,7 +658,7 @@
           "location": "odisha",
           "topic": "general",
           "status": 200,
-          "latency_ms": 16.7,
+          "latency_ms": 22.4,
           "entries": 1,
           "fresh_24h": 1
         },
@@ -667,7 +667,7 @@
           "location": "odisha",
           "topic": "job_market",
           "status": 200,
-          "latency_ms": 16.9,
+          "latency_ms": 11.2,
           "entries": 1,
           "fresh_24h": 1
         },
@@ -676,7 +676,7 @@
           "location": "odisha",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 16.4,
+          "latency_ms": 22.3,
           "entries": 1,
           "fresh_24h": 1
         },
@@ -685,7 +685,7 @@
           "location": "odisha",
           "topic": "entertainment",
           "status": 200,
-          "latency_ms": 15.1,
+          "latency_ms": 14.0,
           "entries": 0,
           "fresh_24h": 0
         },
@@ -694,7 +694,7 @@
           "location": "india",
           "topic": "general",
           "status": 200,
-          "latency_ms": 16.9,
+          "latency_ms": 8.1,
           "entries": 100,
           "fresh_24h": 99
         },
@@ -703,7 +703,7 @@
           "location": "india",
           "topic": "job_market",
           "status": 200,
-          "latency_ms": 16.8,
+          "latency_ms": 15.8,
           "entries": 100,
           "fresh_24h": 99
         },
@@ -712,7 +712,7 @@
           "location": "india",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 20.8,
+          "latency_ms": 16.2,
           "entries": 100,
           "fresh_24h": 100
         },
@@ -721,7 +721,7 @@
           "location": "india",
           "topic": "entertainment",
           "status": 200,
-          "latency_ms": 16.1,
+          "latency_ms": 12.9,
           "entries": 100,
           "fresh_24h": 100
         },
@@ -730,7 +730,7 @@
           "location": "global",
           "topic": "general",
           "status": 200,
-          "latency_ms": 7.9,
+          "latency_ms": 15.3,
           "entries": 100,
           "fresh_24h": 100
         },
@@ -739,7 +739,7 @@
           "location": "global",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 16.2,
+          "latency_ms": 15.9,
           "entries": 100,
           "fresh_24h": 100
         },
@@ -748,7 +748,7 @@
           "location": "global",
           "topic": "job_market",
           "status": 200,
-          "latency_ms": 15.9,
+          "latency_ms": 14.0,
           "entries": 100,
           "fresh_24h": 96
         },
@@ -757,207 +757,252 @@
           "location": "global",
           "topic": "entertainment",
           "status": 200,
-          "latency_ms": 16.4,
+          "latency_ms": 15.9,
           "entries": 100,
           "fresh_24h": 100
         }
       ]
     },
     "x": {
-      "total_queries": 21,
+      "total_queries": 26,
       "dead_queries": 0,
       "stale_queries": 0,
-      "total_entries_fetched": 1889,
-      "fresh_entries_24h": 1889,
+      "total_entries_fetched": 2378,
+      "fresh_entries_24h": 2367,
       "query_health_pct": 100.0,
-      "freshness_pct": 100.0,
+      "freshness_pct": 99.5,
       "query_stats": [
         {
-          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20%...",
+          "location": "india",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 452.7,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20%...",
+          "location": "global",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 404.5,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20%...",
+          "location": "global",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 440.3,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20%...",
+          "location": "india",
+          "topic": "job_market",
+          "status": 200,
+          "latency_ms": 307.6,
+          "entries": 78,
+          "fresh_24h": 77
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20%...",
+          "location": "bengaluru",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 304.0,
+          "entries": 49,
+          "fresh_24h": 46
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20%...",
           "location": "delhi",
           "topic": "general",
           "status": 200,
-          "latency_ms": 613.1,
+          "latency_ms": 565.6,
           "entries": 100,
           "fresh_24h": 100
         },
         {
-          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20%...",
           "location": "mumbai",
           "topic": "general",
           "status": 200,
-          "latency_ms": 526.7,
+          "latency_ms": 519.6,
           "entries": 100,
           "fresh_24h": 100
         },
         {
-          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20%...",
           "location": "bengaluru",
           "topic": "general",
           "status": 200,
-          "latency_ms": 504.7,
+          "latency_ms": 509.3,
           "entries": 100,
           "fresh_24h": 100
         },
         {
-          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20%...",
           "location": "bengaluru",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 434.2,
+          "latency_ms": 482.1,
           "entries": 100,
           "fresh_24h": 100
         },
         {
-          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20%...",
           "location": "bengaluru",
           "topic": "job_market",
           "status": 200,
-          "latency_ms": 361.6,
-          "entries": 25,
-          "fresh_24h": 25
+          "latency_ms": 273.0,
+          "entries": 49,
+          "fresh_24h": 49
         },
         {
-          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20%...",
           "location": "bengaluru",
           "topic": "entertainment",
           "status": 200,
-          "latency_ms": 500.3,
+          "latency_ms": 552.1,
           "entries": 100,
           "fresh_24h": 100
         },
         {
-          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20%...",
           "location": "chennai",
           "topic": "general",
           "status": 200,
-          "latency_ms": 500.8,
+          "latency_ms": 469.5,
           "entries": 100,
-          "fresh_24h": 100
+          "fresh_24h": 99
         },
         {
-          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20%...",
           "location": "kolkata",
           "topic": "general",
           "status": 200,
-          "latency_ms": 490.3,
+          "latency_ms": 451.2,
           "entries": 100,
           "fresh_24h": 100
         },
         {
-          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20%...",
           "location": "hyderabad",
           "topic": "general",
           "status": 200,
-          "latency_ms": 483.8,
+          "latency_ms": 478.7,
           "entries": 100,
           "fresh_24h": 100
         },
         {
-          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20P...",
           "location": "pune",
           "topic": "general",
           "status": 200,
-          "latency_ms": 486.0,
+          "latency_ms": 418.0,
           "entries": 100,
           "fresh_24h": 100
         },
         {
-          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20%...",
           "location": "odisha",
           "topic": "general",
           "status": 200,
-          "latency_ms": 458.9,
+          "latency_ms": 508.7,
           "entries": 100,
           "fresh_24h": 100
         },
         {
-          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20%...",
           "location": "odisha",
           "topic": "job_market",
           "status": 200,
-          "latency_ms": 221.1,
-          "entries": 28,
-          "fresh_24h": 28
+          "latency_ms": 240.8,
+          "entries": 43,
+          "fresh_24h": 42
         },
         {
-          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20%...",
           "location": "odisha",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 429.4,
+          "latency_ms": 378.8,
           "entries": 100,
           "fresh_24h": 100
         },
         {
-          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20%...",
           "location": "odisha",
           "topic": "entertainment",
           "status": 200,
-          "latency_ms": 322.3,
-          "entries": 36,
-          "fresh_24h": 36
+          "latency_ms": 319.4,
+          "entries": 59,
+          "fresh_24h": 58
         },
         {
-          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20%...",
           "location": "india",
           "topic": "general",
           "status": 200,
-          "latency_ms": 623.8,
+          "latency_ms": 513.1,
           "entries": 100,
-          "fresh_24h": 100
+          "fresh_24h": 99
         },
         {
-          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20%...",
           "location": "india",
           "topic": "job_market",
           "status": 200,
-          "latency_ms": 541.3,
+          "latency_ms": 556.3,
           "entries": 100,
-          "fresh_24h": 100
+          "fresh_24h": 99
         },
         {
-          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20%...",
           "location": "global",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 535.8,
+          "latency_ms": 420.0,
           "entries": 100,
-          "fresh_24h": 100
+          "fresh_24h": 99
         },
         {
-          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20%...",
           "location": "global",
           "topic": "job_market",
           "status": 200,
-          "latency_ms": 520.8,
+          "latency_ms": 465.6,
           "entries": 100,
-          "fresh_24h": 100
+          "fresh_24h": 99
         },
         {
-          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20%...",
           "location": "india",
           "topic": "entertainment",
           "status": 200,
-          "latency_ms": 706.4,
+          "latency_ms": 484.4,
           "entries": 100,
           "fresh_24h": 100
         },
         {
-          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20%...",
           "location": "global",
           "topic": "entertainment",
           "status": 200,
-          "latency_ms": 534.3,
+          "latency_ms": 456.0,
           "entries": 100,
           "fresh_24h": 100
         },
         {
-          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com%20OR%20site%3Atwitter.com%29%20%...",
           "location": "global",
           "topic": "general",
           "status": 200,
-          "latency_ms": 470.3,
+          "latency_ms": 481.9,
           "entries": 100,
           "fresh_24h": 100
         }
@@ -977,7 +1022,7 @@
           "location": "india",
           "topic": "general",
           "status": 200,
-          "latency_ms": 50.8,
+          "latency_ms": 55.7,
           "entries": 15,
           "fresh_24h": 0
         },
@@ -986,7 +1031,7 @@
           "location": "india",
           "topic": "general",
           "status": 200,
-          "latency_ms": 33.4,
+          "latency_ms": 35.9,
           "entries": 15,
           "fresh_24h": 0
         },
@@ -995,7 +1040,7 @@
           "location": "india",
           "topic": "general",
           "status": 200,
-          "latency_ms": 38.8,
+          "latency_ms": 24.5,
           "entries": 4,
           "fresh_24h": 0
         },
@@ -1004,7 +1049,7 @@
           "location": "global",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 642.1,
+          "latency_ms": 596.2,
           "entries": 2,
           "fresh_24h": 0
         },
@@ -1013,7 +1058,7 @@
           "location": "india",
           "topic": "general",
           "status": 200,
-          "latency_ms": 84.1,
+          "latency_ms": 37.4,
           "entries": 15,
           "fresh_24h": 0
         },
@@ -1022,7 +1067,7 @@
           "location": "delhi",
           "topic": "general",
           "status": 200,
-          "latency_ms": 15.3,
+          "latency_ms": 15.9,
           "entries": 41,
           "fresh_24h": 41
         },
@@ -1031,7 +1076,7 @@
           "location": "mumbai",
           "topic": "general",
           "status": 200,
-          "latency_ms": 16.7,
+          "latency_ms": 0.0,
           "entries": 14,
           "fresh_24h": 14
         },
@@ -1040,7 +1085,7 @@
           "location": "bengaluru",
           "topic": "general",
           "status": 200,
-          "latency_ms": 2.7,
+          "latency_ms": 16.2,
           "entries": 4,
           "fresh_24h": 4
         },
@@ -1049,7 +1094,7 @@
           "location": "bengaluru",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 16.4,
+          "latency_ms": 16.3,
           "entries": 4,
           "fresh_24h": 4
         },
@@ -1058,7 +1103,7 @@
           "location": "bengaluru",
           "topic": "job_market",
           "status": 200,
-          "latency_ms": 13.7,
+          "latency_ms": 16.0,
           "entries": 0,
           "fresh_24h": 0
         },
@@ -1067,7 +1112,7 @@
           "location": "bengaluru",
           "topic": "entertainment",
           "status": 200,
-          "latency_ms": 13.4,
+          "latency_ms": 15.9,
           "entries": 0,
           "fresh_24h": 0
         },
@@ -1076,7 +1121,7 @@
           "location": "chennai",
           "topic": "general",
           "status": 200,
-          "latency_ms": 2.7,
+          "latency_ms": 16.2,
           "entries": 4,
           "fresh_24h": 4
         },
@@ -1085,7 +1130,7 @@
           "location": "kolkata",
           "topic": "general",
           "status": 200,
-          "latency_ms": 0.9,
+          "latency_ms": 15.9,
           "entries": 7,
           "fresh_24h": 7
         },
@@ -1094,7 +1139,7 @@
           "location": "hyderabad",
           "topic": "general",
           "status": 200,
-          "latency_ms": 14.6,
+          "latency_ms": 15.9,
           "entries": 7,
           "fresh_24h": 7
         },
@@ -1103,7 +1148,7 @@
           "location": "pune",
           "topic": "general",
           "status": 200,
-          "latency_ms": 15.9,
+          "latency_ms": 0.0,
           "entries": 9,
           "fresh_24h": 9
         },
@@ -1112,7 +1157,7 @@
           "location": "odisha",
           "topic": "general",
           "status": 200,
-          "latency_ms": 16.7,
+          "latency_ms": 15.8,
           "entries": 3,
           "fresh_24h": 3
         },
@@ -1121,7 +1166,7 @@
           "location": "odisha",
           "topic": "job_market",
           "status": 200,
-          "latency_ms": 16.8,
+          "latency_ms": 15.9,
           "entries": 1,
           "fresh_24h": 1
         },
@@ -1130,7 +1175,7 @@
           "location": "odisha",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 32.0,
+          "latency_ms": 15.9,
           "entries": 3,
           "fresh_24h": 3
         },
@@ -1139,7 +1184,7 @@
           "location": "odisha",
           "topic": "entertainment",
           "status": 200,
-          "latency_ms": 15.4,
+          "latency_ms": 16.0,
           "entries": 0,
           "fresh_24h": 0
         },
@@ -1148,7 +1193,7 @@
           "location": "india",
           "topic": "job_market",
           "status": 200,
-          "latency_ms": 15.6,
+          "latency_ms": 15.9,
           "entries": 9,
           "fresh_24h": 9
         },
@@ -1157,7 +1202,7 @@
           "location": "india",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 31.0,
+          "latency_ms": 31.7,
           "entries": 100,
           "fresh_24h": 100
         },
@@ -1166,7 +1211,7 @@
           "location": "india",
           "topic": "entertainment",
           "status": 200,
-          "latency_ms": 17.6,
+          "latency_ms": 16.0,
           "entries": 3,
           "fresh_24h": 3
         },
@@ -1175,7 +1220,7 @@
           "location": "india",
           "topic": "general",
           "status": 200,
-          "latency_ms": 15.9,
+          "latency_ms": 15.7,
           "entries": 100,
           "fresh_24h": 100
         },
@@ -1184,7 +1229,7 @@
           "location": "global",
           "topic": "general",
           "status": 200,
-          "latency_ms": 33.3,
+          "latency_ms": 15.7,
           "entries": 100,
           "fresh_24h": 100
         },
@@ -1193,7 +1238,7 @@
           "location": "global",
           "topic": "technology",
           "status": 200,
-          "latency_ms": 11.6,
+          "latency_ms": 15.9,
           "entries": 100,
           "fresh_24h": 100
         },
@@ -1202,7 +1247,7 @@
           "location": "global",
           "topic": "job_market",
           "status": 200,
-          "latency_ms": 16.0,
+          "latency_ms": 33.5,
           "entries": 5,
           "fresh_24h": 5
         },
@@ -1211,7 +1256,7 @@
           "location": "global",
           "topic": "entertainment",
           "status": 200,
-          "latency_ms": 3.0,
+          "latency_ms": 16.8,
           "entries": 1,
           "fresh_24h": 1
         }
@@ -1234,6 +1279,11 @@
       "source": "msn",
       "url": "https://www.bing.com/news/search?q=India+jobs+layoffs+hiring&qft=sortbydate%3d%221%22&format=rss",
       "fresh_pct": 8.3
+    },
+    {
+      "source": "msn",
+      "url": "https://www.bing.com/news/search?q=Bollywood+movies+entertainment&qft=sortbydate%3d%221%22&format=rss",
+      "fresh_pct": 25.0
     },
     {
       "source": "msn",
@@ -1306,18 +1356,18 @@
   "issues_found": [],
   "fixes_applied": [],
   "summary": {
-    "duration_seconds": 29.65,
+    "duration_seconds": 26.69,
     "engines_audited": 5,
-    "total_articles": 1197,
+    "total_articles": 1411,
     "strictly_sorted": true,
     "issues_count": 0,
     "status": "PASS"
   },
   "snapshot_audit": {
-    "total_articles": 1197,
+    "total_articles": 1411,
     "strictly_sorted_newest_first": true,
-    "max_age_hours": 23.99,
-    "min_age_hours": 0.15,
+    "max_age_hours": 24.0,
+    "min_age_hours": 0.07,
     "over_24h_count": 0,
     "broken_images_count": 0,
     "unclean_titles_count": 0,
@@ -1325,55 +1375,55 @@
     "matrix_distribution": {
       "google": {
         "all": 0,
-        "delhi": 53,
-        "mumbai": 51,
-        "bengaluru": 46,
-        "chennai": 26,
-        "kolkata": 23,
+        "delhi": 52,
+        "mumbai": 50,
+        "bengaluru": 47,
+        "chennai": 25,
+        "kolkata": 24,
         "hyderabad": 35,
-        "pune": 18,
+        "pune": 17,
         "odisha": 42,
-        "india": 43,
+        "india": 42,
         "global": 41
       },
       "msn": {
         "all": 0,
-        "delhi": 20,
-        "mumbai": 10,
-        "bengaluru": 13,
+        "delhi": 19,
+        "mumbai": 7,
+        "bengaluru": 11,
         "chennai": 6,
-        "kolkata": 6,
+        "kolkata": 5,
         "hyderabad": 8,
-        "pune": 4,
+        "pune": 5,
         "odisha": 10,
-        "india": 22,
+        "india": 19,
         "global": 21
       },
       "yahoo": {
         "all": 0,
-        "delhi": 38,
-        "mumbai": 9,
-        "bengaluru": 11,
+        "delhi": 37,
+        "mumbai": 10,
+        "bengaluru": 12,
         "chennai": 4,
-        "kolkata": 3,
-        "hyderabad": 3,
+        "kolkata": 2,
+        "hyderabad": 2,
         "pune": 0,
         "odisha": 0,
         "india": 155,
-        "global": 122
+        "global": 119
       },
       "x": {
         "all": 0,
-        "delhi": 27,
-        "mumbai": 20,
-        "bengaluru": 55,
-        "chennai": 13,
-        "kolkata": 16,
-        "hyderabad": 15,
-        "pune": 10,
-        "odisha": 48,
-        "india": 38,
-        "global": 37
+        "delhi": 51,
+        "mumbai": 34,
+        "bengaluru": 88,
+        "chennai": 22,
+        "kolkata": 23,
+        "hyderabad": 22,
+        "pune": 16,
+        "odisha": 64,
+        "india": 104,
+        "global": 84
       },
       "moneycontrol": {
         "all": 0,
@@ -1385,7 +1435,7 @@
         "hyderabad": 3,
         "pune": 3,
         "odisha": 0,
-        "india": 22,
+        "india": 23,
         "global": 10
       }
     }

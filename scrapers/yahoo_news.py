@@ -1,4 +1,5 @@
 import html
+import re
 import time
 from typing import List
 from bs4 import BeautifulSoup
@@ -10,23 +11,33 @@ from scrapers.models import NewsArticle, format_relative_time, detect_location, 
 from config import LOCATIONS, TOPICS
 
 YAHOO_QUERIES = [
-    {"url": "https://news.yahoo.com/rss/world", "loc": "global", "top": "general"},
-    {"url": "https://news.yahoo.com/rss/india", "loc": "india", "top": "general"},
-    {"url": "https://www.bing.com/news/search?q=site:yahoo.com+Delhi+NCR&format=rss", "loc": "delhi", "top": "general"},
-    {"url": "https://www.bing.com/news/search?q=site:yahoo.com+Mumbai&format=rss", "loc": "mumbai", "top": "general"},
-    {"url": "https://www.bing.com/news/search?q=site:yahoo.com+Bengaluru&format=rss", "loc": "bengaluru", "top": "general"},
-    {"url": "https://www.bing.com/news/search?q=site:yahoo.com+(Bengaluru+OR+Bangalore)+(jobs+OR+hiring+OR+careers)&format=rss", "loc": "bengaluru", "top": "job_market"},
-    {"url": "https://www.bing.com/news/search?q=site:yahoo.com+(Bengaluru+OR+Bangalore)+(movies+OR+entertainment+OR+cinema)&format=rss", "loc": "bengaluru", "top": "entertainment"},
-    {"url": "https://www.bing.com/news/search?q=site:yahoo.com+Chennai&format=rss", "loc": "chennai", "top": "general"},
-    {"url": "https://www.bing.com/news/search?q=site:yahoo.com+Kolkata&format=rss", "loc": "kolkata", "top": "general"},
-    {"url": "https://www.bing.com/news/search?q=site:yahoo.com+Hyderabad&format=rss", "loc": "hyderabad", "top": "general"},
-    {"url": "https://www.bing.com/news/search?q=site:yahoo.com+Pune&format=rss", "loc": "pune", "top": "general"},
-    {"url": "https://www.bing.com/news/search?q=site:yahoo.com+Odisha&format=rss", "loc": "odisha", "top": "general"},
-    {"url": "https://www.bing.com/news/search?q=site:yahoo.com+(Odisha+OR+Bhubaneswar)+(jobs+OR+employment+OR+industry)&format=rss", "loc": "odisha", "top": "job_market"},
-    {"url": "https://www.bing.com/news/search?q=site:yahoo.com+(Odisha+OR+Bhubaneswar)+(movies+OR+entertainment+OR+culture)&format=rss", "loc": "odisha", "top": "entertainment"},
-    {"url": "https://finance.yahoo.com/rss/topstories", "loc": "global", "top": "job_market"},
-    {"url": "https://news.yahoo.com/rss/tech", "loc": "global", "top": "technology"},
-    {"url": "https://news.yahoo.com/rss/entertainment", "loc": "global", "top": "entertainment"},
+    # Master Feed: All fresh Yahoo articles from last 24h
+    {"url": "https://news.google.com/rss/search?q=site:yahoo.com+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:yahoo.com+when:1d&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "general"},
+    # Metros & States
+    {"url": "https://news.google.com/rss/search?q=site:yahoo.com+(Delhi+OR+NCR)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "delhi", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:yahoo.com+(Mumbai+OR+Bombay)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "mumbai", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:yahoo.com+(Bengaluru+OR+Bangalore)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "bengaluru", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:yahoo.com+(Bengaluru+OR+Bangalore)+(tech+OR+AI+OR+startup)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "bengaluru", "top": "technology"},
+    {"url": "https://news.google.com/rss/search?q=site:yahoo.com+(Bengaluru+OR+Bangalore)+(jobs+OR+hiring+OR+careers)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "bengaluru", "top": "job_market"},
+    {"url": "https://news.google.com/rss/search?q=site:yahoo.com+(Chennai+OR+Madras)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "chennai", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:yahoo.com+(Kolkata+OR+Calcutta)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "kolkata", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:yahoo.com+(Hyderabad+OR+Secunderabad)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "hyderabad", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:yahoo.com+Pune+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "pune", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:yahoo.com+(Odisha+OR+Bhubaneswar+OR+Cuttack)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "odisha", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:yahoo.com+(Odisha+OR+Bhubaneswar)+(jobs+OR+hiring+OR+employment)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "odisha", "top": "job_market"},
+    {"url": "https://news.google.com/rss/search?q=site:yahoo.com+(Odisha+OR+Bhubaneswar)+(tech+OR+IT+OR+software)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "odisha", "top": "technology"},
+    {"url": "https://news.google.com/rss/search?q=site:yahoo.com+(Odisha+OR+Bhubaneswar)+(movie+OR+cinema+OR+culture)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "odisha", "top": "entertainment"},
+    # National & Topics
+    {"url": "https://news.google.com/rss/search?q=site:yahoo.com+(India+news+OR+national+OR+politics+OR+economy)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:yahoo.com+(jobs+OR+hiring+OR+layoffs+OR+salary+OR+\"job market\")+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "job_market"},
+    {"url": "https://news.google.com/rss/search?q=site:yahoo.com+(technology+OR+AI+OR+\"artificial intelligence\"+OR+startup)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "technology"},
+    {"url": "https://news.google.com/rss/search?q=site:yahoo.com+(movie+OR+Bollywood+OR+cinema+OR+trailer+OR+box+office)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "entertainment"},
+    # Global
+    {"url": "https://news.google.com/rss/search?q=site:yahoo.com+(world+news+OR+international+OR+global)+when:1d&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:yahoo.com+(global+tech+OR+Apple+OR+Google+OR+Microsoft+OR+AI)+when:1d&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "technology"},
+    {"url": "https://news.google.com/rss/search?q=site:yahoo.com+(global+hiring+OR+layoffs+OR+careers)+when:1d&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "job_market"},
+    {"url": "https://news.google.com/rss/search?q=site:yahoo.com+(Hollywood+OR+movies+OR+celebrity+OR+Netflix)+when:1d&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "entertainment"},
 ]
 
 def clean_html(raw_html: str) -> str:
@@ -38,8 +49,17 @@ def clean_html(raw_html: str) -> str:
     text = soup.get_text(separator=" ", strip=True)
     return html.unescape(text)
 
+def clean_title(title: str) -> str:
+    if not title:
+        return ""
+    if " - " in title:
+        title = title.rsplit(" - ", 1)[0].strip()
+    title = re.sub(r"\s*[-–—|]?\s*Yahoo(?:\.com)?\s*$", "", title, flags=re.IGNORECASE).strip()
+    return title
+
 async def scrape_yahoo_news(client: httpx.AsyncClient) -> List[NewsArticle]:
     articles: List[NewsArticle] = []
+    seen_ids = set()
 
     for item in YAHOO_QUERIES:
         url = item["url"]
@@ -50,12 +70,17 @@ async def scrape_yahoo_news(client: httpx.AsyncClient) -> List[NewsArticle]:
             if response.status_code != 200:
                 continue
 
+            now = time.time()
             feed = feedparser.parse(response.text)
-            for entry in feed.entries[:15]:
-                title = entry.get("title", "").strip()
+            for entry in feed.entries[:40]:
+                raw_title = entry.get("title", "").strip()
                 link = entry.get("link", "").strip()
-                if not title or not link:
+                if not raw_title or not link:
                     continue
+
+                title = clean_title(raw_title)
+                if not title:
+                    title = raw_title
 
                 summary = clean_html(entry.get("summary", entry.get("description", "")))
                 author = "Yahoo News"
@@ -63,7 +88,6 @@ async def scrape_yahoo_news(client: httpx.AsyncClient) -> List[NewsArticle]:
                     author = entry.source["title"]
 
                 published_at = entry.get("published", "")
-                now = time.time()
                 ts = now
                 if published_at:
                     try:
@@ -72,11 +96,11 @@ async def scrape_yahoo_news(client: httpx.AsyncClient) -> List[NewsArticle]:
                     except Exception:
                         pass
 
-                # Only allow news from last 24 hours
+                # Strictly enforce 24-hour cutoff
                 if (now - ts) > (24 * 3600):
                     continue
 
-                # Extract real Yahoo image
+                # Extract image
                 raw_image = None
                 if "media_content" in entry and entry["media_content"]:
                     raw_image = entry["media_content"][0].get("url")
@@ -89,6 +113,10 @@ async def scrape_yahoo_news(client: httpx.AsyncClient) -> List[NewsArticle]:
                 top_name = TOPICS.get(top, {}).get("name", top.title())
 
                 article_id = NewsArticle.generate_id(title, link)
+                if article_id in seen_ids:
+                    continue
+                seen_ids.add(article_id)
+
                 image_url = get_article_image(raw_image, loc, top, article_id)
 
                 articles.append(

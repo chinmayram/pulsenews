@@ -19,28 +19,28 @@ MONEYCONTROL_FEEDS = [
     {"url": "https://www.moneycontrol.com/rss/buzzingstocks.xml", "loc": "india", "top": "general"},
 
     # Targeted Regional & Topic Feeds (site:moneycontrol.com via Google News RSS)
-    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Delhi+OR+intitle:NCR)&hl=en-IN&gl=IN&ceid=IN:en", "loc": "delhi", "top": "general"},
-    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+intitle:Mumbai&hl=en-IN&gl=IN&ceid=IN:en", "loc": "mumbai", "top": "general"},
-    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Bengaluru+OR+intitle:Bangalore)&hl=en-IN&gl=IN&ceid=IN:en", "loc": "bengaluru", "top": "general"},
-    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Bengaluru+OR+intitle:Bangalore)+(tech+OR+startup+OR+IT)&hl=en-IN&gl=IN&ceid=IN:en", "loc": "bengaluru", "top": "technology"},
-    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Bengaluru+OR+intitle:Bangalore)+(jobs+OR+hiring+OR+layoffs)&hl=en-IN&gl=IN&ceid=IN:en", "loc": "bengaluru", "top": "job_market"},
-    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Bengaluru+OR+intitle:Bangalore)+(entertainment+OR+cinema+OR+theatre)&hl=en-IN&gl=IN&ceid=IN:en", "loc": "bengaluru", "top": "entertainment"},
-    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+intitle:Chennai&hl=en-IN&gl=IN&ceid=IN:en", "loc": "chennai", "top": "general"},
-    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+intitle:Kolkata&hl=en-IN&gl=IN&ceid=IN:en", "loc": "kolkata", "top": "general"},
-    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+intitle:Hyderabad&hl=en-IN&gl=IN&ceid=IN:en", "loc": "hyderabad", "top": "general"},
-    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+intitle:Pune&hl=en-IN&gl=IN&ceid=IN:en", "loc": "pune", "top": "general"},
-    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Odisha+OR+intitle:Bhubaneswar)&hl=en-IN&gl=IN&ceid=IN:en", "loc": "odisha", "top": "general"},
-    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Odisha+OR+intitle:Bhubaneswar)+(jobs+OR+industry)&hl=en-IN&gl=IN&ceid=IN:en", "loc": "odisha", "top": "job_market"},
-    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Odisha+OR+intitle:Bhubaneswar)+(tech+OR+startup+OR+IT)&hl=en-IN&gl=IN&ceid=IN:en", "loc": "odisha", "top": "technology"},
-    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Odisha+OR+intitle:Bhubaneswar)+(entertainment+OR+culture+OR+heritage)&hl=en-IN&gl=IN&ceid=IN:en", "loc": "odisha", "top": "entertainment"},
-    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(jobs+OR+hiring+OR+layoffs+OR+salary)&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "job_market"},
-    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(tech+OR+technology+OR+AI+OR+startup)&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "technology"},
-    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(entertainment+OR+bollywood+OR+movies+OR+cinema)&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "entertainment"},
-    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+India+(economy+OR+markets+OR+policy+OR+business)&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "general"},
-    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(global+OR+world+OR+US+markets)&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "general"},
-    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(global+tech+OR+Nvidia+OR+Apple+OR+OpenAI)&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "technology"},
-    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(global+hiring+OR+layoffs+OR+jobs)&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "job_market"},
-    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(Hollywood+OR+Oscars+OR+Netflix+OR+Marvel+OR+worldwide+box+office+OR+cinema)&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "entertainment"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Delhi+OR+intitle:NCR)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "delhi", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+intitle:Mumbai+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "mumbai", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Bengaluru+OR+intitle:Bangalore)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "bengaluru", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Bengaluru+OR+intitle:Bangalore)+(tech+OR+startup+OR+IT)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "bengaluru", "top": "technology"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Bengaluru+OR+intitle:Bangalore)+(jobs+OR+hiring+OR+layoffs)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "bengaluru", "top": "job_market"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Bengaluru+OR+intitle:Bangalore)+(entertainment+OR+cinema+OR+theatre)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "bengaluru", "top": "entertainment"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+intitle:Chennai+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "chennai", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+intitle:Kolkata+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "kolkata", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+intitle:Hyderabad+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "hyderabad", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+intitle:Pune+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "pune", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Odisha+OR+intitle:Bhubaneswar)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "odisha", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Odisha+OR+intitle:Bhubaneswar)+(jobs+OR+industry)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "odisha", "top": "job_market"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Odisha+OR+intitle:Bhubaneswar)+(tech+OR+startup+OR+IT)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "odisha", "top": "technology"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(intitle:Odisha+OR+intitle:Bhubaneswar)+(entertainment+OR+culture+OR+heritage)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "odisha", "top": "entertainment"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(jobs+OR+hiring+OR+layoffs+OR+salary)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "job_market"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(tech+OR+technology+OR+AI+OR+startup)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "technology"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(entertainment+OR+bollywood+OR+movies+OR+cinema)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "entertainment"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+India+(economy+OR+markets+OR+policy+OR+business)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(global+OR+world+OR+US+markets)+when:1d&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(global+tech+OR+Nvidia+OR+Apple+OR+OpenAI)+when:1d&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "technology"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(global+hiring+OR+layoffs+OR+jobs)+when:1d&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "job_market"},
+    {"url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(Hollywood+OR+Oscars+OR+Netflix+OR+Marvel+OR+worldwide+box+office+OR+cinema)+when:1d&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "entertainment"},
 ]
 
 def clean_title(title: str) -> str:
@@ -49,10 +49,8 @@ def clean_title(title: str) -> str:
     while True:
         prev = title
         if " - " in title:
-            parts = title.rsplit(" - ", 1)
-            if "moneycontrol" in parts[1].lower():
-                title = parts[0].strip()
-        title = re.sub(r"\s*[-–—|]\s*moneycontrol(?:\.com)?\s*$", "", title, flags=re.IGNORECASE).strip()
+            title = title.rsplit(" - ", 1)[0].strip()
+        title = re.sub(r"\s*[-–—|]?\s*moneycontrol(?:\.com)?\s*$", "", title, flags=re.IGNORECASE).strip()
         if title == prev:
             break
     return title
@@ -83,6 +81,7 @@ async def scrape_feed(item: dict, client: httpx.AsyncClient, limit: int = 15) ->
         if response.status_code != 200:
             return []
 
+        now = time.time()
         feed = feedparser.parse(response.text)
         for entry in feed.entries[:limit]:
             title = entry.get("title", "").strip()
@@ -119,13 +118,17 @@ async def scrape_feed(item: dict, client: httpx.AsyncClient, limit: int = 15) ->
                 clean_summary = f"Latest financial, market, and business updates on {clean_t} from Moneycontrol."
 
             published_at = entry.get("published", "")
-            ts = time.time()
+            ts = now
             if published_at:
                 try:
                     dt = date_parser.parse(published_at)
                     ts = dt.timestamp()
                 except Exception:
                     pass
+
+            # Only allow news from last 24 hours
+            if (now - ts) > (24 * 3600):
+                continue
 
             loc = detect_location(clean_t, clean_summary, default=def_loc)
             top = detect_topic(clean_t, clean_summary, default=def_top)

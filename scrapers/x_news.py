@@ -72,7 +72,7 @@ async def scrape_x_news(client: httpx.AsyncClient) -> List[NewsArticle]:
     articles: List[NewsArticle] = []
 
     for item in X_QUERIES:
-        q = item["q"]
+        q = f"{item['q']} when:1d"
         def_loc = item["loc"]
         def_top = item["top"]
         encoded = httpx.URL("", params={"q": q, "hl": "en-IN", "gl": "IN", "ceid": "IN:en"}).params
@@ -83,6 +83,7 @@ async def scrape_x_news(client: httpx.AsyncClient) -> List[NewsArticle]:
             if response.status_code != 200:
                 continue
 
+            now = time.time()
             feed = feedparser.parse(response.text)
             for entry in feed.entries[:15]:
                 raw_title = entry.get("title", "").strip()
@@ -100,13 +101,17 @@ async def scrape_x_news(client: httpx.AsyncClient) -> List[NewsArticle]:
                 author = extract_x_author(clean_title)
 
                 published_at = entry.get("published", "")
-                ts = time.time()
+                ts = now
                 if published_at:
                     try:
                         dt = date_parser.parse(published_at)
                         ts = dt.timestamp()
                     except Exception:
                         pass
+
+                # Only allow news from last 24 hours
+                if (now - ts) > (24 * 3600):
+                    continue
 
                 loc = detect_location(clean_title, summary, default=def_loc)
                 top = detect_topic(clean_title, summary, default=def_top)

@@ -67,12 +67,17 @@ async def scrape_msn_news(client: httpx.AsyncClient) -> List[NewsArticle]:
 
                 published_at = entry.get("published", "")
                 ts = time.time()
+                now = time.time()
                 if published_at:
                     try:
                         dt = date_parser.parse(published_at)
                         ts = dt.timestamp()
                     except Exception:
                         pass
+
+                # Only allow news from last 24 hours
+                if (now - ts) > (24 * 3600):
+                    continue
 
                 # Extract real MSN image
                 raw_image = entry.get("news_image")

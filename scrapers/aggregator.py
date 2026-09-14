@@ -72,6 +72,10 @@ class NewsAggregator:
                         elif isinstance(res, Exception):
                             print(f"[Aggregator] Scraper error: {res}")
 
+                    # 24-hour cutoff: Keep strictly news from the last 24 hours
+                    now = time.time()
+                    combined = [a for a in combined if (now - a.timestamp) <= (24 * 3600)]
+
                     # Sort newest first & deduplicate
                     combined.sort(key=lambda a: a.timestamp, reverse=True)
                     self.articles = self.deduplicate(combined)
@@ -114,7 +118,8 @@ class NewsAggregator:
         priority_order = settings.get("priority_order", ["job_market", "technology", "entertainment", "general"])
         enabled_topics = settings.get("enabled_topics", {})
 
-        filtered = list(self.articles)
+        now = time.time()
+        filtered = [a for a in self.articles if (now - a.timestamp) <= (24 * 3600)]
 
         # 1. Location filter
         if location and location != "all":
@@ -134,10 +139,14 @@ class NewsAggregator:
 
         # 4. Topic filter / Priority interleaving
         if topic and topic != "all" and topic != "priority":
-            # Specific topic selected
+            # Specific topic selected: Filter and sort newest to oldest
             filtered = [a for a in filtered if a.topic.lower() == topic.lower()]
+            filtered.sort(key=lambda a: a.timestamp, reverse=True)
+        elif topic == "all":
+            # All topics view: Strictly sorted from newest to oldest
+            filtered.sort(key=lambda a: a.timestamp, reverse=True)
         else:
-            # "priority" or "all" view: Interleave topics based on priority order
+            # "priority" view: Interleave topics based on priority order
             active_topics = [t for t in priority_order if t in TOPICS and t != "priority" and enabled_topics.get(t, True)]
             # Ensure any missing default topics are also included
             for dt in ["job_market", "technology", "entertainment", "general"]:
@@ -151,6 +160,11 @@ class NewsAggregator:
                     topic_buckets[a.topic].append(a)
                 else:
                     leftover.append(a)
+
+            # Sort each topic bucket newest to oldest
+            for t in active_topics:
+                topic_buckets[t].sort(key=lambda a: a.timestamp, reverse=True)
+            leftover.sort(key=lambda a: a.timestamp, reverse=True)
 
             # Round-robin quota: Rank 0 gets 4, Rank 1 gets 3, others get 2 per round
             def get_quota(idx: int) -> int:
@@ -184,8 +198,9 @@ class NewsAggregator:
         active_source: Optional[str] = "all",
         search_query: Optional[str] = None
     ) -> Dict:
-        """Calculates interactive cross-counts for Location, Topic, and Source chips."""
-        base = list(self.articles)
+        """Calculates interactive cross-counts for Location, Topic, and Source chips within 24 hours."""
+        now = time.time()
+        base = [a for a in self.articles if (now - a.timestamp) <= (24 * 3600)]
         if search_query and search_query.strip():
             q = search_query.strip().lower()
             base = [

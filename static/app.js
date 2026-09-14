@@ -371,7 +371,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function filterArticlesStatic(articles, location, topic, source, searchQuery, priorityOrder, enabledTopics) {
-        let filtered = [...articles];
+        // Enforce 24-hour cutoff: only show articles from the last 24 hours
+        const nowSec = Math.floor(Date.now() / 1000);
+        const cutoff = nowSec - (24 * 3600);
+        let filtered = (articles || []).filter(a => (a.timestamp || 0) >= cutoff);
 
         // 1. Location filter
         if (location && location !== 'all') {
@@ -395,9 +398,13 @@ document.addEventListener('DOMContentLoaded', () => {
             );
         }
 
+        // Always sort newest first
+        filtered.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
         // 4. Topic filter / Priority interleaving
         if (topic && topic !== 'all' && topic !== 'priority') {
             filtered = filtered.filter(a => (a.topic || '').toLowerCase() === topic.toLowerCase());
+            filtered.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
         } else {
             const activeTopics = (priorityOrder && priorityOrder.length > 0)
                 ? priorityOrder.filter(t => t !== 'priority' && (!enabledTopics || enabledTopics[t] !== false))
@@ -421,6 +428,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     leftover.push(a);
                 }
             });
+
+            // Sort each topic bucket newest to oldest
+            activeTopics.forEach(t => {
+                topicBuckets[t].sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+            });
+            leftover.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
 
             const getQuota = (idx) => {
                 if (idx === 0) return 4;
@@ -462,13 +475,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getFilterCountsStatic(articles, activeLoc, activeTop, activeSrc, searchQuery) {
-        let base = [...articles];
+        const nowSec = Math.floor(Date.now() / 1000);
+        const cutoff = nowSec - (24 * 3600);
+        let base = (articles || []).filter(a => (a.timestamp || 0) >= cutoff);
         if (searchQuery && searchQuery.trim()) {
             const q = searchQuery.trim().toLowerCase();
             base = base.filter(a =>
                 (a.title || '').toLowerCase().includes(q) ||
                 (a.summary || '').toLowerCase().includes(q) ||
-                (a.source_name || '').toLowerCase().includes(q)
+                (a.source_name || '').toLowerCase().includes(q) ||
+                (a.location_name || '').toLowerCase().includes(q) ||
+                (a.topic_name || '').toLowerCase().includes(q)
             );
         }
 
@@ -506,12 +523,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (activeTop && activeTop !== 'all' && activeTop !== 'priority') {
             srcBase = srcBase.filter(a => (a.topic || '').toLowerCase() === activeTop.toLowerCase());
         }
-        const sourceCounts = { all: srcBase.length, google: 0, msn: 0, yahoo: 0, x: 0, moneycontrol: 0 };
-        srcBase.forEach(a => {
-            const s = (a.source || '').toLowerCase();
-            if (s in sourceCounts) {
-                sourceCounts[s]++;
-            }
+        const sourceCounts = { all: srcBase.length };
+        Object.keys(SOURCE_META).filter(s => s !== 'all').forEach(srcId => {
+            sourceCounts[srcId] = srcBase.filter(a => (a.source || '').toLowerCase() === srcId).length;
         });
 
         return {
@@ -526,6 +540,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (state.isRefreshing) return;
         state.isRefreshing = true;
         setRefreshingUI(true);
+        showLoading(true);
 
         const params = new URLSearchParams({
             location: state.currentLocation,
@@ -549,7 +564,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 isStaticMode = false;
                 if (data.articles && data.articles.length > 0) {
-                    state.articles = data.articles;
+                    const cutoff = Math.floor(Date.now() / 1000) - (24 * 3600);
+                    state.articles = data.articles
+                        .filter(a => (a.timestamp || 0) >= cutoff)
+                        .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
                     state.lastRefreshed = Math.floor(Date.now() / 1000);
                     updateLastRefreshedDisplay();
                     if (data.filter_counts) {
@@ -557,6 +575,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     renderArticles(state.articles);
                     updateBreadcrumbStatus(data.count || state.articles.length);
+                    showLoading(false);
                 } else {
                     await fetchNews();
                 }
@@ -572,6 +591,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 state.lastRefreshed = Math.floor(Date.now() / 1000);
                 updateLastRefreshedDisplay();
                 await fetchNewsStatic();
+                showLoading(false);
                 showToast('News feed reloaded! (Auto-scrapes every 30m on GitHub Actions)');
             }
         } catch (err) {
@@ -595,6 +615,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } finally {
             state.isRefreshing = false;
             setRefreshingUI(false);
+            showLoading(false);
         }
     }
 

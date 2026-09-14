@@ -63,13 +63,18 @@ async def scrape_yahoo_news(client: httpx.AsyncClient) -> List[NewsArticle]:
                     author = entry.source["title"]
 
                 published_at = entry.get("published", "")
-                ts = time.time()
+                now = time.time()
+                ts = now
                 if published_at:
                     try:
                         dt = date_parser.parse(published_at)
                         ts = dt.timestamp()
                     except Exception:
                         pass
+
+                # Only allow news from last 24 hours
+                if (now - ts) > (24 * 3600):
+                    continue
 
                 # Extract real Yahoo image
                 raw_image = None

@@ -1,0 +1,1327 @@
+{
+  "timestamp": 1789347093.875016,
+  "sources": {
+    "google": {
+      "total_queries": 31,
+      "dead_queries": 0,
+      "stale_queries": 0,
+      "total_entries_fetched": 1891,
+      "fresh_entries_24h": 1791,
+      "query_health_pct": 100.0,
+      "freshness_pct": 94.7,
+      "query_stats": [
+        {
+          "url": "https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en",
+          "location": "global",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 133.0,
+          "entries": 38,
+          "fresh_24h": 37
+        },
+        {
+          "url": "https://news.google.com/rss?hl=en-IN&gl=IN&ceid=IN:en",
+          "location": "india",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 16.9,
+          "entries": 38,
+          "fresh_24h": 31
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=Bengaluru+when:1d&hl=en-IN&gl=IN&ceid=IN:en",
+          "location": "bengaluru",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 15.3,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=Bengaluru+(tech+OR+startup+OR+AI)+when:1d&hl=en-...",
+          "location": "bengaluru",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 16.7,
+          "entries": 31,
+          "fresh_24h": 31
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=Bengaluru+(jobs+OR+hiring+OR+layoffs)+when:1d&hl...",
+          "location": "bengaluru",
+          "topic": "job_market",
+          "status": 200,
+          "latency_ms": 17.0,
+          "entries": 10,
+          "fresh_24h": 10
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=Bengaluru+(movies+OR+cinema+OR+theatre+OR+entert...",
+          "location": "bengaluru",
+          "topic": "entertainment",
+          "status": 200,
+          "latency_ms": 17.8,
+          "entries": 58,
+          "fresh_24h": 58
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=Odisha+when:1d&hl=en-IN&gl=IN&ceid=IN:en",
+          "location": "odisha",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 17.2,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=Odisha+(jobs+OR+employment+OR+industry)+when:1d&...",
+          "location": "odisha",
+          "topic": "job_market",
+          "status": 200,
+          "latency_ms": 19.7,
+          "entries": 33,
+          "fresh_24h": 33
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=Odisha+(tech+OR+technology+OR+startup+OR+IT)+whe...",
+          "location": "odisha",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 16.8,
+          "entries": 35,
+          "fresh_24h": 35
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=Odisha+(movies+OR+cinema+OR+theatre+OR+entertain...",
+          "location": "odisha",
+          "topic": "entertainment",
+          "status": 200,
+          "latency_ms": 16.1,
+          "entries": 57,
+          "fresh_24h": 57
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=Delhi+NCR+when:1d&hl=en-IN&gl=IN&ceid=IN:en",
+          "location": "delhi",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 16.5,
+          "entries": 50,
+          "fresh_24h": 49
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=Delhi+(tech+OR+startup+OR+AI)+when:1d&hl=en-IN&g...",
+          "location": "delhi",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 17.2,
+          "entries": 42,
+          "fresh_24h": 42
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=Delhi+(jobs+OR+hiring+OR+layoffs)+when:1d&hl=en-...",
+          "location": "delhi",
+          "topic": "job_market",
+          "status": 200,
+          "latency_ms": 23.1,
+          "entries": 52,
+          "fresh_24h": 52
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=Mumbai+when:1d&hl=en-IN&gl=IN&ceid=IN:en",
+          "location": "mumbai",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 16.8,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=Mumbai+(tech+OR+startup+OR+fintech)+when:1d&hl=e...",
+          "location": "mumbai",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 1.3,
+          "entries": 60,
+          "fresh_24h": 60
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=Mumbai+(Bollywood+OR+movies+OR+cinema+OR+enterta...",
+          "location": "mumbai",
+          "topic": "entertainment",
+          "status": 200,
+          "latency_ms": 16.8,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=Chennai+when:1d&hl=en-IN&gl=IN&ceid=IN:en",
+          "location": "chennai",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 14.6,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=Chennai+(tech+OR+IT+OR+startup)+when:1d&hl=en-IN...",
+          "location": "chennai",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 15.4,
+          "entries": 34,
+          "fresh_24h": 34
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=Kolkata+when:1d&hl=en-IN&gl=IN&ceid=IN:en",
+          "location": "kolkata",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 17.1,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=Kolkata+(tech+OR+IT+OR+startup)+when:1d&hl=en-IN...",
+          "location": "kolkata",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 14.1,
+          "entries": 35,
+          "fresh_24h": 35
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=Hyderabad+when:1d&hl=en-IN&gl=IN&ceid=IN:en",
+          "location": "hyderabad",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 16.5,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=Hyderabad+(tech+OR+IT+OR+startup+OR+AI)+when:1d&...",
+          "location": "hyderabad",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 3.8,
+          "entries": 36,
+          "fresh_24h": 36
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=Hyderabad+(Tollywood+OR+movies+OR+cinema+OR+ente...",
+          "location": "hyderabad",
+          "topic": "entertainment",
+          "status": 200,
+          "latency_ms": 17.2,
+          "entries": 61,
+          "fresh_24h": 61
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=Pune+when:1d&hl=en-IN&gl=IN&ceid=IN:en",
+          "location": "pune",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 16.7,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=Pune+(tech+OR+IT+OR+startup)+when:1d&hl=en-IN&gl...",
+          "location": "pune",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 18.0,
+          "entries": 37,
+          "fresh_24h": 37
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=India+(job+market+OR+hiring+OR+layoffs)+when:1d&...",
+          "location": "india",
+          "topic": "job_market",
+          "status": 200,
+          "latency_ms": 20.5,
+          "entries": 53,
+          "fresh_24h": 53
+        },
+        {
+          "url": "https://news.google.com/rss/headlines/section/topic/TECHNOLOGY?hl=en-IN&gl=IN&ceid=IN...",
+          "location": "global",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 72.4,
+          "entries": 70,
+          "fresh_24h": 25
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=(job+market+OR+hiring+OR+layoffs+OR+employment+t...",
+          "location": "global",
+          "topic": "job_market",
+          "status": 200,
+          "latency_ms": 19.9,
+          "entries": 35,
+          "fresh_24h": 35
+        },
+        {
+          "url": "https://news.google.com/rss/headlines/section/topic/ENTERTAINMENT?hl=en-IN&gl=IN&ceid...",
+          "location": "india",
+          "topic": "entertainment",
+          "status": 200,
+          "latency_ms": 99.6,
+          "entries": 70,
+          "fresh_24h": 38
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=(Bollywood+OR+cinema+OR+movies+OR+OTT+OR+celebri...",
+          "location": "india",
+          "topic": "entertainment",
+          "status": 200,
+          "latency_ms": 16.9,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/headlines/section/topic/ENTERTAINMENT?hl=en-US&gl=US&ceid...",
+          "location": "global",
+          "topic": "entertainment",
+          "status": 200,
+          "latency_ms": 66.3,
+          "entries": 56,
+          "fresh_24h": 42
+        }
+      ]
+    },
+    "msn": {
+      "total_queries": 20,
+      "dead_queries": 2,
+      "stale_queries": 6,
+      "total_entries_fetched": 460,
+      "fresh_entries_24h": 255,
+      "query_health_pct": 90.0,
+      "freshness_pct": 55.4,
+      "query_stats": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:msn.com+when:1d&hl=en-IN&gl=IN&ceid=IN:en",
+          "location": "india",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 22.4,
+          "entries": 100,
+          "fresh_24h": 86
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:msn.com+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "location": "global",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 17.0,
+          "entries": 100,
+          "fresh_24h": 72
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:msn.com+(India+news+OR+national+OR+politics...",
+          "location": "india",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 17.2,
+          "entries": 91,
+          "fresh_24h": 9
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:msn.com+(jobs+OR+hiring+OR+layoffs+OR+salar...",
+          "location": "india",
+          "topic": "job_market",
+          "status": 200,
+          "latency_ms": 0.5,
+          "entries": 6,
+          "fresh_24h": 6
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:msn.com+(technology+OR+AI+OR+\"artificial in...",
+          "location": "india",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 0.0,
+          "entries": 22,
+          "fresh_24h": 18
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:msn.com+(movie+OR+Bollywood+OR+cinema+OR+tr...",
+          "location": "india",
+          "topic": "entertainment",
+          "status": 200,
+          "latency_ms": 22.3,
+          "entries": 0,
+          "fresh_24h": 0
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:msn.com+(world+news+OR+international+OR+glo...",
+          "location": "global",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 10.7,
+          "entries": 10,
+          "fresh_24h": 8
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:msn.com+(global+tech+OR+Apple+OR+Google+OR+...",
+          "location": "global",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 16.8,
+          "entries": 5,
+          "fresh_24h": 5
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:msn.com+(global+hiring+OR+layoffs+OR+career...",
+          "location": "global",
+          "topic": "job_market",
+          "status": 200,
+          "latency_ms": 21.2,
+          "entries": 0,
+          "fresh_24h": 0
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:msn.com+(Hollywood+OR+movies+OR+celebrity+O...",
+          "location": "global",
+          "topic": "entertainment",
+          "status": 200,
+          "latency_ms": 14.6,
+          "entries": 13,
+          "fresh_24h": 13
+        },
+        {
+          "url": "https://www.bing.com/news/search?q=Delhi+news&format=rss",
+          "location": "delhi",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 322.5,
+          "entries": 12,
+          "fresh_24h": 2
+        },
+        {
+          "url": "https://www.bing.com/news/search?q=Mumbai+news&format=rss",
+          "location": "mumbai",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 2321.0,
+          "entries": 12,
+          "fresh_24h": 7
+        },
+        {
+          "url": "https://www.bing.com/news/search?q=Bengaluru+news&format=rss",
+          "location": "bengaluru",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 331.6,
+          "entries": 12,
+          "fresh_24h": 10
+        },
+        {
+          "url": "https://www.bing.com/news/search?q=Bengaluru+tech+startups+AI&format=rss",
+          "location": "bengaluru",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 418.0,
+          "entries": 11,
+          "fresh_24h": 0
+        },
+        {
+          "url": "https://www.bing.com/news/search?q=Chennai+news&format=rss",
+          "location": "chennai",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 518.0,
+          "entries": 12,
+          "fresh_24h": 4
+        },
+        {
+          "url": "https://www.bing.com/news/search?q=Kolkata+news&format=rss",
+          "location": "kolkata",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 349.8,
+          "entries": 12,
+          "fresh_24h": 1
+        },
+        {
+          "url": "https://www.bing.com/news/search?q=Hyderabad+news&format=rss",
+          "location": "hyderabad",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 1712.3,
+          "entries": 12,
+          "fresh_24h": 6
+        },
+        {
+          "url": "https://www.bing.com/news/search?q=Pune+news&format=rss",
+          "location": "pune",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 301.2,
+          "entries": 12,
+          "fresh_24h": 5
+        },
+        {
+          "url": "https://www.bing.com/news/search?q=Odisha+Bhubaneswar+news&format=rss",
+          "location": "odisha",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 318.9,
+          "entries": 12,
+          "fresh_24h": 3
+        },
+        {
+          "url": "https://www.bing.com/news/search?q=Odisha+technology+IT+startups&format=rss",
+          "location": "odisha",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 515.0,
+          "entries": 6,
+          "fresh_24h": 0
+        }
+      ]
+    },
+    "yahoo": {
+      "total_queries": 23,
+      "dead_queries": 1,
+      "stale_queries": 1,
+      "total_entries_fetched": 1090,
+      "fresh_entries_24h": 1079,
+      "query_health_pct": 95.7,
+      "freshness_pct": 99.0,
+      "query_stats": [
+        {
+          "url": "https://news.google.com/rss/search?q=site:yahoo.com+when:1d&hl=en-IN&gl=IN&ceid=IN:en",
+          "location": "india",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 70.9,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:yahoo.com+when:1d&hl=en-US&gl=US&ceid=US:en",
+          "location": "global",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 16.4,
+          "entries": 100,
+          "fresh_24h": 95
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:yahoo.com+(Delhi+OR+NCR)+when:1d&hl=en-IN&g...",
+          "location": "delhi",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 0.7,
+          "entries": 35,
+          "fresh_24h": 35
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:yahoo.com+(Mumbai+OR+Bombay)+when:1d&hl=en-...",
+          "location": "mumbai",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 0.0,
+          "entries": 12,
+          "fresh_24h": 12
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:yahoo.com+(Bengaluru+OR+Bangalore)+when:1d&...",
+          "location": "bengaluru",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 16.7,
+          "entries": 11,
+          "fresh_24h": 11
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:yahoo.com+(Bengaluru+OR+Bangalore)+(tech+OR...",
+          "location": "bengaluru",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 17.2,
+          "entries": 11,
+          "fresh_24h": 11
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:yahoo.com+(Bengaluru+OR+Bangalore)+(jobs+OR...",
+          "location": "bengaluru",
+          "topic": "job_market",
+          "status": 200,
+          "latency_ms": 16.8,
+          "entries": 4,
+          "fresh_24h": 4
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:yahoo.com+(Chennai+OR+Madras)+when:1d&hl=en...",
+          "location": "chennai",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 16.9,
+          "entries": 5,
+          "fresh_24h": 5
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:yahoo.com+(Kolkata+OR+Calcutta)+when:1d&hl=...",
+          "location": "kolkata",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 16.4,
+          "entries": 5,
+          "fresh_24h": 5
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:yahoo.com+(Hyderabad+OR+Secunderabad)+when:...",
+          "location": "hyderabad",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 16.5,
+          "entries": 3,
+          "fresh_24h": 3
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:yahoo.com+Pune+when:1d&hl=en-IN&gl=IN&ceid=...",
+          "location": "pune",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 16.6,
+          "entries": 1,
+          "fresh_24h": 0
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:yahoo.com+(Odisha+OR+Bhubaneswar+OR+Cuttack...",
+          "location": "odisha",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 15.9,
+          "entries": 1,
+          "fresh_24h": 1
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:yahoo.com+(Odisha+OR+Bhubaneswar)+(jobs+OR+...",
+          "location": "odisha",
+          "topic": "job_market",
+          "status": 200,
+          "latency_ms": 0.0,
+          "entries": 1,
+          "fresh_24h": 1
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:yahoo.com+(Odisha+OR+Bhubaneswar)+(tech+OR+...",
+          "location": "odisha",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 0.6,
+          "entries": 1,
+          "fresh_24h": 1
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:yahoo.com+(Odisha+OR+Bhubaneswar)+(movie+OR...",
+          "location": "odisha",
+          "topic": "entertainment",
+          "status": 200,
+          "latency_ms": 16.8,
+          "entries": 0,
+          "fresh_24h": 0
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:yahoo.com+(India+news+OR+national+OR+politi...",
+          "location": "india",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 16.5,
+          "entries": 100,
+          "fresh_24h": 99
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:yahoo.com+(jobs+OR+hiring+OR+layoffs+OR+sal...",
+          "location": "india",
+          "topic": "job_market",
+          "status": 200,
+          "latency_ms": 32.7,
+          "entries": 100,
+          "fresh_24h": 99
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:yahoo.com+(technology+OR+AI+OR+\"artificial ...",
+          "location": "india",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 17.1,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:yahoo.com+(movie+OR+Bollywood+OR+cinema+OR+...",
+          "location": "india",
+          "topic": "entertainment",
+          "status": 200,
+          "latency_ms": 17.2,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:yahoo.com+(world+news+OR+international+OR+g...",
+          "location": "global",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 20.2,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:yahoo.com+(global+tech+OR+Apple+OR+Google+O...",
+          "location": "global",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 16.7,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:yahoo.com+(global+hiring+OR+layoffs+OR+care...",
+          "location": "global",
+          "topic": "job_market",
+          "status": 200,
+          "latency_ms": 17.1,
+          "entries": 100,
+          "fresh_24h": 97
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:yahoo.com+(Hollywood+OR+movies+OR+celebrity...",
+          "location": "global",
+          "topic": "entertainment",
+          "status": 200,
+          "latency_ms": 16.2,
+          "entries": 100,
+          "fresh_24h": 100
+        }
+      ]
+    },
+    "x": {
+      "total_queries": 21,
+      "dead_queries": 0,
+      "stale_queries": 0,
+      "total_entries_fetched": 1890,
+      "fresh_entries_24h": 1890,
+      "query_health_pct": 100.0,
+      "freshness_pct": 100.0,
+      "query_stats": [
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "location": "delhi",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 23.5,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "location": "mumbai",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 16.7,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "location": "bengaluru",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 16.5,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "location": "bengaluru",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 19.5,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "location": "bengaluru",
+          "topic": "job_market",
+          "status": 200,
+          "latency_ms": 17.3,
+          "entries": 25,
+          "fresh_24h": 25
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "location": "bengaluru",
+          "topic": "entertainment",
+          "status": 200,
+          "latency_ms": 17.1,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "location": "chennai",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 17.1,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "location": "kolkata",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 16.4,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "location": "hyderabad",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 16.2,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "location": "pune",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 18.3,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "location": "odisha",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 16.9,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "location": "odisha",
+          "topic": "job_market",
+          "status": 200,
+          "latency_ms": 16.7,
+          "entries": 29,
+          "fresh_24h": 29
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "location": "odisha",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 16.4,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "location": "odisha",
+          "topic": "entertainment",
+          "status": 200,
+          "latency_ms": 16.4,
+          "entries": 36,
+          "fresh_24h": 36
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "location": "india",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 15.2,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "location": "india",
+          "topic": "job_market",
+          "status": 200,
+          "latency_ms": 17.0,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "location": "global",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 16.5,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "location": "global",
+          "topic": "job_market",
+          "status": 200,
+          "latency_ms": 0.0,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "location": "india",
+          "topic": "entertainment",
+          "status": 200,
+          "latency_ms": 17.1,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "location": "global",
+          "topic": "entertainment",
+          "status": 200,
+          "latency_ms": 21.6,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=%28site%3Ax.com/%2A/status%20OR%20site%3Atwitter...",
+          "location": "global",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 16.8,
+          "entries": 100,
+          "fresh_24h": 100
+        }
+      ]
+    },
+    "moneycontrol": {
+      "total_queries": 27,
+      "dead_queries": 0,
+      "stale_queries": 5,
+      "total_entries_fetched": 1403,
+      "fresh_entries_24h": 1258,
+      "query_health_pct": 100.0,
+      "freshness_pct": 89.7,
+      "query_stats": [
+        {
+          "url": "https://www.moneycontrol.com/rss/latestnews.xml",
+          "location": "india",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 39.2,
+          "entries": 15,
+          "fresh_24h": 0
+        },
+        {
+          "url": "https://www.moneycontrol.com/rss/business.xml",
+          "location": "india",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 16.9,
+          "entries": 15,
+          "fresh_24h": 0
+        },
+        {
+          "url": "https://www.moneycontrol.com/rss/economy.xml",
+          "location": "india",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 18.8,
+          "entries": 4,
+          "fresh_24h": 0
+        },
+        {
+          "url": "https://www.moneycontrol.com/rss/technology.xml",
+          "location": "global",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 22.1,
+          "entries": 2,
+          "fresh_24h": 0
+        },
+        {
+          "url": "https://www.moneycontrol.com/rss/buzzingstocks.xml",
+          "location": "india",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 14.1,
+          "entries": 15,
+          "fresh_24h": 0
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(Delhi+OR+NCR)+when:1d&hl=...",
+          "location": "delhi",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 26.1,
+          "entries": 100,
+          "fresh_24h": 96
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(Mumbai+OR+Bombay)+when:1d...",
+          "location": "mumbai",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 14.5,
+          "entries": 100,
+          "fresh_24h": 86
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(Bengaluru+OR+Bangalore)+w...",
+          "location": "bengaluru",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 11.0,
+          "entries": 65,
+          "fresh_24h": 56
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(Bengaluru+OR+Bangalore)+(...",
+          "location": "bengaluru",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 11.5,
+          "entries": 65,
+          "fresh_24h": 57
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(Bengaluru+OR+Bangalore)+(...",
+          "location": "bengaluru",
+          "topic": "job_market",
+          "status": 200,
+          "latency_ms": 13.5,
+          "entries": 28,
+          "fresh_24h": 28
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(Bengaluru+OR+Bangalore)+(...",
+          "location": "bengaluru",
+          "topic": "entertainment",
+          "status": 200,
+          "latency_ms": 17.9,
+          "entries": 28,
+          "fresh_24h": 28
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(Chennai+OR+Madras)+when:1...",
+          "location": "chennai",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 6.9,
+          "entries": 53,
+          "fresh_24h": 47
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(Kolkata+OR+Calcutta)+when...",
+          "location": "kolkata",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 16.2,
+          "entries": 39,
+          "fresh_24h": 31
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(Hyderabad+OR+Secunderabad...",
+          "location": "hyderabad",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 17.2,
+          "entries": 100,
+          "fresh_24h": 91
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:moneycontrol.com+Pune+when:1d&hl=en-IN&gl=I...",
+          "location": "pune",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 17.0,
+          "entries": 38,
+          "fresh_24h": 36
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(Odisha+OR+Bhubaneswar+OR+...",
+          "location": "odisha",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 16.8,
+          "entries": 13,
+          "fresh_24h": 10
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(Odisha+OR+Bhubaneswar)+(j...",
+          "location": "odisha",
+          "topic": "job_market",
+          "status": 200,
+          "latency_ms": 24.6,
+          "entries": 6,
+          "fresh_24h": 5
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(Odisha+OR+Bhubaneswar)+(t...",
+          "location": "odisha",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 8.8,
+          "entries": 11,
+          "fresh_24h": 8
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(Odisha+OR+Bhubaneswar)+(e...",
+          "location": "odisha",
+          "topic": "entertainment",
+          "status": 200,
+          "latency_ms": 0.0,
+          "entries": 4,
+          "fresh_24h": 4
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(jobs+OR+hiring+OR+layoffs...",
+          "location": "india",
+          "topic": "job_market",
+          "status": 200,
+          "latency_ms": 15.8,
+          "entries": 100,
+          "fresh_24h": 95
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(tech+OR+technology+OR+AI+...",
+          "location": "india",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 16.9,
+          "entries": 100,
+          "fresh_24h": 97
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(entertainment+OR+bollywoo...",
+          "location": "india",
+          "topic": "entertainment",
+          "status": 200,
+          "latency_ms": 14.6,
+          "entries": 100,
+          "fresh_24h": 94
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:moneycontrol.com+India+(economy+OR+markets+...",
+          "location": "india",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 17.1,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(global+OR+world+OR+US+mar...",
+          "location": "global",
+          "topic": "general",
+          "status": 200,
+          "latency_ms": 16.4,
+          "entries": 100,
+          "fresh_24h": 95
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(global+tech+OR+Nvidia+OR+...",
+          "location": "global",
+          "topic": "technology",
+          "status": 200,
+          "latency_ms": 11.3,
+          "entries": 100,
+          "fresh_24h": 92
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(global+hiring+OR+layoffs+...",
+          "location": "global",
+          "topic": "job_market",
+          "status": 200,
+          "latency_ms": 16.3,
+          "entries": 100,
+          "fresh_24h": 100
+        },
+        {
+          "url": "https://news.google.com/rss/search?q=site:moneycontrol.com+(Hollywood+OR+Oscars+OR+Ne...",
+          "location": "global",
+          "topic": "entertainment",
+          "status": 200,
+          "latency_ms": 16.2,
+          "entries": 2,
+          "fresh_24h": 2
+        }
+      ]
+    }
+  },
+  "matrix_coverage": {},
+  "stale_queries": [
+    {
+      "source": "msn",
+      "url": "https://news.google.com/rss/search?q=site:msn.com+(India+news+OR+national+OR+politics+OR+economy)+when:1d&hl=en-IN&gl=IN&ceid=IN:en",
+      "fresh_pct": 9.9
+    },
+    {
+      "source": "msn",
+      "url": "https://www.bing.com/news/search?q=Delhi+news&format=rss",
+      "fresh_pct": 16.7
+    },
+    {
+      "source": "msn",
+      "url": "https://www.bing.com/news/search?q=Bengaluru+tech+startups+AI&format=rss",
+      "fresh_pct": 0.0
+    },
+    {
+      "source": "msn",
+      "url": "https://www.bing.com/news/search?q=Kolkata+news&format=rss",
+      "fresh_pct": 8.3
+    },
+    {
+      "source": "msn",
+      "url": "https://www.bing.com/news/search?q=Odisha+Bhubaneswar+news&format=rss",
+      "fresh_pct": 25.0
+    },
+    {
+      "source": "msn",
+      "url": "https://www.bing.com/news/search?q=Odisha+technology+IT+startups&format=rss",
+      "fresh_pct": 0.0
+    },
+    {
+      "source": "yahoo",
+      "url": "https://news.google.com/rss/search?q=site:yahoo.com+Pune+when:1d&hl=en-IN&gl=IN&ceid=IN:en",
+      "fresh_pct": 0.0
+    },
+    {
+      "source": "moneycontrol",
+      "url": "https://www.moneycontrol.com/rss/latestnews.xml",
+      "fresh_pct": 0.0
+    },
+    {
+      "source": "moneycontrol",
+      "url": "https://www.moneycontrol.com/rss/business.xml",
+      "fresh_pct": 0.0
+    },
+    {
+      "source": "moneycontrol",
+      "url": "https://www.moneycontrol.com/rss/economy.xml",
+      "fresh_pct": 0.0
+    },
+    {
+      "source": "moneycontrol",
+      "url": "https://www.moneycontrol.com/rss/technology.xml",
+      "fresh_pct": 0.0
+    },
+    {
+      "source": "moneycontrol",
+      "url": "https://www.moneycontrol.com/rss/buzzingstocks.xml",
+      "fresh_pct": 0.0
+    }
+  ],
+  "dead_queries": [
+    {
+      "source": "msn",
+      "url": "https://news.google.com/rss/search?q=site:msn.com+(movie+OR+Bollywood+OR+cinema+OR+trailer+OR+box+office)+when:1d&hl=en-IN&gl=IN&ceid=IN:en",
+      "location": "india",
+      "topic": "entertainment"
+    },
+    {
+      "source": "msn",
+      "url": "https://news.google.com/rss/search?q=site:msn.com+(global+hiring+OR+layoffs+OR+careers)+when:1d&hl=en-US&gl=US&ceid=US:en",
+      "location": "global",
+      "topic": "job_market"
+    },
+    {
+      "source": "yahoo",
+      "url": "https://news.google.com/rss/search?q=site:yahoo.com+(Odisha+OR+Bhubaneswar)+(movie+OR+cinema+OR+culture)+when:1d&hl=en-IN&gl=IN&ceid=IN:en",
+      "location": "odisha",
+      "topic": "entertainment"
+    }
+  ],
+  "issues_found": [],
+  "fixes_applied": [],
+  "summary": {
+    "duration_seconds": 13.63,
+    "engines_audited": 5,
+    "total_articles": 1275,
+    "strictly_sorted": true,
+    "issues_count": 0,
+    "status": "PASS"
+  },
+  "snapshot_audit": {
+    "total_articles": 1275,
+    "strictly_sorted_newest_first": true,
+    "max_age_hours": 23.93,
+    "min_age_hours": 0.05,
+    "over_24h_count": 0,
+    "broken_images_count": 0,
+    "unclean_titles_count": 14,
+    "matrix_distribution": {
+      "google": {
+        "all": 0,
+        "delhi": 51,
+        "mumbai": 51,
+        "bengaluru": 47,
+        "chennai": 28,
+        "kolkata": 23,
+        "hyderabad": 35,
+        "pune": 18,
+        "odisha": 43,
+        "india": 39,
+        "global": 40
+      },
+      "msn": {
+        "all": 0,
+        "delhi": 0,
+        "mumbai": 4,
+        "bengaluru": 6,
+        "chennai": 2,
+        "kolkata": 1,
+        "hyderabad": 3,
+        "pune": 2,
+        "odisha": 2,
+        "india": 52,
+        "global": 19
+      },
+      "yahoo": {
+        "all": 0,
+        "delhi": 35,
+        "mumbai": 11,
+        "bengaluru": 9,
+        "chennai": 5,
+        "kolkata": 3,
+        "hyderabad": 3,
+        "pune": 0,
+        "odisha": 0,
+        "india": 167,
+        "global": 150
+      },
+      "x": {
+        "all": 0,
+        "delhi": 27,
+        "mumbai": 20,
+        "bengaluru": 55,
+        "chennai": 13,
+        "kolkata": 16,
+        "hyderabad": 15,
+        "pune": 10,
+        "odisha": 48,
+        "india": 38,
+        "global": 35
+      },
+      "moneycontrol": {
+        "all": 0,
+        "delhi": 16,
+        "mumbai": 14,
+        "bengaluru": 31,
+        "chennai": 13,
+        "kolkata": 8,
+        "hyderabad": 2,
+        "pune": 6,
+        "odisha": 6,
+        "india": 43,
+        "global": 10
+      }
+    }
+  }
+}

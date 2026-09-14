@@ -180,10 +180,13 @@ def detect_location(title: str, summary: str, default: str = "global") -> str:
             return "india"
         return "odisha"
 
-    # If default was a regional city but article doesn't match regional keywords
+    # If the feed had a designated regional city default, honor it unless another city was explicitly in title
     regional_defaults = {"bengaluru", "odisha", "delhi", "mumbai", "chennai", "kolkata", "hyderabad", "pune"}
     if default in regional_defaults:
-        return "india"
+        for other_id, other_kws in city_rules:
+            if other_id != default and any(k in t_lower for k in other_kws):
+                return other_id
+        return default
 
     # 3. Global detection
     if default == "global":

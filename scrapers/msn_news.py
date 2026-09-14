@@ -11,23 +11,9 @@ from scrapers.models import NewsArticle, format_relative_time, detect_location, 
 from config import LOCATIONS, TOPICS
 
 MSN_QUERIES = [
-    # Master Feed: All fresh MSN articles from last 24h
+    # Master Feeds: All fresh MSN articles from last 24h
     {"url": "https://news.google.com/rss/search?q=site:msn.com+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "general"},
     {"url": "https://news.google.com/rss/search?q=site:msn.com+when:1d&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "general"},
-    # Metros & States
-    {"url": "https://news.google.com/rss/search?q=site:msn.com+(Delhi+OR+NCR)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "delhi", "top": "general"},
-    {"url": "https://news.google.com/rss/search?q=site:msn.com+(Mumbai+OR+Bombay)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "mumbai", "top": "general"},
-    {"url": "https://news.google.com/rss/search?q=site:msn.com+(Bengaluru+OR+Bangalore)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "bengaluru", "top": "general"},
-    {"url": "https://news.google.com/rss/search?q=site:msn.com+(Bengaluru+OR+Bangalore)+(tech+OR+AI+OR+startup)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "bengaluru", "top": "technology"},
-    {"url": "https://news.google.com/rss/search?q=site:msn.com+(Bengaluru+OR+Bangalore)+(jobs+OR+hiring+OR+careers)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "bengaluru", "top": "job_market"},
-    {"url": "https://news.google.com/rss/search?q=site:msn.com+(Chennai+OR+Madras)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "chennai", "top": "general"},
-    {"url": "https://news.google.com/rss/search?q=site:msn.com+(Kolkata+OR+Calcutta)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "kolkata", "top": "general"},
-    {"url": "https://news.google.com/rss/search?q=site:msn.com+(Hyderabad+OR+Secunderabad)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "hyderabad", "top": "general"},
-    {"url": "https://news.google.com/rss/search?q=site:msn.com+Pune+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "pune", "top": "general"},
-    {"url": "https://news.google.com/rss/search?q=site:msn.com+(Odisha+OR+Bhubaneswar+OR+Cuttack)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "odisha", "top": "general"},
-    {"url": "https://news.google.com/rss/search?q=site:msn.com+(Odisha+OR+Bhubaneswar)+(jobs+OR+hiring+OR+employment)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "odisha", "top": "job_market"},
-    {"url": "https://news.google.com/rss/search?q=site:msn.com+(Odisha+OR+Bhubaneswar)+(tech+OR+IT+OR+software)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "odisha", "top": "technology"},
-    {"url": "https://news.google.com/rss/search?q=site:msn.com+(Odisha+OR+Bhubaneswar)+(movie+OR+cinema+OR+culture)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "odisha", "top": "entertainment"},
     # National & Topics
     {"url": "https://news.google.com/rss/search?q=site:msn.com+(India+news+OR+national+OR+politics+OR+economy)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "general"},
     {"url": "https://news.google.com/rss/search?q=site:msn.com+(jobs+OR+hiring+OR+layoffs+OR+salary+OR+\"job market\")+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "job_market"},
@@ -38,6 +24,17 @@ MSN_QUERIES = [
     {"url": "https://news.google.com/rss/search?q=site:msn.com+(global+tech+OR+Apple+OR+Google+OR+Microsoft+OR+AI)+when:1d&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "technology"},
     {"url": "https://news.google.com/rss/search?q=site:msn.com+(global+hiring+OR+layoffs+OR+careers)+when:1d&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "job_market"},
     {"url": "https://news.google.com/rss/search?q=site:msn.com+(Hollywood+OR+movies+OR+celebrity+OR+Netflix)+when:1d&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "entertainment"},
+    # Regional Metropolitan Feeds (Bing News / MSN Regional Engine)
+    {"url": "https://www.bing.com/news/search?q=Delhi+news&format=rss", "loc": "delhi", "top": "general"},
+    {"url": "https://www.bing.com/news/search?q=Mumbai+news&format=rss", "loc": "mumbai", "top": "general"},
+    {"url": "https://www.bing.com/news/search?q=Bengaluru+news&format=rss", "loc": "bengaluru", "top": "general"},
+    {"url": "https://www.bing.com/news/search?q=Bengaluru+tech+startups+AI&format=rss", "loc": "bengaluru", "top": "technology"},
+    {"url": "https://www.bing.com/news/search?q=Chennai+news&format=rss", "loc": "chennai", "top": "general"},
+    {"url": "https://www.bing.com/news/search?q=Kolkata+news&format=rss", "loc": "kolkata", "top": "general"},
+    {"url": "https://www.bing.com/news/search?q=Hyderabad+news&format=rss", "loc": "hyderabad", "top": "general"},
+    {"url": "https://www.bing.com/news/search?q=Pune+news&format=rss", "loc": "pune", "top": "general"},
+    {"url": "https://www.bing.com/news/search?q=Odisha+Bhubaneswar+news&format=rss", "loc": "odisha", "top": "general"},
+    {"url": "https://www.bing.com/news/search?q=Odisha+technology+IT+startups&format=rss", "loc": "odisha", "top": "technology"},
 ]
 
 def clean_html(raw_html: str) -> str:
@@ -55,6 +52,7 @@ def clean_title(title: str) -> str:
     if " - " in title:
         title = title.rsplit(" - ", 1)[0].strip()
     title = re.sub(r"\s*[-–—|]?\s*MSN(?:\.com)?\s*$", "", title, flags=re.IGNORECASE).strip()
+    title = re.sub(r"\s*[-–—|]?\s*Bing News\s*$", "", title, flags=re.IGNORECASE).strip()
     return title
 
 async def scrape_msn_news(client: httpx.AsyncClient) -> List[NewsArticle]:

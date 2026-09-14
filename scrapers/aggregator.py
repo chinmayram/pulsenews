@@ -137,57 +137,22 @@ class NewsAggregator:
                 if q in a.title.lower() or q in a.summary.lower() or q in a.source_name.lower() or q in a.location_name.lower() or q in a.topic_name.lower()
             ]
 
-        # 4. Topic filter / Priority interleaving
+        # 4. Topic filter
         if topic and topic != "all" and topic != "priority":
-            # Specific topic selected: Filter and sort newest to oldest
             filtered = [a for a in filtered if a.topic.lower() == topic.lower()]
-            filtered.sort(key=lambda a: a.timestamp, reverse=True)
-        elif topic == "all":
-            # All topics view: Strictly sorted from newest to oldest
-            filtered.sort(key=lambda a: a.timestamp, reverse=True)
-        else:
-            # "priority" view: Interleave topics based on priority order
-            active_topics = [t for t in priority_order if t in TOPICS and t != "priority" and enabled_topics.get(t, True)]
-            # Ensure any missing default topics are also included
+        elif topic == "priority":
+            # "priority" view: filter to enabled topics
+            active_topics = set(t for t in priority_order if t in TOPICS and t != "priority" and enabled_topics.get(t, True))
             for dt in ["job_market", "technology", "entertainment", "general"]:
-                if dt not in active_topics and enabled_topics.get(dt, True):
-                    active_topics.append(dt)
-            topic_buckets = {t: [] for t in active_topics}
-            leftover = []
+                if enabled_topics.get(dt, True):
+                    active_topics.add(dt)
+            filtered = [a for a in filtered if a.topic.lower() in active_topics]
 
-            for a in filtered:
-                if a.topic in topic_buckets:
-                    topic_buckets[a.topic].append(a)
-                else:
-                    leftover.append(a)
+        # Deduplicate
+        filtered = self.deduplicate(filtered)
 
-            # Sort each topic bucket newest to oldest
-            for t in active_topics:
-                topic_buckets[t].sort(key=lambda a: a.timestamp, reverse=True)
-            leftover.sort(key=lambda a: a.timestamp, reverse=True)
-
-            # Round-robin quota: Rank 0 gets 4, Rank 1 gets 3, others get 2 per round
-            def get_quota(idx: int) -> int:
-                if idx == 0:
-                    return 4
-                elif idx <= 2:
-                    return 3
-                return 2
-
-            interleaved = []
-            has_more = True
-            while has_more:
-                has_more = False
-                for idx, t in enumerate(active_topics):
-                    quota = get_quota(idx)
-                    bucket = topic_buckets[t]
-                    for _ in range(quota):
-                        if bucket:
-                            interleaved.append(bucket.pop(0))
-                            has_more = True
-
-            interleaved.extend(leftover)
-            filtered = self.deduplicate(interleaved)
+        # STRICT REQUIREMENT: Always sort from newest to oldest (latest news 1st then old)
+        filtered.sort(key=lambda a: a.timestamp, reverse=True)
 
         return filtered
 

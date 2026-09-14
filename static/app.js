@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     isStaticMode = false;
                     state.lastRefreshed = data.last_refreshed;
                     updateLastRefreshedDisplay();
-                    state.articles = data.articles || [];
+                    state.articles = (data.articles || []).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
                     updateInteractiveCounts(data.filter_counts);
                     renderArticles(state.articles);
                     updateBreadcrumbStatus(data.count);
@@ -401,75 +401,31 @@ document.addEventListener('DOMContentLoaded', () => {
         // Always sort newest first
         filtered.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
 
-        // 4. Topic filter / Priority interleaving
+        // 4. Topic filter
         if (topic && topic !== 'all' && topic !== 'priority') {
             filtered = filtered.filter(a => (a.topic || '').toLowerCase() === topic.toLowerCase());
-            filtered.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-        } else {
+        } else if (topic === 'priority') {
+            // Priority view: filter to enabled topics
             const activeTopics = (priorityOrder && priorityOrder.length > 0)
                 ? priorityOrder.filter(t => t !== 'priority' && (!enabledTopics || enabledTopics[t] !== false))
                 : ['job_market', 'technology', 'entertainment', 'general'];
+            filtered = filtered.filter(a => activeTopics.includes((a.topic || '').toLowerCase()));
+        }
 
-            ['job_market', 'technology', 'entertainment', 'general'].forEach(dt => {
-                if (!activeTopics.includes(dt) && (!enabledTopics || enabledTopics[dt] !== false)) {
-                    activeTopics.push(dt);
-                }
-            });
-
-            const topicBuckets = {};
-            activeTopics.forEach(t => { topicBuckets[t] = []; });
-            const leftover = [];
-
-            filtered.forEach(a => {
-                const top = (a.topic || '').toLowerCase();
-                if (topicBuckets[top]) {
-                    topicBuckets[top].push(a);
-                } else {
-                    leftover.push(a);
-                }
-            });
-
-            // Sort each topic bucket newest to oldest
-            activeTopics.forEach(t => {
-                topicBuckets[t].sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-            });
-            leftover.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-
-            const getQuota = (idx) => {
-                if (idx === 0) return 4;
-                if (idx <= 2) return 3;
-                return 2;
-            };
-
-            const interleaved = [];
-            let hasMore = true;
-            while (hasMore) {
-                hasMore = false;
-                for (let idx = 0; idx < activeTopics.length; idx++) {
-                    const t = activeTopics[idx];
-                    const quota = getQuota(idx);
-                    const bucket = topicBuckets[t];
-                    for (let q = 0; q < quota; q++) {
-                        if (bucket && bucket.length > 0) {
-                            interleaved.push(bucket.shift());
-                            hasMore = true;
-                        }
-                    }
-                }
-            }
-            interleaved.push(...leftover);
-
-            // Deduplicate
-            const seen = new Set();
-            filtered = [];
-            for (const a of interleaved) {
-                const key = a.id || (a.title ? a.title.toLowerCase().slice(0, 60) : Math.random());
-                if (!seen.has(key)) {
-                    seen.add(key);
-                    filtered.push(a);
-                }
+        // Deduplicate
+        const seen = new Set();
+        const deduplicated = [];
+        for (const a of filtered) {
+            const key = a.id || (a.title ? a.title.toLowerCase().trim().slice(0, 60) : Math.random());
+            if (!seen.has(key)) {
+                seen.add(key);
+                deduplicated.push(a);
             }
         }
+        filtered = deduplicated;
+
+        // STRICT REQUIREMENT: Always sort from newest to oldest (latest news 1st then old)
+        filtered.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
 
         return filtered;
     }
@@ -553,12 +509,37 @@ document.addEventListener('DOMContentLoaded', () => {
             params.append('search', state.searchQuery);
         }
 
+        // Animated scraping progress steps across all 5 engines
+        const progressSteps = [
+            { title: 'Scraping Google News & MSN (1/5)...', sub: 'Querying 24h breaking feeds and regional editions' },
+            { title: 'Scraping Yahoo News & Verified X (3/5)...', sub: 'Filtering breaking tweets and trending dispatches' },
+            { title: 'Scraping Moneycontrol Markets (5/5)...', sub: 'Fetching corporate, tech and financial updates' },
+            { title: 'Sorting 24h Latest News First...', sub: 'Enforcing strict 24-hour cutoff & chronological order' }
+        ];
+
+        let stepIndex = 0;
+        const progressInterval = setInterval(() => {
+            stepIndex = (stepIndex + 1) % progressSteps.length;
+            const step = progressSteps[stepIndex];
+            const titleEl = document.getElementById('loadingBannerTitle');
+            const subEl = document.getElementById('loadingBannerSubtitle');
+            if (titleEl) titleEl.textContent = step.title;
+            if (subEl) subEl.textContent = step.sub;
+            if (elements.headerStatus) elements.headerStatus.textContent = step.title;
+        }, 650);
+
+        // Ensure visible scraping animation runs until scraping completes (minimum 2.5 seconds)
+        const minLoadingTime = new Promise(resolve => setTimeout(resolve, 2500));
+
         try {
             const apiBase = await resolveApiBase(true);
             if (apiBase !== null) {
                 // Live backend is available: Scrape all 5 sources concurrently and return new articles directly
                 const refreshUrl = `${apiBase}/api/news/refresh?${params.toString()}`;
-                const res = await fetch(refreshUrl, { method: 'POST', cache: 'no-store' });
+                const [res] = await Promise.all([
+                    fetch(refreshUrl, { method: 'POST', cache: 'no-store' }),
+                    minLoadingTime
+                ]);
                 if (!res.ok) throw new Error(`Live scrape refresh failed (HTTP ${res.status})`);
                 const data = await res.json();
 
@@ -575,27 +556,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     renderArticles(state.articles);
                     updateBreadcrumbStatus(data.count || state.articles.length);
-                    showLoading(false);
                 } else {
                     await fetchNews();
                 }
 
-                showToast(data.message || 'News refreshed from all 5 sources!');
+                showToast(data.message || 'News refreshed & sorted from newest to oldest!');
             } else {
                 // Static Mode / GitHub Pages Fallback: fetch fresh JSON snapshot with cache buster
                 isStaticMode = true;
-                const res = await fetch(`./data/news.json?_t=${Date.now()}`, { cache: 'no-store' });
+                const [res] = await Promise.all([
+                    fetch(`./data/news.json?_t=${Date.now()}`, { cache: 'no-store' }),
+                    minLoadingTime
+                ]);
                 if (!res.ok) throw new Error('Failed to reload news feed snapshot');
                 const data = await res.json();
                 staticMasterArticles = data.articles || [];
                 state.lastRefreshed = Math.floor(Date.now() / 1000);
                 updateLastRefreshedDisplay();
                 await fetchNewsStatic();
-                showLoading(false);
-                showToast('News feed reloaded! (Auto-scrapes every 30m on GitHub Actions)');
+                showToast('News refreshed & sorted from newest to oldest!');
             }
         } catch (err) {
             console.error('Error refreshing news:', err);
+            await minLoadingTime;
             // Fallback attempt: try loading static data so feed is never left broken
             try {
                 const res = await fetch(`./data/news.json?_t=${Date.now()}`, { cache: 'no-store' });
@@ -613,9 +596,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 showToast('Refresh failed. Please check internet connection.');
             }
         } finally {
+            clearInterval(progressInterval);
             state.isRefreshing = false;
             setRefreshingUI(false);
             showLoading(false);
+            if (window.lucide) lucide.createIcons();
         }
     }
 
@@ -628,27 +613,31 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isRefreshing) {
             if (btnDesktop) {
                 btnDesktop.disabled = true;
+                btnDesktop.classList.add('opacity-75', 'cursor-not-allowed');
                 const icon = btnDesktop.querySelector('svg') || btnDesktop.querySelector('i');
                 if (icon) icon.classList.add('spinning');
             }
             if (btnMobile) {
                 btnMobile.disabled = true;
+                btnMobile.classList.add('opacity-75', 'cursor-not-allowed');
                 const iconM = btnMobile.querySelector('svg') || btnMobile.querySelector('i');
                 if (iconM) iconM.classList.add('spinning');
             }
             if (btnText) btnText.textContent = 'Scraping Sources...';
             if (elements.headerStatus) {
-                elements.headerStatus.textContent = 'Live scraping Google, MSN, Yahoo, X & Moneycontrol concurrently...';
+                elements.headerStatus.textContent = 'Scraping Google, MSN, Yahoo, X & Moneycontrol concurrently...';
             }
             if (banner) banner.classList.remove('hidden');
         } else {
             if (btnDesktop) {
                 btnDesktop.disabled = false;
+                btnDesktop.classList.remove('opacity-75', 'cursor-not-allowed');
                 const icon = btnDesktop.querySelector('svg') || btnDesktop.querySelector('i');
                 if (icon) icon.classList.remove('spinning');
             }
             if (btnMobile) {
                 btnMobile.disabled = false;
+                btnMobile.classList.remove('opacity-75', 'cursor-not-allowed');
                 const iconM = btnMobile.querySelector('svg') || btnMobile.querySelector('i');
                 if (iconM) iconM.classList.remove('spinning');
             }
@@ -665,10 +654,13 @@ document.addEventListener('DOMContentLoaded', () => {
             elements.loadingState.classList.remove('hidden');
             elements.articlesGrid.classList.add('hidden');
             elements.emptyState.classList.add('hidden');
+            if (elements.scrapingBanner) elements.scrapingBanner.classList.remove('hidden');
         } else {
             elements.loadingState.classList.add('hidden');
             elements.articlesGrid.classList.remove('hidden');
+            if (elements.scrapingBanner) elements.scrapingBanner.classList.add('hidden');
         }
+        if (window.lucide) lucide.createIcons();
     }
 
     function formatExactTime(epochSeconds) {
@@ -713,6 +705,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Render News Cards
     function renderArticles(articles) {
+        // STRICT REQUIREMENT: Always sort from newest to oldest
+        if (articles && articles.length > 0) {
+            articles.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+        }
+
         elements.articlesGrid.innerHTML = '';
 
         if (!articles || articles.length === 0) {
@@ -728,7 +725,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         elements.emptyState.classList.add('hidden');
-        elements.articlesGrid.classList.remove('hidden');
+        if (!state.isRefreshing) {
+            elements.articlesGrid.classList.remove('hidden');
+        }
 
         articles.forEach(article => {
             const card = document.createElement('article');
@@ -739,7 +738,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const title = escapeHtml(article.title);
             const summary = escapeHtml(article.summary);
             const author = escapeHtml(article.author || article.source_name);
-            const relTime = article.published_relative || timeAgo(article.timestamp);
+            // Directly compute relative time from timestamp so it's always accurate & chronological
+            const relTime = article.timestamp ? timeAgo(article.timestamp) : (article.published_relative || 'Recently');
             const imageUrl = article.image_url || 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&auto=format&fit=crop&q=80';
 
             const isXSource = article.source === 'x';

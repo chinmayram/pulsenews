@@ -46,7 +46,7 @@ body {
 }
 
 .spinning {
-    animation: spin-clockwise 0.8s linear infinite;
+    animation: spin-clockwise 0.8s linear infinite !important;
 }
 
 /* Custom scrollbar - desktop */

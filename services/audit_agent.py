@@ -27,6 +27,7 @@ from scrapers.yahoo_news import YAHOO_QUERIES, scrape_yahoo_news
 from scrapers.x_news import X_QUERIES, scrape_x_news
 from scrapers.moneycontrol_news import MONEYCONTROL_FEEDS, scrape_moneycontrol_news
 from scrapers.aggregator import aggregator
+from scrapers.models import is_valid_headline
 
 class SourceAuditSubAgent:
     def __init__(self):
@@ -168,6 +169,7 @@ class SourceAuditSubAgent:
         over_24h = 0
         broken_images = 0
         unclean_titles = 0
+        invalid_headlines = 0
 
         # Check chronological sorting
         is_sorted = True
@@ -195,6 +197,9 @@ class SourceAuditSubAgent:
             if t.endswith(" - Google News") or t.endswith(" - MSN") or t.endswith(" - Yahoo") or t.endswith(" - x.com"):
                 unclean_titles += 1
 
+            if not is_valid_headline(t, a.get("summary", ""), a.get("link", "")):
+                invalid_headlines += 1
+
             src = a.get("source", "")
             loc = a.get("location", "")
             if src in matrix and loc in matrix[src]:
@@ -208,6 +213,7 @@ class SourceAuditSubAgent:
             "over_24h_count": over_24h,
             "broken_images_count": broken_images,
             "unclean_titles_count": unclean_titles,
+            "invalid_headlines_count": invalid_headlines,
             "matrix_distribution": matrix
         }
         self.results["snapshot_audit"] = snapshot_audit
@@ -237,6 +243,8 @@ class SourceAuditSubAgent:
             diagnostics.append("Articles are not strictly sorted newest to oldest.")
         if snapshot["broken_images_count"] > 0:
             diagnostics.append(f"{snapshot['broken_images_count']} articles have missing/broken image URLs.")
+        if snapshot.get("invalid_headlines_count", 0) > 0:
+            diagnostics.append(f"{snapshot['invalid_headlines_count']} articles have invalid/garbage headlines (portal hubs, weather maps, ticker stubs).")
 
         # Check engine coverage
         matrix = snapshot["matrix_distribution"]

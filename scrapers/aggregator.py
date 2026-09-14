@@ -6,7 +6,7 @@ import time
 from typing import Dict, List, Optional, Set
 import httpx
 
-from scrapers.models import NewsArticle
+from scrapers.models import NewsArticle, is_valid_headline
 from scrapers.google_news import scrape_google_news
 from scrapers.msn_news import scrape_msn_news
 from scrapers.yahoo_news import scrape_yahoo_news
@@ -72,9 +72,12 @@ class NewsAggregator:
                         elif isinstance(res, Exception):
                             print(f"[Aggregator] Scraper error: {res}")
 
-                    # 24-hour cutoff: Keep strictly news from the last 24 hours
+                    # 24-hour cutoff: Keep strictly news from the last 24 hours with valid editorial headlines
                     now = time.time()
-                    combined = [a for a in combined if (now - a.timestamp) <= (24 * 3600)]
+                    combined = [
+                        a for a in combined 
+                        if (now - a.timestamp) <= (24 * 3600) and is_valid_headline(a.title, a.summary, a.link)
+                    ]
 
                     # Sort newest first & deduplicate
                     combined.sort(key=lambda a: a.timestamp, reverse=True)

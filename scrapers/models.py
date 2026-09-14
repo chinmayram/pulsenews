@@ -243,3 +243,86 @@ def format_relative_time(timestamp: float) -> str:
         return f"{days}d ago"
     else:
         return datetime.fromtimestamp(timestamp).strftime("%b %d, %Y")
+
+GARBAGE_EXACT_TITLES = {
+    "news", "msn", "sports", "weather", "home", "video", "photos",
+    "world", "india", "entertainment", "technology", "business",
+    "lifestyle", "health", "travel", "finance", "money", "markets",
+    "msn - msn", "msn - msn.com", "news - msn", "news - msn.com",
+    "top stories", "top engaging news", "latest news", "breaking news",
+    "yahoo mail", "- yahoo mail", "msn weather", "winter weather",
+    "all games", "chennai super kings"
+}
+
+GARBAGE_SUBSTRINGS = [
+    "weather radar map",
+    "radar map",
+    "visibility map",
+    "air quality map",
+    "severe weather",
+    "pressure map",
+    "humidity map",
+    "wind map",
+    "dew point map",
+    "| msn weather",
+    "msn weather",
+    "earnings_call_transcript",
+    "meta_title",
+    "formatted_without_date",
+    "see all racing games",
+    "parking plot",
+    "location details of",
+    "stock quotes, business news and data",
+]
+
+def is_valid_headline(title: str, summary: str = "", link: str = "") -> bool:
+    if not title:
+        return False
+    
+    t = title.strip()
+    t_lower = t.lower()
+    
+    # 1. Exact match against generic portal / section titles
+    if t_lower in GARBAGE_EXACT_TITLES:
+        return False
+        
+    # 2. Known garbage substrings (weather maps, internal tokens, game hubs)
+    for g in GARBAGE_SUBSTRINGS:
+        if g in t_lower:
+            return False
+            
+    # 3. GPS coordinates in title (MSN weather programmatic links)
+    if re.search(r"\d+\.\d+,\s*-\d+\.\d+", t):
+        return False
+
+    # 4. Currency conversion rates (e.g. '1 NZD = 0.4291 GBP', '1 AUD = 0.6175 EUR')
+    if re.search(r"\b\d+(?:\.\d+)?\s*[A-Z]{3}\s*=\s*\d+(?:\.\d+)?\s*[A-Z]{3}\b", t):
+        return False
+
+    # 5. Template variables (all-caps identifier with underscores)
+    if re.match(r"^[A-Z0-9_]{10,}$", t):
+        return False
+        
+    # 6. Stock tickers / Company directory entries without a headline:
+    # e.g. 'MADHAVIPL$', 'Wipro Ltd.', 'ACC Ltd.', 'Manugraph Industries Ltd.'
+    if t.endswith("$") or re.match(r"^[A-Z0-9.\-_]{1,12}\$?$", t):
+        return False
+    if re.match(r"^[A-Za-z0-9\s.,&'-]+\s+(?:Ltd\.?|Inc\.?|Corp\.?|Plc\.?)$", t) and len(t.split()) <= 4:
+        return False
+    if re.match(r"^\(?\w+\)?\s+Risk$", t):
+        return False
+
+    # 7. Word count & character length heuristics:
+    words = [w for w in re.split(r"\s+", t) if w]
+    if len(words) < 4:
+        return False
+    if len(t) < 18:
+        return False
+
+    # 8. Repetitive domain / brand garbage (e.g. 'MSN - MSN', 'News MSN', etc.)
+    cleaned_words = [w.lower().strip(" -–—|:.,") for w in words]
+    if len(set(cleaned_words)) <= 2 and all(w in {"msn", "news", "yahoo", "com", "mail", ""} for w in cleaned_words):
+        return False
+
+    return True
+

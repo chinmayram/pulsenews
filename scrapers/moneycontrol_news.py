@@ -7,7 +7,7 @@ from dateutil import parser as date_parser
 import feedparser
 import httpx
 
-from scrapers.models import NewsArticle, format_relative_time, detect_location, detect_topic, get_article_image
+from scrapers.models import NewsArticle, format_relative_time, detect_location, detect_topic, get_article_image, is_valid_headline
 from config import LOCATIONS, TOPICS
 
 MONEYCONTROL_FEEDS = [
@@ -55,7 +55,9 @@ def clean_title(title: str) -> str:
             break
     return title
 
-def is_valid_article(title: str, link: str) -> bool:
+def is_valid_article(title: str, link: str, summary: str = "") -> bool:
+    if not is_valid_headline(title, summary, link):
+        return False
     t_lower = title.lower()
     if any(p in t_lower for p in [
         "stock and share market news",
@@ -69,6 +71,7 @@ def is_valid_article(title: str, link: str) -> bool:
     ]):
         return False
     return True
+
 
 async def scrape_feed(item: dict, client: httpx.AsyncClient, limit: int = 15) -> List[NewsArticle]:
     url = item["url"]

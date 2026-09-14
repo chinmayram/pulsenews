@@ -730,6 +730,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         articles.forEach(article => {
+            const rawTitle = (article.title || '').trim();
+            const lowerTitle = rawTitle.toLowerCase();
+            const words = rawTitle.split(/\s+/).filter(Boolean);
+
+            // Defensive frontend filter: reject empty, short, or generic non-headlines
+            if (!rawTitle || words.length < 4 || rawTitle.length < 18) {
+                return;
+            }
+            if (/^(news|msn|msn\s*-\s*msn|msn\s*-\s*msn\.com|yahoo|yahoo\s*mail|- yahoo mail|weather|home|sports)$/i.test(lowerTitle)) {
+                return;
+            }
+            if (lowerTitle.includes('weather radar map') || lowerTitle.includes('air quality map') || lowerTitle.includes('| msn weather') || lowerTitle.includes('see all racing games')) {
+                return;
+            }
+
             const card = document.createElement('article');
             card.className = 'news-card glass-panel rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-slate-800/80 flex flex-col justify-between group relative overflow-hidden';
 

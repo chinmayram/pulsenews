@@ -7,7 +7,7 @@ from dateutil import parser as date_parser
 import feedparser
 import httpx
 
-from scrapers.models import NewsArticle, format_relative_time, detect_location, detect_topic, get_article_image
+from scrapers.models import NewsArticle, format_relative_time, detect_location, detect_topic, get_article_image, is_valid_headline
 from config import LOCATIONS, TOPICS
 
 YAHOO_QUERIES = [
@@ -52,9 +52,14 @@ def clean_html(raw_html: str) -> str:
 def clean_title(title: str) -> str:
     if not title:
         return ""
-    if " - " in title:
-        title = title.rsplit(" - ", 1)[0].strip()
-    title = re.sub(r"\s*[-–—|]?\s*Yahoo(?:\.com)?\s*$", "", title, flags=re.IGNORECASE).strip()
+    while True:
+        prev = title
+        if " - " in title:
+            title = title.rsplit(" - ", 1)[0].strip()
+        title = re.sub(r"\s*[-–—|]?\s*Yahoo(?:\.com)?\s*$", "", title, flags=re.IGNORECASE).strip()
+        title = re.sub(r"\s*[-–—|]?\s*Yahoo Mail\s*$", "", title, flags=re.IGNORECASE).strip()
+        if title == prev:
+            break
     return title
 
 async def scrape_yahoo_news(client: httpx.AsyncClient) -> List[NewsArticle]:
@@ -79,10 +84,12 @@ async def scrape_yahoo_news(client: httpx.AsyncClient) -> List[NewsArticle]:
                     continue
 
                 title = clean_title(raw_title)
-                if not title:
-                    title = raw_title
-
                 summary = clean_html(entry.get("summary", entry.get("description", "")))
+
+                # Strictly validate headline quality: reject generic hub/mail/template tokens
+                if not is_valid_headline(title, summary, link):
+                    continue
+
                 author = "Yahoo News"
                 if "source" in entry and isinstance(entry.source, dict) and "title" in entry.source:
                     author = entry.source["title"]

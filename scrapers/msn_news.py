@@ -7,28 +7,26 @@ from dateutil import parser as date_parser
 import feedparser
 import httpx
 
-from scrapers.models import NewsArticle, format_relative_time, detect_location, detect_topic, get_article_image
+from scrapers.models import NewsArticle, format_relative_time, detect_location, detect_topic, get_article_image, is_valid_headline
 from config import LOCATIONS, TOPICS
 
 MSN_QUERIES = [
-    # Master Feeds: All fresh MSN articles from last 24h
-    {"url": "https://news.google.com/rss/search?q=site:msn.com+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "general"},
-    {"url": "https://news.google.com/rss/search?q=site:msn.com+when:1d&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "general"},
+    # Master Feeds: Targeted fresh MSN news from last 24h, explicitly excluding weather, radars, and non-news games
+    {"url": "https://news.google.com/rss/search?q=site:msn.com/en-in+(news+OR+police+OR+court+OR+government+OR+development)+-weather+-radar+-map+-forecast+-currency+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "general"},
+    {"url": "https://news.google.com/rss/search?q=site:msn.com/en-us+(world+news+OR+international+OR+diplomacy+OR+congress)+-weather+-radar+-map+-forecast+-currency+when:1d&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "general"},
     # National & Topics
-    {"url": "https://news.google.com/rss/search?q=site:msn.com+(India+news+OR+national+OR+politics+OR+economy)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "general"},
-    {"url": "https://news.google.com/rss/search?q=site:msn.com+(jobs+OR+hiring+OR+layoffs+OR+salary+OR+\"job market\")+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "job_market"},
-    {"url": "https://news.google.com/rss/search?q=site:msn.com+(technology+OR+AI+OR+\"artificial intelligence\"+OR+startup)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "technology"},
-    {"url": "https://news.google.com/rss/search?q=site:msn.com+(movie+OR+Bollywood+OR+cinema+OR+trailer+OR+box+office)+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "entertainment"},
-    # Global
-    {"url": "https://news.google.com/rss/search?q=site:msn.com+(world+news+OR+international+OR+global)+when:1d&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "general"},
-    {"url": "https://news.google.com/rss/search?q=site:msn.com+(global+tech+OR+Apple+OR+Google+OR+Microsoft+OR+AI)+when:1d&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "technology"},
-    {"url": "https://news.google.com/rss/search?q=site:msn.com+(global+hiring+OR+layoffs+OR+careers)+when:1d&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "job_market"},
-    {"url": "https://news.google.com/rss/search?q=site:msn.com+(Hollywood+OR+movies+OR+celebrity+OR+Netflix)+when:1d&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "entertainment"},
+    {"url": "https://news.google.com/rss/search?q=site:msn.com/en-in+(jobs+OR+hiring+OR+layoffs+OR+salary+OR+economy+OR+business)+-weather+-radar+-map+-currency+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "job_market"},
+    {"url": "https://news.google.com/rss/search?q=site:msn.com/en-in+(technology+OR+AI+OR+\"artificial intelligence\"+OR+startup+OR+gadgets)+-weather+-radar+-map+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "technology"},
+    {"url": "https://news.google.com/rss/search?q=site:msn.com/en-in+(movie+OR+Bollywood+OR+cinema+OR+trailer+OR+celebrity)+-weather+-radar+-map+when:1d&hl=en-IN&gl=IN&ceid=IN:en", "loc": "india", "top": "entertainment"},
+    # Global Topics
+    {"url": "https://news.google.com/rss/search?q=site:msn.com/en-us+(AI+OR+technology+OR+Apple+OR+Google+OR+Microsoft)+-weather+-radar+-map+when:1d&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "technology"},
+    {"url": "https://news.google.com/rss/search?q=site:msn.com/en-us+(economy+OR+layoffs+OR+careers+OR+\"job market\")+-weather+-radar+-map+when:1d&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "job_market"},
+    {"url": "https://news.google.com/rss/search?q=site:msn.com/en-us+(Hollywood+OR+movies+OR+celebrity+OR+Netflix)+-weather+-radar+-map+when:1d&hl=en-US&gl=US&ceid=US:en", "loc": "global", "top": "entertainment"},
     # Regional Metropolitan Feeds (Bing News / MSN Regional Engine)
     {"url": "https://www.bing.com/news/search?q=Delhi+news&format=rss", "loc": "delhi", "top": "general"},
     {"url": "https://www.bing.com/news/search?q=Mumbai+news&format=rss", "loc": "mumbai", "top": "general"},
     {"url": "https://www.bing.com/news/search?q=Bengaluru+news&format=rss", "loc": "bengaluru", "top": "general"},
-    {"url": "https://www.bing.com/news/search?q=Bengaluru+tech+startups+AI&format=rss", "loc": "bengaluru", "top": "technology"},
+    {"url": "https://www.bing.com/news/search?q=Bengaluru+technology+startups+AI&format=rss", "loc": "bengaluru", "top": "technology"},
     {"url": "https://www.bing.com/news/search?q=Chennai+news&format=rss", "loc": "chennai", "top": "general"},
     {"url": "https://www.bing.com/news/search?q=Kolkata+news&format=rss", "loc": "kolkata", "top": "general"},
     {"url": "https://www.bing.com/news/search?q=Hyderabad+news&format=rss", "loc": "hyderabad", "top": "general"},
@@ -49,10 +47,14 @@ def clean_html(raw_html: str) -> str:
 def clean_title(title: str) -> str:
     if not title:
         return ""
-    if " - " in title:
-        title = title.rsplit(" - ", 1)[0].strip()
-    title = re.sub(r"\s*[-–—|]?\s*MSN(?:\.com)?\s*$", "", title, flags=re.IGNORECASE).strip()
-    title = re.sub(r"\s*[-–—|]?\s*Bing News\s*$", "", title, flags=re.IGNORECASE).strip()
+    while True:
+        prev = title
+        if " - " in title:
+            title = title.rsplit(" - ", 1)[0].strip()
+        title = re.sub(r"\s*[-–—|]?\s*MSN(?:\.com)?\s*$", "", title, flags=re.IGNORECASE).strip()
+        title = re.sub(r"\s*[-–—|]?\s*Bing News\s*$", "", title, flags=re.IGNORECASE).strip()
+        if title == prev:
+            break
     return title
 
 async def scrape_msn_news(client: httpx.AsyncClient) -> List[NewsArticle]:
@@ -77,10 +79,12 @@ async def scrape_msn_news(client: httpx.AsyncClient) -> List[NewsArticle]:
                     continue
 
                 title = clean_title(raw_title)
-                if not title:
-                    title = raw_title
-
                 summary = clean_html(entry.get("summary", entry.get("description", "")))
+
+                # Strictly validate headline quality: reject generic hub/weather/section titles
+                if not is_valid_headline(title, summary, link):
+                    continue
+
                 author = "MSN News"
                 if "source" in entry and isinstance(entry.source, dict) and "title" in entry.source:
                     author = entry.source["title"]

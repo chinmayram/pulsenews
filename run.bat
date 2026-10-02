@@ -11,8 +11,11 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
+set PYTHONIOENCODING=utf-8
+set PYTHONUTF8=1
+
 echo Installing / checking dependencies...
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 
 echo.
 echo Starting PulseNews Server...

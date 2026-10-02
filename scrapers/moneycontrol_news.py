@@ -1,3 +1,4 @@
+import asyncio
 import html
 import re
 import time
@@ -186,8 +187,21 @@ async def scrape_feed(item: dict, client: httpx.AsyncClient, limit: int = 15) ->
     return articles
 
 async def scrape_moneycontrol_news(client: httpx.AsyncClient) -> List[NewsArticle]:
+    sem = asyncio.Semaphore(12)
+
+    async def _fetch(item):
+        async with sem:
+            return await scrape_feed(item, client)
+
+    results = await asyncio.gather(*[_fetch(q) for q in MONEYCONTROL_FEEDS], return_exceptions=True)
     all_articles = []
-    for item in MONEYCONTROL_FEEDS:
-        arts = await scrape_feed(item, client)
-        all_articles.extend(arts)
+    seen_ids = set()
+    for r in results:
+        if isinstance(r, list):
+            for art in r:
+                if art.id not in seen_ids:
+                    seen_ids.add(art.id)
+                    all_articles.append(art)
+        elif isinstance(r, Exception):
+            print(f"[Moneycontrol] Error in concurrent feed scrape: {r}")
     return all_articles

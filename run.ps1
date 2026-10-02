@@ -9,8 +9,11 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 
+$env:PYTHONIOENCODING = "utf-8"
+$env:PYTHONUTF8 = "1"
+
 Write-Host "Checking requirements..." -ForegroundColor Yellow
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 
 Write-Host "Starting PulseNews Server..." -ForegroundColor Green
 python main.py

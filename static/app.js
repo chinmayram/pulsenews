@@ -29,29 +29,26 @@ document.addEventListener('DOMContentLoaded', () => {
             return cachedApiBase;
         }
 
-        // Fast path: On static hosting (GitHub Pages), skip all backend probes entirely
-        if (isStaticMode) {
-            cachedApiBase = null;
-            return null;
+        // 1. If currently hosted on http(s), always test relative /api/config first
+        if (window.location.protocol.startsWith('http')) {
+            try {
+                const ctrl = new AbortController();
+                const tid = setTimeout(() => ctrl.abort(), 1200);
+                const testRes = await fetch(`/api/config?_probe=${Date.now()}`, { method: 'GET', cache: 'no-store', signal: ctrl.signal });
+                clearTimeout(tid);
+                if (testRes.ok) {
+                    cachedApiBase = '';
+                    isStaticMode = false;
+                    return '';
+                }
+            } catch (_) {}
         }
 
-        // 1. Try same-origin relative /api/config
-        try {
-            const ctrl = new AbortController();
-            const tid = setTimeout(() => ctrl.abort(), 500);
-            const testRes = await fetch(`/api/config?_probe=${Date.now()}`, { method: 'GET', cache: 'no-store', signal: ctrl.signal });
-            clearTimeout(tid);
-            if (testRes.ok) {
-                cachedApiBase = '';
-                return '';
-            }
-        } catch (_) {}
-
-        // 2. Probe local FastAPI servers in parallel (much faster than sequential)
+        // 2. Probe local FastAPI servers in parallel (localhost:8000, 127.0.0.1:8000, localhost:8080, 127.0.0.1:8080)
         const candidates = ['http://localhost:8000', 'http://127.0.0.1:8000', 'http://localhost:8080', 'http://127.0.0.1:8080'];
         const probes = candidates.map(host => {
             const ctrl = new AbortController();
-            const tid = setTimeout(() => ctrl.abort(), 500);
+            const tid = setTimeout(() => ctrl.abort(), 1200);
             return fetch(`${host}/api/config?_probe=${Date.now()}`, {
                 method: 'GET', cache: 'no-store', mode: 'cors', signal: ctrl.signal
             }).then(res => {
@@ -63,8 +60,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const results = await Promise.all(probes);
         const found = results.find(r => r !== null);
-        cachedApiBase = found || null;
-        return cachedApiBase;
+        if (found !== undefined) {
+            cachedApiBase = found;
+            isStaticMode = false;
+            return cachedApiBase;
+        }
+
+        cachedApiBase = null;
+        return null;
     }
 
     // DOM Elements
@@ -528,8 +531,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (elements.headerStatus) elements.headerStatus.textContent = step.title;
         }, 650);
 
-        // Ensure visible scraping animation runs until scraping completes (minimum 2.5 seconds)
-        const minLoadingTime = new Promise(resolve => setTimeout(resolve, 2500));
+        // Ensure brief visible scraping animation runs smoothly (700ms)
+        const minLoadingTime = new Promise(resolve => setTimeout(resolve, 700));
 
         try {
             const apiBase = await resolveApiBase(true);
@@ -549,7 +552,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     state.articles = data.articles
                         .filter(a => (a.timestamp || 0) >= cutoff)
                         .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-                    state.lastRefreshed = Math.floor(Date.now() / 1000);
+                    state.lastRefreshed = data.last_refreshed || Math.floor(Date.now() / 1000);
                     updateLastRefreshedDisplay();
                     if (data.filter_counts) {
                         updateInteractiveCounts(data.filter_counts);
@@ -999,14 +1002,10 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.refreshBtnMobile.addEventListener('click', handleRefresh);
     }
 
-    // Tap/Click to view exact scrape timestamp on mobile or desktop
+    // Tap/Click to refresh news or view exact scrape timestamp on mobile or desktop
     document.querySelectorAll('.lastRefreshedBadge').forEach(badge => {
         badge.addEventListener('click', () => {
-            if (state.lastRefreshed) {
-                showToast(`🕒 Refreshed: ${formatFullTimestamp(state.lastRefreshed)}`);
-            } else {
-                showToast('🕒 Data was refreshed just now');
-            }
+            handleRefresh();
         });
     });
 

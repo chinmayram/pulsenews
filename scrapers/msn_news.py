@@ -1,3 +1,4 @@
+import asyncio
 import html
 import re
 import time
@@ -65,88 +66,102 @@ def clean_title(title: str) -> str:
             break
     return title
 
-async def scrape_msn_news(client: httpx.AsyncClient) -> List[NewsArticle]:
+async def scrape_msn_feed(item: dict, client: httpx.AsyncClient) -> List[NewsArticle]:
+    url = item["url"]
+    def_loc = item["loc"]
+    def_top = item["top"]
     articles: List[NewsArticle] = []
-    seen_ids = set()
 
-    for item in MSN_QUERIES:
-        url = item["url"]
-        def_loc = item["loc"]
-        def_top = item["top"]
-        try:
-            response = await client.get(url, timeout=12.0, follow_redirects=True)
-            if response.status_code != 200:
+    try:
+        response = await client.get(url, timeout=12.0, follow_redirects=True)
+        if response.status_code != 200:
+            return []
+
+        now = time.time()
+        feed = feedparser.parse(response.text)
+        for entry in feed.entries[:40]:
+            raw_title = entry.get("title", "").strip()
+            link = entry.get("link", "").strip()
+            if not raw_title or not link:
                 continue
 
-            now = time.time()
-            feed = feedparser.parse(response.text)
-            for entry in feed.entries[:40]:
-                raw_title = entry.get("title", "").strip()
-                link = entry.get("link", "").strip()
-                if not raw_title or not link:
-                    continue
+            title = clean_title(raw_title)
+            summary = clean_html(entry.get("summary", entry.get("description", "")))
 
-                title = clean_title(raw_title)
-                summary = clean_html(entry.get("summary", entry.get("description", "")))
+            # Strictly validate headline quality: reject generic hub/weather/section titles
+            if not is_valid_headline(title, summary, link):
+                continue
 
-                # Strictly validate headline quality: reject generic hub/weather/section titles
-                if not is_valid_headline(title, summary, link):
-                    continue
+            author = "MSN News"
+            if "source" in entry and isinstance(entry.source, dict) and "title" in entry.source:
+                author = entry.source["title"]
 
-                author = "MSN News"
-                if "source" in entry and isinstance(entry.source, dict) and "title" in entry.source:
-                    author = entry.source["title"]
+            published_at = entry.get("published", "")
+            ts = now
+            if published_at:
+                try:
+                    dt = date_parser.parse(published_at)
+                    ts = dt.timestamp()
+                except Exception:
+                    pass
 
-                published_at = entry.get("published", "")
-                ts = now
-                if published_at:
-                    try:
-                        dt = date_parser.parse(published_at)
-                        ts = dt.timestamp()
-                    except Exception:
-                        pass
+            # Strictly enforce 24-hour cutoff
+            if (now - ts) > (24 * 3600):
+                continue
 
-                # Strictly enforce 24-hour cutoff
-                if (now - ts) > (24 * 3600):
-                    continue
+            # Extract image
+            raw_image = entry.get("news_image")
+            if not raw_image and "media_content" in entry and entry["media_content"]:
+                raw_image = entry["media_content"][0].get("url")
 
-                # Extract image
-                raw_image = entry.get("news_image")
-                if not raw_image and "media_content" in entry and entry["media_content"]:
-                    raw_image = entry["media_content"][0].get("url")
+            loc = detect_location(title, summary, default=def_loc)
+            top = detect_topic(title, summary, default=def_top)
+            loc_name = LOCATIONS.get(loc, {}).get("name", loc.title())
+            top_name = TOPICS.get(top, {}).get("name", top.title())
 
-                loc = detect_location(title, summary, default=def_loc)
-                top = detect_topic(title, summary, default=def_top)
-                loc_name = LOCATIONS.get(loc, {}).get("name", loc.title())
-                top_name = TOPICS.get(top, {}).get("name", top.title())
+            article_id = NewsArticle.generate_id(title, link)
+            image_url = get_article_image(raw_image, loc, top, article_id)
 
-                article_id = NewsArticle.generate_id(title, link)
-                if article_id in seen_ids:
-                    continue
-                seen_ids.add(article_id)
-
-                image_url = get_article_image(raw_image, loc, top, article_id)
-
-                articles.append(
-                    NewsArticle(
-                        id=article_id,
-                        title=title,
-                        link=link,
-                        source="msn",
-                        source_name="MSN News",
-                        location=loc,
-                        location_name=loc_name,
-                        topic=top,
-                        topic_name=top_name,
-                        summary=summary[:280] + ("..." if len(summary) > 280 else ""),
-                        published_at=published_at,
-                        published_relative=format_relative_time(ts),
-                        timestamp=ts,
-                        image_url=image_url,
-                        author=author
-                    )
+            articles.append(
+                NewsArticle(
+                    id=article_id,
+                    title=title,
+                    link=link,
+                    source="msn",
+                    source_name="MSN News",
+                    location=loc,
+                    location_name=loc_name,
+                    topic=top,
+                    topic_name=top_name,
+                    summary=summary[:280] + ("..." if len(summary) > 280 else ""),
+                    published_at=published_at,
+                    published_relative=format_relative_time(ts),
+                    timestamp=ts,
+                    image_url=image_url,
+                    author=author
                 )
-        except Exception as e:
-            print(f"[MSNNews] Error fetching {url}: {e}")
+            )
+    except Exception as e:
+        print(f"[MSNNews] Error fetching {url}: {e}")
 
     return articles
+
+async def scrape_msn_news(client: httpx.AsyncClient) -> List[NewsArticle]:
+    sem = asyncio.Semaphore(12)
+
+    async def _fetch(item):
+        async with sem:
+            return await scrape_msn_feed(item, client)
+
+    results = await asyncio.gather(*[_fetch(q) for q in MSN_QUERIES], return_exceptions=True)
+    all_articles: List[NewsArticle] = []
+    seen_ids = set()
+    for r in results:
+        if isinstance(r, list):
+            for art in r:
+                if art.id not in seen_ids:
+                    seen_ids.add(art.id)
+                    all_articles.append(art)
+        elif isinstance(r, Exception):
+            print(f"[MSNNews] Error in concurrent feed scrape: {r}")
+    return all_articles

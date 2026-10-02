@@ -1,3 +1,4 @@
+import asyncio
 import html
 import re
 import time
@@ -78,85 +79,103 @@ def extract_x_author(text: str) -> str:
         return "Video on X"
     return "Trending on X"
 
-async def scrape_x_news(client: httpx.AsyncClient) -> List[NewsArticle]:
+async def scrape_x_feed(item: dict, client: httpx.AsyncClient) -> List[NewsArticle]:
+    q = item["q"]
+    if "when:" not in q:
+        q = f"{q} when:1d"
+    def_loc = item["loc"]
+    def_top = item["top"]
+    encoded = httpx.URL("", params={"q": q, "hl": "en-IN", "gl": "IN", "ceid": "IN:en"}).params
+    url = f"https://news.google.com/rss/search?{encoded}"
     articles: List[NewsArticle] = []
 
-    for item in X_QUERIES:
-        q = item["q"]
-        if "when:" not in q:
-            q = f"{q} when:1d"
-        def_loc = item["loc"]
-        def_top = item["top"]
-        encoded = httpx.URL("", params={"q": q, "hl": "en-IN", "gl": "IN", "ceid": "IN:en"}).params
-        url = f"https://news.google.com/rss/search?{encoded}"
+    try:
+        response = await client.get(url, timeout=12.0, follow_redirects=True)
+        if response.status_code != 200:
+            return []
 
-        try:
-            response = await client.get(url, timeout=12.0, follow_redirects=True)
-            if response.status_code != 200:
+        now = time.time()
+        feed = feedparser.parse(response.text)
+        for entry in feed.entries[:25]:
+            raw_title = entry.get("title", "").strip()
+            link = entry.get("link", "").strip()
+            if not raw_title or not link:
                 continue
 
-            now = time.time()
-            feed = feedparser.parse(response.text)
-            for entry in feed.entries[:25]:
-                raw_title = entry.get("title", "").strip()
-                link = entry.get("link", "").strip()
-                if not raw_title or not link:
-                    continue
+            clean_title = clean_x_title(raw_title)
+            if not is_valid_news_tweet(clean_title):
+                continue
+            summary = clean_html(entry.get("summary", entry.get("description", "")))
+            if not summary or summary == raw_title:
+                summary = clean_title
 
-                clean_title = clean_x_title(raw_title)
-                if not is_valid_news_tweet(clean_title):
-                    continue
-                summary = clean_html(entry.get("summary", entry.get("description", "")))
-                if not summary or summary == raw_title:
-                    summary = clean_title
+            if not is_valid_headline(clean_title, summary, link):
+                continue
 
-                if not is_valid_headline(clean_title, summary, link):
-                    continue
+            author = extract_x_author(clean_title)
 
-                author = extract_x_author(clean_title)
+            published_at = entry.get("published", "")
+            ts = now
+            if published_at:
+                try:
+                    dt = date_parser.parse(published_at)
+                    ts = dt.timestamp()
+                except Exception:
+                    pass
 
-                published_at = entry.get("published", "")
-                ts = now
-                if published_at:
-                    try:
-                        dt = date_parser.parse(published_at)
-                        ts = dt.timestamp()
-                    except Exception:
-                        pass
+            # Only allow news from last 24 hours
+            if (now - ts) > (24 * 3600):
+                continue
 
-                # Only allow news from last 24 hours
-                if (now - ts) > (24 * 3600):
-                    continue
+            loc = detect_location(clean_title, summary, default=def_loc)
+            top = detect_topic(clean_title, summary, default=def_top)
+            loc_name = LOCATIONS.get(loc, {}).get("name", loc.title())
+            top_name = TOPICS.get(top, {}).get("name", top.title())
 
-                loc = detect_location(clean_title, summary, default=def_loc)
-                top = detect_topic(clean_title, summary, default=def_top)
-                loc_name = LOCATIONS.get(loc, {}).get("name", loc.title())
-                top_name = TOPICS.get(top, {}).get("name", top.title())
+            article_id = NewsArticle.generate_id(clean_title, link)
+            # Twitter social visual or category image
+            image_url = get_article_image(None, loc, top, article_id)
 
-                article_id = NewsArticle.generate_id(clean_title, link)
-                # Twitter social visual or category image
-                image_url = get_article_image(None, loc, top, article_id)
-
-                articles.append(
-                    NewsArticle(
-                        id=article_id,
-                        title=clean_title,
-                        link=link,
-                        source="x",
-                        source_name="X (Twitter)",
-                        location=loc,
-                        location_name=loc_name,
-                        topic=top,
-                        topic_name=top_name,
-                        summary=summary[:280] + ("..." if len(summary) > 280 else ""),
-                        published_at=published_at,
-                        published_relative=format_relative_time(ts),
-                        timestamp=ts,
-                        image_url=image_url,
-                        author=author
-                    )
+            articles.append(
+                NewsArticle(
+                    id=article_id,
+                    title=clean_title,
+                    link=link,
+                    source="x",
+                    source_name="X (Twitter)",
+                    location=loc,
+                    location_name=loc_name,
+                    topic=top,
+                    topic_name=top_name,
+                    summary=summary[:280] + ("..." if len(summary) > 280 else ""),
+                    published_at=published_at,
+                    published_relative=format_relative_time(ts),
+                    timestamp=ts,
+                    image_url=image_url,
+                    author=author
                 )
-        except Exception as e:
-            print(f"[XNews] Error fetching {q}: {e}")
+            )
+    except Exception as e:
+        print(f"[XNews] Error fetching {q}: {e}")
 
     return articles
+
+async def scrape_x_news(client: httpx.AsyncClient) -> List[NewsArticle]:
+    sem = asyncio.Semaphore(12)
+
+    async def _fetch(item):
+        async with sem:
+            return await scrape_x_feed(item, client)
+
+    results = await asyncio.gather(*[_fetch(q) for q in X_QUERIES], return_exceptions=True)
+    all_articles: List[NewsArticle] = []
+    seen_ids = set()
+    for r in results:
+        if isinstance(r, list):
+            for art in r:
+                if art.id not in seen_ids:
+                    seen_ids.add(art.id)
+                    all_articles.append(art)
+        elif isinstance(r, Exception):
+            print(f"[XNews] Error in concurrent feed scrape: {r}")
+    return all_articles

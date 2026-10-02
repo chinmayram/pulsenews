@@ -1,3 +1,4 @@
+import asyncio
 import html
 import time
 from typing import List
@@ -136,8 +137,17 @@ async def scrape_google_news_feed(item: dict, client: httpx.AsyncClient, limit: 
     return articles
 
 async def scrape_google_news(client: httpx.AsyncClient) -> List[NewsArticle]:
+    sem = asyncio.Semaphore(12)
+
+    async def _fetch(item):
+        async with sem:
+            return await scrape_google_news_feed(item, client)
+
+    results = await asyncio.gather(*[_fetch(q) for q in GOOGLE_QUERIES], return_exceptions=True)
     all_articles = []
-    for item in GOOGLE_QUERIES:
-        arts = await scrape_google_news_feed(item, client)
-        all_articles.extend(arts)
+    for r in results:
+        if isinstance(r, list):
+            all_articles.extend(r)
+        elif isinstance(r, Exception):
+            print(f"[GoogleNews] Error in concurrent feed scrape: {r}")
     return all_articles

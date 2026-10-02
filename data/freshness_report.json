@@ -1,181 +1,183 @@
 {
-  "timestamp": 1789349397.3587048,
-  "last_refreshed_iso": 1789349380.7914512,
-  "overall_status": "HEALTHY",
-  "duration_seconds": 1.07,
-  "total_articles": 1434,
+  "timestamp": 1790923461.0069358,
+  "last_refreshed_iso": 1790923458.8883424,
+  "overall_status": "WARNING",
+  "duration_seconds": 1.98,
+  "total_articles": 1604,
   "sources": {
     "google": {
       "source": "google",
       "status": "REALTIME_OK",
-      "article_count": 383,
-      "newest_age_min": 9.1,
-      "oldest_age_h": 24.0,
+      "article_count": 404,
+      "newest_age_min": 6.4,
+      "oldest_age_h": 23.7,
       "sla_minutes": 30.0,
       "is_fetching_latest": true,
       "newest_article": {
-        "title": "Toxic OTT release and platform new details: When and where to watch Yash, Kiara Advani's Kannada gangster",
-        "link": "https://news.google.com/rss/articles/CBMiqANBVV95cUxOSFRoS1ktWUtOSjdXYkE5U200eVdHUTZuS09relVDU2pPX3ZabjdlV0VIVzdhRXlIc3p4dG5RcjZOSmRSNTE1ZlNHbE1JWW9FcG11WFVobTV3bjRXZUU4bHhTN2pRMUhIaTFJR3U4ZXlZNzBrRHhReVFISER6d19Dem82REliaVFBejBoV3pVVVZlbGVzNWFtQzRad25DSmZpY0dCcnBjMUp1UjFKWl9QMlJHYms1LVhSREplLUdkczJsaTI5d0owWThpWlUtUkcwNmlUREVjSzF1cjNEbWYtVWtsdUEzeW1xT0hiREh6YWIxemxwUjRtMmxJZTdqOEUwNExjN3gydFd6MEpOeUNmMmM0MjZFdlROeEpoMjYweGdBQkhJZWo5X2N2Q1JrOENLNjBOM2RwLTNBX2lNOU1QR3dFck8xM29Ga3RmVUZmZnltcHZBMUx3YWUtYTFIT2drMllYU3ZGcjcxUFB4Q3hsSHV5SnhfYmZnMkRrUU9OdWt1T1JVLWtSaEdrVDh6WXc4WTlGZ3JBS1RVcG4yVkJockV1V1ZvcGxi0gHEAkFVX3lxTE84UmhHeVN5OGFqb0pYN0FPUDdiSW9pQkxuaTBKdTVYRl9seWt1aVpISm05cEJpSVRhd3VjMVZ2bmFjb3p4TGg0MUFWblBBV1dtT1RKR3REQTgzVTFPTGdieVBTeWtQRkRfMTRUMVl2eUF2bWN6TXR1SkVmN1pLbjVwZWVEWG9ZNXliUDlfai14c3lXbHQwbTlmNHYxNTM2U3RZWmgzY1ZNUDBCaGJUN1JIRHRVOGdGSHlqS3RReFhXa2luRjJpX003em5wbkJNbnE5LUx3MUhvRHZfUzRxLWl1ZTVhYzMwS3NlSkxhTTM1UGVvczBMMkdoV1lCQmRWTHRLV2RPNDI2VVoyQ0pRMTZyMExKdzNIZ09wNlFtX1ozQVJ0VWNtRnZMS0hNMTJzejJKeDFWTUpNRi1JTUdEMktaaWM1MQ?oc=5",
-        "published_at": "Mon, 14 Sep 2026 01:20:50 GMT",
-        "published_relative": "8m ago",
-        "location": "india",
-        "topic": "entertainment"
+        "title": "CJP Mumbai protest today: Why Dipke zeroed in on Mumbai \u2013 There\u2019s a Rahul Gandhi link",
+        "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNWWhyQlRUd0xhRk5XNzA1V2gtUi15MlhoM3dvTjFOZ2I1MDRfWmdCR05CQjdFN2ppWmk3eDk0U3lIcmRSMDNVeWJUX19sa0R2UmVNRzYwT0pUWGJCMHZoWHhqYlRJc05iYXhLYVY3dGJXVlM4aXVQdm82REExSm1reGMwYWE1UlhaTWNFZ0FJWTJHZlNhRzdnODZTMl94U3ZCZEZ6VjZjc2hWdFZpbmVVUTdlUG9jQkNqQzIwSlVhZk1Sb21fcWVhUmM5dFN4WjFqTFHSAdgBQVVfeXFMUFpzRTIyZ1ROQjNPUVk5eDJVTl9RX3J0cDZoVXh3TV9wVktFWGk5d0g2UGpSTXRjOUFjM3RnWmVNcXV5dTRMQ0NZa3NoNk5fa0h4RHl1dXJRLW1HWGdTMDB2bTd2VjkwT0ZKUTU5WUZpbjQzRmlnaElTSnJlYnZtZVJ5MHl0SktaQWp1WmFCRXRHeWpPZENhd2RCSlJSVkMtVkwwSlZOTmpBbGhIeTROLVVCRWRiNHMzY2xaalpPN3ozTGNlZHpDMVZJQS1MVzJEMHZmdXJlZjl2?oc=5",
+        "published_at": "Fri, 02 Oct 2026 06:37:54 GMT",
+        "published_relative": "6m ago",
+        "location": "mumbai",
+        "topic": "general"
       },
       "buckets": {
-        "under_30m": 3,
-        "30m_to_1h": 5,
-        "1h_to_3h": 29,
-        "3h_to_6h": 37,
-        "6h_to_24h": 309,
+        "under_30m": 8,
+        "30m_to_1h": 16,
+        "1h_to_3h": 65,
+        "3h_to_6h": 81,
+        "6h_to_24h": 234,
         "over_24h": 0
       },
       "live_probe": {
         "status": "ONLINE",
         "http_status": 200,
-        "latency_ms": 150.2,
+        "latency_ms": 167.2,
         "entry_count": 38,
-        "live_newest_age_min": 149.9,
-        "live_newest_published": "Sun, 13 Sep 2026 23:00:00 GMT",
-        "live_newest_title": "StanChart Warns Oil Is Now Built for Sharper, More Frequent Spikes - Crude Oil P"
+        "live_newest_age_min": 55.1,
+        "live_newest_published": "Fri, 02 Oct 2026 05:49:14 GMT",
+        "live_newest_title": "Election Commission's Special Drive To Enrol Left-Out Voters Where SIR Is Over -"
       }
     },
     "msn": {
       "source": "msn",
       "status": "REALTIME_OK",
-      "article_count": 120,
-      "newest_age_min": 331.2,
-      "oldest_age_h": 23.7,
+      "article_count": 177,
+      "newest_age_min": 131.0,
+      "oldest_age_h": 23.9,
       "sla_minutes": 480.0,
       "is_fetching_latest": true,
       "newest_article": {
-        "title": "Local production may be hit by high costs, says head of Nokia India Ops",
-        "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxPNVdDeUs1dEN4Yng5TVNUUENvNFV6Z215OGYxYkdiUmp1aURyQWUzOWtvT0pwWnAzT2ZPSUQydi14TDlXa3UyQXFwVnNBV0lZVG9ibmluQ3E2UGYzRWZUM0c1LXdvak9lUWYzWTM4UzhnZVd3TTlkdER0U2dfWTRsbWpWMzNjVGRwOC0zYV9jMVphMVNrT1dVcFJYc1dhWDBHMEx6Uzc0VkdVZGVWNTdQTGZrakhaQjJtTURNNElISWZrSHlQdlJoenRxS1cxd1pvX0Jib0pUUjFRNjk4Rm1nemVR?oc=5",
-        "published_at": "Sun, 13 Sep 2026 19:58:45 GMT",
-        "published_relative": "5h ago",
+        "title": "ICC World Cup 2027 schedule announced: India's first clash with Australia on Oct 7; final on November 21",
+        "link": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxQdlJiUGNrdmRqeVVlMTRuSW1XRFVNRjhYZHZYakpfZmVnbTZFNDFsNlIxYS1KWkNaYTM2R1pMMGRMX3V6U3FaWXMzTGtxUmRMYWdWdzI3aU1LNWVxM1NEVTlCcWVfWVFxUkl3R252clNxTGw0UndqSFBpcHJHMndOa2FFcXRTZEEzSUVnaVdWLWdCa0ZDaVdfTUNNZXNMOTlXcERCMFlnU3BMd3YzeXlycFFiUHU3TGsyaGZnWW9sV3lXeVRqbnM2cDFDMU9rb3BFbHl4bURSXzJlaVpyUVUySmJPajZxTFFjdnhn?oc=5",
+        "published_at": "Fri, 02 Oct 2026 04:33:17 GMT",
+        "published_relative": "2h ago",
         "location": "india",
-        "topic": "general"
+        "topic": "job_market"
       },
       "buckets": {
         "under_30m": 0,
         "30m_to_1h": 0,
-        "1h_to_3h": 0,
-        "3h_to_6h": 1,
-        "6h_to_24h": 119,
+        "1h_to_3h": 3,
+        "3h_to_6h": 3,
+        "6h_to_24h": 171,
         "over_24h": 0
       },
       "live_probe": {
         "status": "ONLINE",
         "http_status": 200,
-        "latency_ms": 551.1,
+        "latency_ms": 651.7,
         "entry_count": 12,
-        "live_newest_age_min": 432.0,
-        "live_newest_published": "Sun, 13 Sep 2026 18:18:00 GMT",
-        "live_newest_title": "US-Iran War Live Updates: Saudi Arabia issues warnings over potential danger in "
+        "live_newest_age_min": 427.3,
+        "live_newest_published": "Thu, 01 Oct 2026 23:37:00 GMT",
+        "live_newest_title": "CJP Mumbai protest today: Why Dipke zeroed in on Mumbai \u2013 There\u2019s a Rahul Gandhi"
       }
     },
     "yahoo": {
       "source": "yahoo",
       "status": "REALTIME_OK",
-      "article_count": 345,
-      "newest_age_min": 16.9,
-      "oldest_age_h": 24.0,
+      "article_count": 381,
+      "newest_age_min": 24.3,
+      "oldest_age_h": 23.8,
       "sla_minutes": 60.0,
       "is_fetching_latest": true,
       "newest_article": {
-        "title": "Polls open in Philippine Muslim enclave after deadly shooting",
-        "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPTEhXX3dQcXRIa3djOElxeGsyczFGb2JzUnBsbUU5S2ZfTjVTblhqN1VpZ0ZGT0pRMWtpOUJpMmh3S0Y2QTBGMTk0djZrckI3NzAwTktNZFF2SHM3ak40Qzl0SVBYbS00Q1VZbnY4ZVU5cmNsXzFoU0dyZlhEQlB5RFl0TQ?oc=5",
-        "published_at": "Mon, 14 Sep 2026 01:13:00 GMT",
-        "published_relative": "16m ago",
+        "title": "Ben Affleck Says He Used AI for \u2018Lots Of Things\u2019 in His New Movie \u2018Animal\u2019",
+        "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxObmFxVXNyNktMamxHSHIwbnFRSnc0TlVra1ExVHlQZ05lNFh5c0FEUTgtYnVrOWM3bENvN2JTclVSUHNJNXFKRmVNUlk3UnlZMFdubFpZY1EzdG1LN3BucThXc0dxeEhGdmNWbFlJSFdDSjdESnRoT191bHJ1ZmpxRTducTBMNmR5T1hodF92VE90YjlnSGc?oc=5",
+        "published_at": "Fri, 02 Oct 2026 06:20:00 GMT",
+        "published_relative": "24m ago",
         "location": "india",
-        "topic": "general"
+        "topic": "technology"
       },
       "buckets": {
-        "under_30m": 3,
-        "30m_to_1h": 4,
-        "1h_to_3h": 35,
-        "3h_to_6h": 51,
-        "6h_to_24h": 252,
+        "under_30m": 1,
+        "30m_to_1h": 5,
+        "1h_to_3h": 13,
+        "3h_to_6h": 18,
+        "6h_to_24h": 344,
         "over_24h": 0
       },
       "live_probe": {
         "status": "ONLINE",
         "http_status": 200,
-        "latency_ms": 50.3,
-        "entry_count": 50,
-        "live_newest_age_min": 39.2,
-        "live_newest_published": "2026-09-14T00:50:46Z",
-        "live_newest_title": "Trump dismisses report China entities helped Iran before attack that killed US t"
+        "latency_ms": 1617.8,
+        "entry_count": 18,
+        "live_newest_age_min": 159.2,
+        "live_newest_published": "Fri, 02 Oct 2026 04:05:12 +0000",
+        "live_newest_title": "U.S. job growth is expected to slow in September, with unemployment steady"
       }
     },
     "x": {
       "source": "x",
       "status": "REALTIME_OK",
-      "article_count": 509,
-      "newest_age_min": 2.6,
-      "oldest_age_h": 23.9,
+      "article_count": 532,
+      "newest_age_min": 7.2,
+      "oldest_age_h": 24.0,
       "sla_minutes": 30.0,
       "is_fetching_latest": true,
       "newest_article": {
-        "title": "President Bongbong Marcos holds a press conference during the Kapihan with the Media in New Delhi, India on Sunday, September 13, 2026. WATCH: https://t.co/iuPV88IPiN",
-        "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE04NXg1cXNXeFkxVG00YmtCZkhTbUVsMGtfejYwb2RjeHNZeWhmRG9mMEh6V0UtMTZSRHF2eTM1bzFuWWNkTTRKd05BSHhFeGFmUnRheGdhV2pmMEZjdVRxLWZnTzAwb2tFUmx2ZjJLd3M?oc=5",
-        "published_at": "Mon, 14 Sep 2026 01:27:23 GMT",
-        "published_relative": "2m ago",
-        "location": "delhi",
+        "title": "India\u2019s precision made of gold\ud83e\udd47 Congratulations to Ankita, Akirti & Kumkum on winning India\u2019s first-ever Gold Medal in the Archery Recurve Women\u2019s Team Event at the #AsianGames2026. A majestic show of talent that has bedazzled the world and showcase",
+        "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE55UnRHeGVOQ1ZEYmo0M3UwWjVvQ1BxTDI0WHdaa2lyWktVWElMR3U0UTBfbGhCQWV1VnJDQ2NZY0dTVGhvT0JFVnB2bWNidUlFa0dONkJ3RVBjMmdONmc?oc=5",
+        "published_at": "Fri, 02 Oct 2026 06:37:06 GMT",
+        "published_relative": "7m ago",
+        "location": "india",
         "topic": "general"
       },
       "buckets": {
-        "under_30m": 29,
-        "30m_to_1h": 34,
-        "1h_to_3h": 27,
-        "3h_to_6h": 12,
-        "6h_to_24h": 407,
+        "under_30m": 30,
+        "30m_to_1h": 49,
+        "1h_to_3h": 50,
+        "3h_to_6h": 30,
+        "6h_to_24h": 373,
         "over_24h": 0
       },
       "live_probe": {
         "status": "ONLINE",
         "http_status": 200,
-        "latency_ms": 166.5,
-        "entry_count": 84,
-        "live_newest_age_min": 2.6,
-        "live_newest_published": "Mon, 14 Sep 2026 01:27:23 GMT",
-        "live_newest_title": "President Bongbong Marcos holds a press conference during the Kapihan with the M"
+        "latency_ms": 835.3,
+        "entry_count": 100,
+        "live_newest_age_min": 4.4,
+        "live_newest_published": "Fri, 02 Oct 2026 06:39:55 GMT",
+        "live_newest_title": "Successful translocation of a 3-year-old Royal Bengal tigress from Bihar\u2019s Valmi"
       }
     },
     "moneycontrol": {
       "source": "moneycontrol",
-      "status": "REALTIME_OK",
-      "article_count": 77,
-      "newest_age_min": 11.9,
-      "oldest_age_h": 24.0,
+      "status": "LAGGING",
+      "article_count": 110,
+      "newest_age_min": 63.1,
+      "oldest_age_h": 23.9,
       "sla_minutes": 45.0,
       "is_fetching_latest": true,
       "newest_article": {
-        "title": "Daily Voice: Does risk-reward remain attractive in private banks? Rupen Rajguru of Julius Baer says weak monsoon, elevated oil prices could push inflation higher",
-        "link": "https://news.google.com/rss/articles/CBMixgJBVV95cUxOZi1KeWlLaERTYXRJUkpkRFpJVWN4SGxSQ25nUWQxLTUxMk1uTEJRM2NmOU1sTmtTakpLUTZRRS05VXFpYll4a3dhQVo1R0pGOU9LdTNtVUNSMkwyUzdSTnktYVM4OXJGSFNFeXRraW1kNERZcVZEZ2RUcW5TSnpUUmVSOElGNmNIdXhaNEJCUkM0eVdPQXM4czdXcEc1RWhIZW5YXzh2TkV1eFdPQ0hZZGtBTlNuZGdBR1pIem1aYWFQMGttMnd2clZQLTdrYlg5eUhNRDZvZFN2bGJxSGpHYmRfX3hGRFlQeXBzTnUtbGI0QXBQd3hCRkhYZkc2Vlp2RkQxSnRMOThrbC1ETlVOR09qTE9IUDRvRVFjX3RDM3RsLUNhSjU0Rm1OaC1XenpfWUFTWktaS1A3WF9HTUNWMW51UHp2UQ?oc=5",
-        "published_at": "Mon, 14 Sep 2026 01:18:01 GMT",
-        "published_relative": "11m ago",
-        "location": "global",
-        "topic": "general"
+        "title": "Copper heads for weekly loss as high energy costs limit demand",
+        "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPZFFnd2dIbFd6UU4yUDFpNWw0ZGJTNXRGbnNEWE5oNEMwQVFTdlJrWnZPVjZ1Ukc5blp6X2JnejJTTExnZWFrcEg4dkV5UzF3UlNMcXN4M0J2WW8yWGFqTlBUcHg3VmdRcFZTZkFmSGptZF8yZEV6Zjl6WnYyVHU5NzRsOHN3Zk1VNXhmUjRsZm1GN1dtZWFQSThMeXFKdVlsRUtFRzNwdHZrcUlieUVJVzVFeTNUY3NxakNn0gHAAUFVX3lxTE9nLXh1anh2ZmN6QThYOWZ3TmV3bEQ1bGExeXVSRzRybDNQVWJOMEV1LVlIRnJjSEZUMVFmWmNKUVlFNW81ak0zcTlYYUxod25vNmtBOXY3bjgyaUhfTm5OM1l5Y2lLVUpQU2M1Qy16dTlzOEFhSUlCYy1vZDlzNnNrSFFnMFRRVDRNSldGXzZoWXBUNkRUYmVScWlHdzJuTEp5NGVIaTRUMkx4U2M4Q2FYdGw0Z0VqbThpZ09qWkZZcA?oc=5",
+        "published_at": "Fri, 02 Oct 2026 05:41:15 GMT",
+        "published_relative": "1h ago",
+        "location": "india",
+        "topic": "job_market"
       },
       "buckets": {
-        "under_30m": 3,
+        "under_30m": 0,
         "30m_to_1h": 0,
-        "1h_to_3h": 0,
-        "3h_to_6h": 1,
-        "6h_to_24h": 73,
+        "1h_to_3h": 10,
+        "3h_to_6h": 13,
+        "6h_to_24h": 87,
         "over_24h": 0
       },
       "live_probe": {
         "status": "ONLINE",
         "http_status": 200,
-        "latency_ms": 83.3,
+        "latency_ms": 50.7,
         "entry_count": 15,
-        "live_newest_age_min": 1258158.9,
+        "live_newest_age_min": 1284393.3,
         "live_newest_published": "Tue, 23 Apr 2024 13:41:02 +0530",
         "live_newest_title": "Buy HDFC Bank; target of Rs 1,850: ICICI Securities"
       }
     }
   },
-  "issues": [],
+  "issues": [
+    "Source 'moneycontrol' is lagging: newest article is 63.1m old (SLA: 45.0m)."
+  ],
   "fixes_applied": []
 }

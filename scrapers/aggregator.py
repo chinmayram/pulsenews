@@ -2,9 +2,17 @@ import asyncio
 import json
 from pathlib import Path
 import re
+import sys
 import time
 from typing import Dict, List, Optional, Set
 import httpx
+
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
 
 from scrapers.models import NewsArticle, is_valid_headline
 from scrapers.google_news import scrape_google_news
@@ -20,6 +28,8 @@ class NewsAggregator:
         self.last_refreshed: float = 0
         self.is_refreshing: bool = False
         self._lock = asyncio.Lock()
+        self._refresh_task: Optional[asyncio.Task] = None
+        self.load_from_json()
 
     def normalize_title(self, title: str) -> str:
         cleaned = re.sub(r"[^\w\s]", "", title.lower())
@@ -43,19 +53,62 @@ class NewsAggregator:
 
         return unique
 
+    def load_from_json(self, file_path: Optional[Path] = None) -> bool:
+        if file_path is None:
+            file_path = Path(__file__).resolve().parent.parent / "data" / "news.json"
+        try:
+            if file_path.exists():
+                with open(file_path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    raw_arts = data.get("articles", [])
+                    now = time.time()
+                    loaded = []
+                    for a in raw_arts:
+                        try:
+                            art = NewsArticle(**a)
+                            if (now - art.timestamp) <= (24 * 3600):
+                                loaded.append(art)
+                        except Exception:
+                            pass
+                    if loaded:
+                        self.articles = self.deduplicate(loaded)
+                        self.last_refreshed = data.get("last_refreshed", now)
+                        return True
+        except Exception as e:
+            print(f"[Aggregator] Error loading existing snapshot: {e}")
+        return False
+
     async def refresh_all(self, force: bool = False) -> List[NewsArticle]:
         now = time.time()
-        if not force and (now - self.last_refreshed) < 30 and self.articles:
+        # If recently refreshed (within 10s) and not forced, return immediately
+        if not force and (now - self.last_refreshed) < 10 and self.articles:
             return self.articles
 
+        # If completed within the last 3s, return articles even if forced to avoid duplicate immediate hits
+        if force and (now - self.last_refreshed) < 3 and self.articles:
+            return self.articles
+
+        # If a scrape task is already actively executing, await that existing task
+        if self._refresh_task and not self._refresh_task.done():
+            try:
+                await self._refresh_task
+            except Exception:
+                pass
+            return self.articles
+
+        # Start and await a single active refresh task
+        self._refresh_task = asyncio.create_task(self._execute_refresh())
+        return await self._refresh_task
+
+    async def _execute_refresh(self) -> List[NewsArticle]:
         async with self._lock:
             self.is_refreshing = True
             try:
                 headers = {
                     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
                 }
-                limits = httpx.Limits(max_connections=60, max_keepalive_connections=25)
-                async with httpx.AsyncClient(headers=headers, limits=limits, timeout=15.0, follow_redirects=True) as client:
+                limits = httpx.Limits(max_connections=80, max_keepalive_connections=40)
+                async with httpx.AsyncClient(headers=headers, limits=limits, timeout=12.0, follow_redirects=True) as client:
                     tasks = [
                         scrape_google_news(client),
                         scrape_msn_news(client),
@@ -81,7 +134,8 @@ class NewsAggregator:
 
                     # Sort newest first & deduplicate
                     combined.sort(key=lambda a: a.timestamp, reverse=True)
-                    self.articles = self.deduplicate(combined)
+                    if combined:
+                        self.articles = self.deduplicate(combined)
                     self.last_refreshed = time.time()
                     self.save_to_json()
             finally:
